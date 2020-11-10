@@ -1,4 +1,4 @@
-package PetRescueSaga.boite.plateau;
+package boite.plateau;
 
 public class Plateau {
 }
