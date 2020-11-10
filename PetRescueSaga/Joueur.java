@@ -3,6 +3,7 @@ public class Joueur {
     int vie;
     int argent;
 
+
     protected Joueur(String nom, int vie, int argent ){
         this.nom = nom;
         this.vie = vie;
