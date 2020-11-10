@@ -8,6 +8,4 @@ public class Joueur {
         this.vie = vie;
         this.argent = argent;
     }
-
-
 }
