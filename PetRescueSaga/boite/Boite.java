@@ -1,4 +1,4 @@
-package PetRescueSaga.boite;
+package boite;
 
 public class Boite {
 }

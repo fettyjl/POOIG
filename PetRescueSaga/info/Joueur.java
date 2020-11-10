@@ -1,4 +1,4 @@
-package PetRescueSaga.info;
+package info;
 
 public class Joueur {
 }

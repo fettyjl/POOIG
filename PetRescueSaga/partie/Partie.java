@@ -1,4 +1,4 @@
-package PetRescueSaga.partie;
+package partie;
 
 public class Partie {
 }
