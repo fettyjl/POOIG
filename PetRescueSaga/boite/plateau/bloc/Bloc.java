@@ -1,4 +1,4 @@
 package boite.plateau.bloc;
-public class Bloc {
-
+public abstract class Bloc {
+    protected abstract char typeBloc();
 }
