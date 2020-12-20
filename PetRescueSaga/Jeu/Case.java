@@ -1,5 +1,5 @@
 package Jeu;
 
 public class Case {
-    Bloc b;
+    Bloc bloc;
 }
