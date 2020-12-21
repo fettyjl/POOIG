@@ -1,5 +1,9 @@
 package Jeu;
 
+import MVC.Affichage;
+
+import javax.swing.*;
+
 public class Test {
     public static void main(String[] args){
 
@@ -17,5 +21,7 @@ public class Test {
         System.out.println();
         test.afficherPlateau();
 
+
+        JFrame fenetre= new Affichage();
     }
 }
