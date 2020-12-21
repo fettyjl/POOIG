@@ -50,23 +50,31 @@ public class Plateau {
             System.out.println();
         }
     }
+    public void affichageBoolean(){
+        for(int i=0; i < this.supression.length; i++){
+            for (int j=0; j< this.supression[i].length; j++){
+                System.out.print(this.supression[i][j]+" ");
+            }
+            System.out.println();
+        }
+    }
 
     /* Verifie si les cases ajacentes sont de même types et si les conditions sont respectées ->
        si c'est possible appel caseAppuyer(x,y) sur les cases adjacentes pour changer leurs valeurs a true
      */
     public void validationSuppression(int x, int y){
-        if((x & y)>-1 && (x & y)< 8 && (this.plateau[x][y].bloc!=null)){
-            if(x!=7 && this.plateau[x+1][y].bloc.i==this.plateau[x][y].bloc.i){
-                caseAppuyer(x+1,y);
+        if((x & y)>-1 && x<this.longueur && y<this.largeur && (this.plateau[x][y].bloc!=null)){
+            if(x!=this.longueur-1 && this.plateau[x+1][y].bloc.i==this.plateau[x][y].bloc.i){
+                this.caseAppuyer(x+1,y);
             }
             if(x!=0 && this.plateau[x-1][y].bloc.i==this.plateau[x][y].bloc.i){
-                caseAppuyer(x-1,y);
+                this.caseAppuyer(x-1,y);
             }
-            if(y!=7 && this.plateau[x][y+1].bloc.i==this.plateau[x][y].bloc.i){
-                caseAppuyer(x,y+1);
+            if(y!=this.largeur-1 && this.plateau[x][y+1].bloc.i==this.plateau[x][y].bloc.i){
+                this.caseAppuyer(x,y+1);
             }
             if(y!=0 && this.plateau[x][y-1].bloc.i==this.plateau[x][y].bloc.i){
-                caseAppuyer(x,y-1);
+                this.caseAppuyer(x,y-1);
             }
 
         }
@@ -75,10 +83,10 @@ public class Plateau {
        Change la valeur de la case dans supression a true et appel validationSuppression(x,y)
      */
     public void caseAppuyer(int x,int y){
-        if((x & y)>-1 && (x & y)< 8 && (this.plateau[x][y].bloc!=null)){
+        if((x & y)>-1 && x<this.longueur && y<this.largeur  && (this.plateau[x][y].bloc!=null)){
             if(!this.supression[x][y]){
                 this.supression[x][y]=true;
-                validationSuppression(x,y);
+                this.validationSuppression(x,y);
             }
         }
     }
@@ -99,10 +107,34 @@ public class Plateau {
 
     // Prototype: Utilité Bonus Joueur
     public void suppressionEnColonne(int y){
-        int x=0;
-        while(x<this.longueur){
-            this.plateau[x][y].bloc=null;
-            x++;
+        if(y>-1 && y< this.largeur) {
+            int x = 0;
+            while (x < this.longueur) {
+                this.plateau[x][y].bloc = null;
+                x++;
+            }
         }
     }
+
+    //Déplace les cases non vides sur les cases vident du dessous :
+    public void suppressionEspace(int x, int y){
+        if(x>0 & y>-1 && x<this.longueur && y<this.largeur){
+            while (x > 0) {
+                this.plateau[x][y].bloc=this.plateau[x-1][y].bloc;
+                this.plateau[x-1][y].bloc=null;
+                x--;
+            }
+        }
+    }
+
+    //Met à jour le plateau :
+    public void refreshPlateau(){
+        for (int i = 0; i < this.plateau.length; i++) {
+            for (int j = 0; j < this.plateau[i].length; j++) {
+                if(this.plateau[i][j].bloc==null)
+                this.suppressionEspace(i,j);
+            }
+        }
+    }
+
 }
