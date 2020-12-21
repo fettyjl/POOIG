@@ -6,6 +6,8 @@ public class Plateau {
     int longueur, largeur;
     boolean [][] supression;
     Case [][] plateau;
+
+    //Crée un plateau de taille 8*8, initialise un tableau boolean a false et un tableau avec des cases vides.
     Plateau(){
         this.longueur=8;
         this.largeur=8;
@@ -17,6 +19,8 @@ public class Plateau {
             }
         }
     }
+
+    // Remplit les cases avec des Bloc dont les couleurs sont anotées de 0 à 3 :
     public void remplirCase(){
         for(int i=0; i < this.plateau.length; i++) {
             for (int j = 0; j < this.plateau[i].length; j++) {
@@ -25,10 +29,11 @@ public class Plateau {
         }
     }
 
+    // Affiche le plateau :
     public void afficherPlateau(){
         for(int i=0; i < this.plateau.length; i++){
             for (int j=0; j< this.plateau[i].length; j++){
-                if(this.plateau[i][j]!=null) {
+                if(this.plateau[i][j].bloc!=null) {
                     if (this.plateau[i][j].bloc.i == 0) {
                         System.out.print("\u001B[31m" + "[0] " + "\u001B[0m");
                     } else if (this.plateau[i][j].bloc.i == 1) {
@@ -45,7 +50,59 @@ public class Plateau {
             System.out.println();
         }
     }
-    public void caseAppuyer(int x, int y){
 
+    /* Verifie si les cases ajacentes sont de même types et si les conditions sont respectées ->
+       si c'est possible appel caseAppuyer(x,y) sur les cases adjacentes pour changer leurs valeurs a true
+     */
+    public void validationSuppression(int x, int y){
+        if((x & y)>-1 && (x & y)< 8 && (this.plateau[x][y].bloc!=null)){
+            if(x!=7 && this.plateau[x+1][y].bloc.i==this.plateau[x][y].bloc.i){
+                caseAppuyer(x+1,y);
+            }
+            if(x!=0 && this.plateau[x-1][y].bloc.i==this.plateau[x][y].bloc.i){
+                caseAppuyer(x-1,y);
+            }
+            if(y!=7 && this.plateau[x][y+1].bloc.i==this.plateau[x][y].bloc.i){
+                caseAppuyer(x,y+1);
+            }
+            if(y!=0 && this.plateau[x][y-1].bloc.i==this.plateau[x][y].bloc.i){
+                caseAppuyer(x,y-1);
+            }
+
+        }
+    }
+    /* Verifie si les conditions sont respectées ->
+       Change la valeur de la case dans supression a true et appel validationSuppression(x,y)
+     */
+    public void caseAppuyer(int x,int y){
+        if((x & y)>-1 && (x & y)< 8 && (this.plateau[x][y].bloc!=null)){
+            if(!this.supression[x][y]){
+                this.supression[x][y]=true;
+                validationSuppression(x,y);
+            }
+        }
+    }
+
+    /*
+    Supprime les cases dont la valeur est a true dans le tableau suppression:
+     */
+    public void supprimerCase() {
+        for (int i = 0; i < this.supression.length; i++) {
+            for (int j = 0; j < this.supression[i].length; j++) {
+                if(this.supression[i][j]){
+                    this.supression[i][j]=false;
+                    this.plateau[i][j].bloc=null;
+                }
+            }
+        }
+    }
+
+    // Prototype: Utilité Bonus Joueur
+    public void suppressionEnColonne(int y){
+        int x=0;
+        while(x<this.longueur){
+            this.plateau[x][y].bloc=null;
+            x++;
+        }
     }
 }
