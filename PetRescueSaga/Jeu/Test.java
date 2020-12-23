@@ -1,8 +1,6 @@
 package Jeu;
-
 public class Test {
     public static void main(String[] args){
-
         //Initialisation :
         Plateau test=new Plateau();
         test.remplirCase();
@@ -16,6 +14,5 @@ public class Test {
 
         System.out.println();
         test.afficherPlateau();
-
     }
 }
