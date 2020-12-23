@@ -18,7 +18,7 @@ public class MenuOuverture extends JFrame{
         JButton buttonQuitter = new JButton("Quitter");
         this.button.add(buttonJouer);
         this.button.add(buttonAide);
-        this.button.add(buttonQuitter;
+        this.button.add(buttonQuitter);
 
 
         JPanel a=new JPanel(){
