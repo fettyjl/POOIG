@@ -8,29 +8,25 @@ public class MenuOuverture extends JFrame{
         super("PetRescueSaga");
         this.setSize(800,600);
         this.setVisible(true);
+        this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        this.button.setLayout(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.gridwidth = GridBagConstraints.REMAINDER;
-        gbc.anchor = GridBagConstraints.CENTER;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+        this.button.setLayout(new GridLayout(3,1));
 
         JButton buttonJouer = new JButton("Jouer");
         JButton buttonAide = new JButton("Aide");
         JButton buttonQuitter = new JButton("Quitter");
-
-        this.button.add(buttonJouer, gbc);
-        this.button.add(buttonAide, gbc);
-        this.button.add(buttonQuitter, gbc);
+        this.button.add(buttonJouer);
+        this.button.add(buttonAide);
+        this.button.add(buttonQuitter;
 
 
         JPanel a=new JPanel(){
             protected void paintComponent(Graphics g)
             {
                 super.paintComponent(g);
-
-                ImageIcon m = new ImageIcon("/home/fetty/Téléchargements/imagejungle.png");
+                // Relier l'image du dossier à ce fichier !
+                ImageIcon m = new ImageIcon("?????????/imagejungle.png");
                 Image monImage = m.getImage();
                 g.drawImage(monImage, 0, 0,this);
 
