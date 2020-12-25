@@ -17,12 +17,15 @@ public class Test {
 
         System.out.println();
         test.suppressionEnColonne(2);
-        test.suppressionEnColonne(4);
+        test.suppressionEnColonne(3);
         test.afficherPlateau();
 
         System.out.println();
         test.DecalageColonne();
         test.afficherPlateau();
 
+        test.AjouteLigneEnBas();
+        System.out.println();
+        test.afficherPlateau();
     }
 }
