@@ -21,7 +21,7 @@ public class MenuOuverture extends JFrame{
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 
-        this.setContentPane(this.fond);
+        this.add(this.fond);
         this.fond.setLayout(null);
         this.buttonJouer.setBounds(350, 200, 100, 25);
         this.buttonAide.setBounds(350, 230, 100, 25);
