@@ -2,11 +2,13 @@ package Vue;
 
 import javax.swing.*;
 
+
 public class MenuOuverture extends JPanel{
     ImagePanel fond= new ImagePanel("/Image/imagejungle.png");
     JButton buttonJouer = new JButton("Jouer");
     JButton buttonAide = new JButton("Aide");
     JButton buttonQuitter = new JButton("Quitter");
+
 
     public MenuOuverture(){
         this.fond.setLayout(null);
@@ -16,6 +18,7 @@ public class MenuOuverture extends JPanel{
         this.fond.add(this.buttonJouer);
         this.fond.add(this.buttonAide);
         this.fond.add(this.buttonQuitter);
+
         this.buttonQuitter.addActionListener((e) -> System.exit(0));
         this.setVisible(true);
         this.add(this.fond);

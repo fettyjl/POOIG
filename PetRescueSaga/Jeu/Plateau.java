@@ -136,5 +136,54 @@ public class Plateau {
             }
         }
     }
-
+    // Deplace les colonnes vers la gauche : 4->
+    public boolean verifColonneVide(int y){
+        if(y>-1 && y< this.largeur) {
+            int x = 0;
+            while (x < this.longueur) {
+                if(this.plateau[x][y].bloc != null){
+                    return false;
+                }
+                x++;
+            }
+            return true;
+        }
+        return false;
+    }
+    public int NombreColonneVideApresY(int y){
+        int a=0;
+        if(y>-1 && y< this.largeur-1) {
+            while(y+1<this.largeur-1 && verifColonneVide(y+1) ){
+                a++;
+                y++;
+            }
+        }
+        return a;
+    }
+    public void DeplaceColonne(int i, int c){
+        if(c>-1 && c< this.largeur-1) {
+            int x = 0;
+            while (x < this.longueur) {
+                this.plateau[x][c].bloc = this.plateau[x][c+i].bloc;
+                this.plateau[x][c+i].bloc=null;
+                x++;
+            }
+        }
+    }
+    public void DecalageColonne(){
+        for(int i=0; i<this.largeur-1; i++){
+            if(verifColonneVide(i)){
+                DeplaceColonne(NombreColonneVideApresY(i)+1,i);
+            }
+        }
+    }
+    // ajoute une colonne en dessous par nombre de colonnes supprimer:
+    public void AjouteLigneEnBas(){
+        for (int i=0; i<this.longueur-1; i++){
+            for(int j=0;j<this.largeur;j++)
+                this.plateau[i][j].bloc = this.plateau[i + 1][j].bloc;
+        }
+        for(int i=0;i<this.largeur;i++)
+            this.plateau[this.longueur-1][i].bloc=new Bloc(new Random().nextInt(4));
+    }
 }
