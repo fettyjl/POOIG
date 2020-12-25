@@ -1,9 +1,16 @@
 package Vue;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class MenuOuverture extends JFrame{
+
+    ImagePanel fond= new ImagePanel("/image/imagejungle.png");
     JPanel button=new JPanel();
+    JButton buttonJouer = new JButton("Jouer");
+    JButton buttonAide = new JButton("Aide");
+    JButton buttonQuitter = new JButton("Quitter");
+
     public MenuOuverture(){
         super("PetRescueSaga");
         this.setSize(800,600);
@@ -11,32 +18,28 @@ public class MenuOuverture extends JFrame{
         this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        this.button.setLayout(new GridLayout(3,1));
 
-        JButton buttonJouer = new JButton("Jouer");
-        JButton buttonAide = new JButton("Aide");
-        JButton buttonQuitter = new JButton("Quitter");
-        this.button.add(buttonJouer);
-        this.button.add(buttonAide);
-        this.button.add(buttonQuitter);
+        this.setContentPane(this.fond);
+        this.fond.setLayout(null);
+        this.buttonJouer.setBounds(350, 200, 100, 25);
+        this.buttonAide.setBounds(350, 230, 100, 25);
+        this.buttonQuitter.setBounds(350, 260, 100, 25);
+        this.fond.add(this.buttonJouer);
+        this.fond.add(this.buttonAide);
+        this.fond.add(this.buttonQuitter);
 
-
-        JPanel a=new JPanel(){
-            protected void paintComponent(Graphics g)
-            {
-                super.paintComponent(g);
-                // Relier l'image du dossier à ce fichier !
-                ImageIcon m = new ImageIcon("?????????/imagejungle.png");
-                Image monImage = m.getImage();
-                g.drawImage(monImage, 0, 0,this);
-
-            }
-        };
-        a.add(this.button);
-        this.getContentPane().add(a);
     }
+
     public static void main(String[]args){
-        MenuOuverture a = new MenuOuverture();
+        EventQueue.invokeLater(() -> {
+            String laf = "com.sun.java.swing.plaf.gtk.GTKLookAndFeel";
+            try {
+                UIManager.setLookAndFeel(laf);
+                MenuOuverture a= new MenuOuverture();
+            } catch (Exception e) {
+                MenuOuverture a = new MenuOuverture();
+            }
+        });
     }
 }
 
