@@ -137,4 +137,36 @@ public class Plateau {
         }
     }
 
+    public boolean verifColonneVide(int y){
+        if(y>-1 && y< this.largeur) {
+            int x = 0;
+            while (x < this.longueur) {
+                if(this.plateau[x][y].bloc != null){
+                    return false;
+                }
+                x++;
+            }
+            return true;
+        }
+        return false;
+    }
+
+    public void DecalageColonne(){
+        int i = 0;
+        while(i<this.longueur-1){
+            if(verifColonneVide(i)){
+                int x = 0;
+                while (x<this.longueur){
+                    this.plateau[x][i].bloc = this.plateau[x][i+1].bloc;
+                    this.plateau[x][i+1].bloc = null;
+                    x++;
+                }
+            } else{
+                i++;
+            }
+        }
+    }
+
+
+
 }

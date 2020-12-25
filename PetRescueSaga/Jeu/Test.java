@@ -14,5 +14,15 @@ public class Test {
 
         System.out.println();
         test.afficherPlateau();
+
+        System.out.println();
+        test.suppressionEnColonne(2);
+        test.suppressionEnColonne(4);
+        test.afficherPlateau();
+
+        System.out.println();
+        test.DecalageColonne();
+        test.afficherPlateau();
+
     }
 }

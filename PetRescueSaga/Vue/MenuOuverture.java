@@ -2,6 +2,8 @@ package Vue;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MenuOuverture extends JFrame{
 
@@ -9,6 +11,7 @@ public class MenuOuverture extends JFrame{
     JButton buttonJouer = new JButton("Jouer");
     JButton buttonAide = new JButton("Aide");
     JButton buttonQuitter = new JButton("Quitter");
+
 
     public MenuOuverture(){
         super("PetRescueSaga");
@@ -27,7 +30,12 @@ public class MenuOuverture extends JFrame{
         this.fond.add(this.buttonAide);
         this.fond.add(this.buttonQuitter);
 
+        this.buttonQuitter.addActionListener((e) -> System.exit(0));
+
     }
+
+
+
 
     public static void main(String[]args){
         EventQueue.invokeLater(() -> {
