@@ -5,8 +5,7 @@ import java.awt.*;
 
 public class MenuOuverture extends JFrame{
 
-    ImagePanel fond= new ImagePanel("/image/imagejungle.png");
-    JPanel button=new JPanel();
+    ImagePanel fond= new ImagePanel("/Image/imagejungle.png");
     JButton buttonJouer = new JButton("Jouer");
     JButton buttonAide = new JButton("Aide");
     JButton buttonQuitter = new JButton("Quitter");
