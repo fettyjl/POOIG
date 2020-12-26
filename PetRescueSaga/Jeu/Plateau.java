@@ -4,9 +4,14 @@ import java.util.Random;
 
 public class Plateau {
     int longueur, largeur;
+    int nbAni;
     boolean [][] supression;
     Case [][] plateau;
-
+    // Remplir le plateau d'animaux
+    // Fonction qui verif annimaux mort et sauvés
+    
+    
+    
     //Crée un plateau de taille 8*8, initialise un tableau boolean a false et un tableau avec des cases vides.
     Plateau(){
         this.longueur=8;
@@ -18,30 +23,36 @@ public class Plateau {
                 this.plateau[i][j]=new Case();
             }
         }
+        this.remplirCase();
+        
     }
 
     // Remplit les cases avec des Bloc dont les couleurs sont anotées de 0 à 3 :
     public void remplirCase(){
         for(int i=0; i < this.plateau.length; i++) {
             for (int j = 0; j < this.plateau[i].length; j++) {
-                this.plateau[i][j].bloc=new Bloc(new Random().nextInt(4));
+                this.plateau[i][j].container=new Bloc(new Random().nextInt(4));
             }
         }
     }
+
 
     // Affiche le plateau :
     public void afficherPlateau(){
         for(int i=0; i < this.plateau.length; i++){
             for (int j=0; j< this.plateau[i].length; j++){
-                if(this.plateau[i][j].bloc!=null) {
-                    if (this.plateau[i][j].bloc.i == 0) {
-                        System.out.print("\u001B[31m" + "[0] " + "\u001B[0m");
-                    } else if (this.plateau[i][j].bloc.i == 1) {
-                        System.out.print("\u001B[32m" + "[1] " + "\u001B[0m");
-                    } else if (this.plateau[i][j].bloc.i == 2) {
-                        System.out.print("\u001B[34m" + "[2] " + "\u001B[0m");
-                    } else {
-                        System.out.print("\u001B[33m" + "[3] " + "\u001B[0m");
+                if(this.plateau[i][j].container!=null) {
+                    if (this.plateau[i][j].container instanceof Bloc) {
+                        Bloc a = (Bloc) this.plateau[i][j].container;
+                        if (a.i == 0) {
+                            System.out.print("\u001B[31m" + "[0] " + "\u001B[0m");
+                        } else if (a.i == 1) {
+                            System.out.print("\u001B[32m" + "[1] " + "\u001B[0m");
+                        } else if (a.i == 2) {
+                            System.out.print("\u001B[34m" + "[2] " + "\u001B[0m");
+                        } else {
+                            System.out.print("\u001B[33m" + "[3] " + "\u001B[0m");
+                        }
                     }
                 }else{
                     System.out.print("[-] ");
@@ -50,6 +61,7 @@ public class Plateau {
             System.out.println();
         }
     }
+
     public void affichageBoolean(){
         for(int i=0; i < this.supression.length; i++){
             for (int j=0; j< this.supression[i].length; j++){
@@ -59,37 +71,41 @@ public class Plateau {
         }
     }
 
-    /* Verifie si les cases ajacentes sont de même types et si les conditions sont respectées ->
-       si c'est possible appel caseAppuyer(x,y) sur les cases adjacentes pour changer leurs valeurs a true
-     */
-    public void validationSuppression(int x, int y){
-        if((x & y)>-1 && x<this.longueur && y<this.largeur && (this.plateau[x][y].bloc!=null)){
-            if(x!=this.longueur-1 && this.plateau[x+1][y].bloc.i==this.plateau[x][y].bloc.i){
-                this.caseAppuyer(x+1,y);
-            }
-            if(x!=0 && this.plateau[x-1][y].bloc.i==this.plateau[x][y].bloc.i){
-                this.caseAppuyer(x-1,y);
-            }
-            if(y!=this.largeur-1 && this.plateau[x][y+1].bloc.i==this.plateau[x][y].bloc.i){
-                this.caseAppuyer(x,y+1);
-            }
-            if(y!=0 && this.plateau[x][y-1].bloc.i==this.plateau[x][y].bloc.i){
-                this.caseAppuyer(x,y-1);
-            }
-
-        }
-    }
     /* Verifie si les conditions sont respectées ->
-       Change la valeur de la case dans supression a true et appel validationSuppression(x,y)
-     */
+      Change la valeur de la case dans supression a true et appel validationSuppression(x,y)
+    */
     public void caseAppuyer(int x,int y){
-        if((x & y)>-1 && x<this.longueur && y<this.largeur  && (this.plateau[x][y].bloc!=null)){
+        if((x & y)>-1 && x<this.longueur && y<this.largeur  && (this.plateau[x][y].container!=null) && (this.plateau[x][y].container instanceof Bloc)){
             if(!this.supression[x][y]){
                 this.supression[x][y]=true;
                 this.validationSuppression(x,y);
             }
         }
     }
+    /* Verifie si les cases ajacentes sont de même types et si les conditions sont respectées ->
+       si c'est possible appel caseAppuyer(x,y) sur les cases adjacentes pour changer leurs valeurs a true
+     */
+    public void validationSuppression(int x, int y){
+        if((x & y)>-1 && x<this.longueur && y<this.largeur && (this.plateau[x][y].container!=null) && (this.plateau[x][y].container instanceof Bloc)){
+            Bloc a= (Bloc) this.plateau[x][y].container;
+            if(x != this.longueur-1 && a.compareTo(this.plateau[x+1][y].container)==1){
+                this.caseAppuyer(x+1,y);
+            }
+            if(x!=0 && a.compareTo(this.plateau[x-1][y].container)==1){
+                this.caseAppuyer(x-1,y);
+            }
+            if(y!=this.largeur-1 && a.compareTo(this.plateau[x][y+1].container)==1){
+                this.caseAppuyer(x,y+1);
+            }
+            if(y!=0 && a.compareTo(this.plateau[x][y-1].container)==1){
+                this.caseAppuyer(x,y-1);
+            }
+
+        }
+    }
+
+
+
 
     /*
     Supprime les cases dont la valeur est a true dans le tableau suppression:
@@ -99,7 +115,7 @@ public class Plateau {
             for (int j = 0; j < this.supression[i].length; j++) {
                 if(this.supression[i][j]){
                     this.supression[i][j]=false;
-                    this.plateau[i][j].bloc=null;
+                    this.plateau[i][j].container=null;
                 }
             }
         }
@@ -110,7 +126,7 @@ public class Plateau {
         if(y>-1 && y< this.largeur) {
             int x = 0;
             while (x < this.longueur) {
-                this.plateau[x][y].bloc = null;
+                this.plateau[x][y].container = null;
                 x++;
             }
         }
@@ -120,8 +136,8 @@ public class Plateau {
     public void suppressionEspace(int x, int y){
         if(x>0 & y>-1 && x<this.longueur && y<this.largeur){
             while (x > 0) {
-                this.plateau[x][y].bloc=this.plateau[x-1][y].bloc;
-                this.plateau[x-1][y].bloc=null;
+                this.plateau[x][y].container=this.plateau[x-1][y].container;
+                this.plateau[x-1][y].container=null;
                 x--;
             }
         }
@@ -131,7 +147,7 @@ public class Plateau {
     public void refreshPlateau(){
         for (int i = 0; i < this.plateau.length; i++) {
             for (int j = 0; j < this.plateau[i].length; j++) {
-                if(this.plateau[i][j].bloc==null)
+                if(this.plateau[i][j].container==null)
                 this.suppressionEspace(i,j);
             }
         }
@@ -141,7 +157,7 @@ public class Plateau {
         if(y>-1 && y< this.largeur) {
             int x = 0;
             while (x < this.longueur) {
-                if(this.plateau[x][y].bloc != null){
+                if(this.plateau[x][y].container != null){
                     return false;
                 }
                 x++;
@@ -164,8 +180,8 @@ public class Plateau {
         if(c>-1 && c< this.largeur-1) {
             int x = 0;
             while (x < this.longueur) {
-                this.plateau[x][c].bloc = this.plateau[x][c+i].bloc;
-                this.plateau[x][c+i].bloc=null;
+                this.plateau[x][c].container = this.plateau[x][c+i].container;
+                this.plateau[x][c+i].container=null;
                 x++;
             }
         }
@@ -181,9 +197,9 @@ public class Plateau {
     public void AjouteLigneEnBas(){
         for (int i=0; i<this.longueur-1; i++){
             for(int j=0;j<this.largeur;j++)
-                this.plateau[i][j].bloc = this.plateau[i + 1][j].bloc;
+                this.plateau[i][j].container = this.plateau[i + 1][j].container;
         }
         for(int i=0;i<this.largeur;i++)
-            this.plateau[this.longueur-1][i].bloc=new Bloc(new Random().nextInt(4));
+            this.plateau[this.longueur-1][i].container=new Bloc(new Random().nextInt(4));
     }
 }
