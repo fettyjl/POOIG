@@ -4,7 +4,7 @@ import javax.swing.*;
 
 
 public class MenuOuverture extends JPanel{
-    ImagePanel fond= new ImagePanel("/Image/imagejungle.png");
+    ImagePanel fond= new ImagePanel("/Assets/imagejungle.png");
     JButton buttonJouer = new JButton("Jouer");
     JButton buttonAide = new JButton("Aide");
     JButton buttonQuitter = new JButton("Quitter");

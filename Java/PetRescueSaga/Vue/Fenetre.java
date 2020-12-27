@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class Fenetre extends JFrame{
 
-    ImagePanel fond= new ImagePanel("/Image/imagejungle.png");
+    ImagePanel fond= new ImagePanel("/Assets/imagejungle.png");
 
     // Menu Ouverture:
     JPanel menuOuverture=new JPanel();
