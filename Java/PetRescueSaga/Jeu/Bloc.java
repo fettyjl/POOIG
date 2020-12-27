@@ -6,6 +6,10 @@ public class Bloc extends Container implements Comparable{
     Bloc(int i) {
         this.i = i;
     }
+    // Bonus :
+    public void ChangementCouleur(int a){
+        this.i=a;
+    }
 
     @Override
     public int compareTo(Object o) {

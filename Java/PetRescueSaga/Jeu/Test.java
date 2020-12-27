@@ -3,8 +3,6 @@ public class Test {
     public static void main(String[] args){
         //Initialisation :
         Plateau test=new Plateau();
-        test.remplirCase();
-
         test.afficherPlateau();
 
         //Test :
@@ -21,10 +19,10 @@ public class Test {
         test.afficherPlateau();
 
         System.out.println();
-        test.DecalageColonne();
+        test.refreshPlateau();
         test.afficherPlateau();
 
-        test.AjouteLigneEnBas();
+        test.ajouteLigneEnBas();
         System.out.println();
         test.afficherPlateau();
     }

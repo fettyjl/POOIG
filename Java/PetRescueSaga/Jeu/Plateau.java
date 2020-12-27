@@ -7,15 +7,24 @@ public class Plateau {
     int nbAni;
     boolean [][] supression;
     Case [][] plateau;
-    // Remplir le plateau d'animaux
     // Fonction qui verif annimaux mort et sauvés
-    
+
+    /*
+    Ordre:
+    Plateau()
+    caseAppuyer(.,.)
+    supprimerCase()
+    aniSave()
+    refreshPlateau()
+    ajouteLigneEnbas() en fonction du nombre de coup et du niveau
+     */
     
     
     //Crée un plateau de taille 8*8, initialise un tableau boolean a false et un tableau avec des cases vides.
     Plateau(){
         this.longueur=8;
         this.largeur=8;
+        this.nbAni=4;
         this.supression=new boolean[this.longueur][this.largeur];
         this.plateau=new Case[this.longueur][this.largeur];
         for(int i=0; i < this.plateau.length; i++){
@@ -24,6 +33,7 @@ public class Plateau {
             }
         }
         this.remplirCase();
+        this.remplirAnimaux();
         
     }
 
@@ -35,7 +45,24 @@ public class Plateau {
             }
         }
     }
-
+    public void remplirAnimaux(){
+        if(this.longueur>1 && this.largeur>1) {
+            int a = this.nbAni;
+            while (a > 0) {
+                int b = new Random().nextInt(this.largeur);
+                int c = new Random().nextInt(2);
+                if(!(this.plateau[0][b].container instanceof Animal) &&!((this.plateau[1][b].container instanceof Animal) )) {
+                    if(c==1) {
+                        this.plateau[1][b].container = new Animal(new Random().nextInt(4));
+                        this.plateau[0][b].container = null;
+                    }else{
+                        this.plateau[0][b].container = new Animal(new Random().nextInt(4));
+                    }
+                    a--;
+                }
+            }
+        }
+    }
 
     // Affiche le plateau :
     public void afficherPlateau(){
@@ -53,6 +80,8 @@ public class Plateau {
                         } else {
                             System.out.print("\u001B[33m" + "[3] " + "\u001B[0m");
                         }
+                    }else if(this.plateau[i][j].container instanceof Animal){
+                        System.out.print("[#] ");
                     }
                 }else{
                     System.out.print("[-] ");
@@ -106,7 +135,18 @@ public class Plateau {
 
 
 
-
+    //Nombre de case supp:
+    public int nombreCaseSupp(){
+        int a=0;
+        for (int i = 0; i < this.supression.length; i++) {
+            for (int j = 0; j < this.supression[i].length; j++) {
+                if(this.supression[i][j]){
+                    a++;
+                }
+            }
+        }
+        return a;
+    }
     /*
     Supprime les cases dont la valeur est a true dans le tableau suppression:
      */
@@ -120,16 +160,30 @@ public class Plateau {
             }
         }
     }
-
-    // Prototype: Utilité Bonus Joueur
-    public void suppressionEnColonne(int y){
-        if(y>-1 && y< this.largeur) {
+    // Compte le nombre d'animaux save:
+    public int aniSave(){
+        int a=0;
+        if(this.longueur>0) {
             int x = 0;
-            while (x < this.longueur) {
-                this.plateau[x][y].container = null;
+            while (x<this.largeur){
+                if(this.plateau[this.longueur][x].container instanceof Animal){
+                    this.plateau[this.longueur][x].container = null;
+                    a++;
+                }
                 x++;
             }
         }
+        return a;
+    }
+    //Met à jour le plateau :
+    public void refreshPlateau(){
+        for (int i = 0; i < this.plateau.length; i++) {
+            for (int j = 0; j < this.plateau[i].length; j++) {
+                if(this.plateau[i][j].container==null)
+                    this.suppressionEspace(i,j);
+            }
+        }
+        this.decalageColonne();
     }
 
     //Déplace les cases non vides sur les cases vident du dessous :
@@ -143,15 +197,37 @@ public class Plateau {
         }
     }
 
-    //Met à jour le plateau :
-    public void refreshPlateau(){
-        for (int i = 0; i < this.plateau.length; i++) {
-            for (int j = 0; j < this.plateau[i].length; j++) {
-                if(this.plateau[i][j].container==null)
-                this.suppressionEspace(i,j);
+
+    public void decalageColonne(){
+        for(int i=0; i<this.largeur-1; i++){
+            if(verifColonneVide(i)){
+                deplaceColonne(nombreColonneVideApresY(i)+1,i);
             }
         }
     }
+
+    public void deplaceColonne(int i, int c){
+        if(c>-1 && c< this.largeur-1) {
+            int x = 0;
+            while (x < this.longueur) {
+                this.plateau[x][c].container = this.plateau[x][c+i].container;
+                this.plateau[x][c+i].container=null;
+                x++;
+            }
+        }
+    }
+
+    public int nombreColonneVideApresY(int y){
+        int a=0;
+        if(y>-1 && y< this.largeur-1) {
+            while(y+1<this.largeur-1 && verifColonneVide(y+1) ){
+                a++;
+                y++;
+            }
+        }
+        return a;
+    }
+
     // Deplace les colonnes vers la gauche : 4->
     public boolean verifColonneVide(int y){
         if(y>-1 && y< this.largeur) {
@@ -166,40 +242,61 @@ public class Plateau {
         }
         return false;
     }
-    public int NombreColonneVideApresY(int y){
-        int a=0;
-        if(y>-1 && y< this.largeur-1) {
-            while(y+1<this.largeur-1 && verifColonneVide(y+1) ){
-                a++;
-                y++;
-            }
-        }
-        return a;
-    }
-    public void DeplaceColonne(int i, int c){
-        if(c>-1 && c< this.largeur-1) {
-            int x = 0;
-            while (x < this.longueur) {
-                this.plateau[x][c].container = this.plateau[x][c+i].container;
-                this.plateau[x][c+i].container=null;
-                x++;
-            }
-        }
-    }
-    public void DecalageColonne(){
-        for(int i=0; i<this.largeur-1; i++){
-            if(verifColonneVide(i)){
-                DeplaceColonne(NombreColonneVideApresY(i)+1,i);
-            }
-        }
-    }
+
+
     // ajoute une colonne en dessous par nombre de colonnes supprimer:
-    public void AjouteLigneEnBas(){
+    public void ajouteLigneEnBas(){
         for (int i=0; i<this.longueur-1; i++){
             for(int j=0;j<this.largeur;j++)
                 this.plateau[i][j].container = this.plateau[i + 1][j].container;
         }
         for(int i=0;i<this.largeur;i++)
             this.plateau[this.longueur-1][i].container=new Bloc(new Random().nextInt(4));
+    }
+
+    //Utiliser avant ajouteLigneEnbas:
+    public int nbrAnimauxPerdu(){
+        int a=0;
+        if(this.longueur>0) {
+            int x = 0;
+            while (x<this.largeur){
+                if(this.plateau[0][x].container instanceof Animal){
+                    a++;
+                }
+                x++;
+            }
+        }
+        return a;
+    }
+
+    //Plus d'annimaux à save = fin de partie
+    public int ResteASave(){
+        int a=0;
+        for (int i = 0; i < this.plateau.length; i++) {
+            for (int j = 0; j < this.plateau[i].length; j++) {
+                if(this.plateau[i][j].container instanceof Animal)
+                    a++;
+            }
+        }
+        return a;
+    }
+
+    // Prototype Bonus Joueur:
+    public void suppressionEnColonne(int y){
+        if(y>-1 && y< this.largeur) {
+            int x = 0;
+            while (x < this.longueur) {
+                this.plateau[x][y].container = null;
+                x++;
+            }
+        }
+    }
+
+    public void sauvetageAnimaux(int x, int y){
+        if(x>-1 & y>-1 && x<this.longueur && y<this.largeur){
+           if(this.plateau[x][y].container instanceof Animal){
+               this.plateau[x][y].container=null;
+           }
+        }
     }
 }
