@@ -7,18 +7,6 @@ public class Plateau {
     int nbAni;
     boolean [][] supression;
     Case [][] plateau;
-    // Fonction qui verif annimaux mort et sauvés
-
-    /*
-    Ordre:
-    Plateau()
-    caseAppuyer(.,.)
-    supprimerCase()
-    aniSave()
-    refreshPlateau()
-    ajouteLigneEnbas() en fonction du nombre de coup et du niveau
-     */
-    
     
     //Crée un plateau de taille 8*8, initialise un tableau boolean a false et un tableau avec des cases vides.
     Plateau(){

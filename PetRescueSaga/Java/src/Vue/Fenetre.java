@@ -9,7 +9,7 @@ public class Fenetre extends JFrame{
     ImagePanel menuOuverture= new ImagePanel("/imagejungle.png");
     JLabel titre=new JLabel("<html><h1><strong><i><font color=\"white\"> Pet Rescue Saga </font></i></strong></h1><hr></html>");
     JButton buttonJouer = new JButton("Jouer");
-    JButton buttonAide = new JButton("Aide");
+    JButton buttonAide = new JButton("Option");
     JButton buttonQuitter = new JButton("Quitter");
 
     public Fenetre(){
@@ -22,7 +22,7 @@ public class Fenetre extends JFrame{
         this.getContentPane().add(this.menuOuverture);
 
         this.menuOuverture.add(this.titre);
-        this.titre.setBounds(420,0,300,450);
+        this.titre.setBounds(411,0,300,450);
         this.buttonJouer.setBounds(358, 340, 300, 25);
         this.buttonAide.setBounds(358, 380, 300, 25);
         this.buttonQuitter.setBounds(358, 420, 300, 25);

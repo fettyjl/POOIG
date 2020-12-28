@@ -25,7 +25,7 @@ public class Partie {
                 System.out.println("Animaux sauvés :"+this.animalSave+"/4");
                 System.out.println("Animaux mort :"+this.animalDeath+"/4");
                 System.out.println("Bonus Peinture "+this.j.bonus.peinture+"/ Fusée "+this.j.bonus.fusee+"/ Sauvetage "+this.j.bonus.sauvatage);
-    //Mettre en place les bonus, Peut être un system de niv
+                //Mettre en place les bonus, Peut être un system de niv
 
                 this.p.afficherPlateau();
                 System.out.println("Case à jouer (x,y)");
