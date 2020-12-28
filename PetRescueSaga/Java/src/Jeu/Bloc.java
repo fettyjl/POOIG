@@ -7,7 +7,7 @@ public class Bloc extends Container implements Comparable{
         this.i = i;
     }
     // Bonus :
-    public void ChangementCouleur(int a){
+    public void changementCouleur(int a){
         this.i=a;
     }
 

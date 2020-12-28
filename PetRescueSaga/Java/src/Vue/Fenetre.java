@@ -1,34 +1,36 @@
 package Vue;
-
 import javax.swing.*;
 import java.awt.*;
 
 public class Fenetre extends JFrame{
 
-    ImagePanel fond= new ImagePanel("/Assets/imagejungle.png");
-
+    // Enlever le extends et mettre jframe en objet
     // Menu Ouverture:
-    JPanel menuOuverture=new JPanel();
+    ImagePanel menuOuverture= new ImagePanel("/imagejungle.png");
+    JLabel titre=new JLabel("<html><h1><strong><i><font color=\"white\"> Pet Rescue Saga </font></i></strong></h1><hr></html>");
     JButton buttonJouer = new JButton("Jouer");
     JButton buttonAide = new JButton("Aide");
     JButton buttonQuitter = new JButton("Quitter");
 
     public Fenetre(){
         super("PetRescueSaga");
-        this.setSize(800,600);
+        this.setSize(1024,768);
         this.setResizable(false);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        this.fond.setLayout(null);
-        this.getContentPane().add(this.fond);
+        this.menuOuverture.setLayout(null);
+        this.getContentPane().add(this.menuOuverture);
 
-        this.buttonJouer.setBounds(350, 200, 100, 25);
-        this.buttonAide.setBounds(350, 230, 100, 25);
-        this.buttonQuitter.setBounds(350, 260, 100, 25);
+        this.menuOuverture.add(this.titre);
+        this.titre.setBounds(420,0,300,450);
+        this.buttonJouer.setBounds(358, 340, 300, 25);
+        this.buttonAide.setBounds(358, 380, 300, 25);
+        this.buttonQuitter.setBounds(358, 420, 300, 25);
 
-        this.fond.add(this.buttonJouer);
-        this.fond.add(this.buttonAide);
-        this.fond.add(this.buttonQuitter);
+        this.menuOuverture.add(this.titre);
+        this.menuOuverture.add(this.buttonJouer);
+        this.menuOuverture.add(this.buttonAide);
+        this.menuOuverture.add(this.buttonQuitter);
         this.buttonQuitter.addActionListener((e) -> System.exit(0));
 
     }
