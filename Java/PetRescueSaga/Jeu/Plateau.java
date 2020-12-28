@@ -166,8 +166,8 @@ public class Plateau {
         if(this.longueur>0) {
             int x = 0;
             while (x<this.largeur){
-                if(this.plateau[this.longueur][x].container instanceof Animal){
-                    this.plateau[this.longueur][x].container = null;
+                if(this.plateau[this.longueur-1][x].container instanceof Animal){
+                    this.plateau[this.longueur-1][x].container = null;
                     a++;
                 }
                 x++;
@@ -270,7 +270,7 @@ public class Plateau {
     }
 
     //Plus d'annimaux à save = fin de partie
-    public int ResteASave(){
+    public int resteASave(){
         int a=0;
         for (int i = 0; i < this.plateau.length; i++) {
             for (int j = 0; j < this.plateau[i].length; j++) {

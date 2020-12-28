@@ -1,6 +1,7 @@
 package Jeu;
 public class Test {
     public static void main(String[] args){
+        /*
         //Initialisation :
         Plateau test=new Plateau();
         test.afficherPlateau();
@@ -25,5 +26,9 @@ public class Test {
         test.ajouteLigneEnBas();
         System.out.println();
         test.afficherPlateau();
+        */
+        Partie partie=new Partie();
+        partie.round();
+
     }
 }
