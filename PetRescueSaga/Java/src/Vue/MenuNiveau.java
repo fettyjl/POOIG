@@ -28,6 +28,7 @@ public class MenuNiveau extends ImagePanel{
         c.gridy++;
 
         this.add(this.retour,c);
-        this.retour.addActionListener(e -> this.fenetre.cl.show(this.fenetre.container,"MenuOuverture"));
+        this.retour.addActionListener(e -> this.fenetre.cl.show(this.fenetre.container,"PartiePanel"));
+
     }
 }

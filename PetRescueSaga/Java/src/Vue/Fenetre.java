@@ -10,6 +10,7 @@ public class Fenetre extends JFrame{
     CardLayout cl;
     MenuOuverture menuOuverture=new MenuOuverture(this);
     MenuNiveau menuNiveau=new MenuNiveau(this);
+    PartiePanel partiePanel = new PartiePanel(this);
     public Fenetre() {
         super("Pet Rescue Saga");
         this.setSize(1024, 768);
@@ -21,6 +22,7 @@ public class Fenetre extends JFrame{
         this.container.setLayout(cl);
         this.container.add(this.menuOuverture, "MenuOuverture");
         this.container.add(this.menuNiveau, "MenuNiveau");
+        this.container.add(this.partiePanel, "PartiePanel");
         this.add(this.container);
 
         this.cl.show(this.container, "MenuOuverture");
