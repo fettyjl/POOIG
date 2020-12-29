@@ -7,7 +7,7 @@ public class Partie {
     int animalSave;
     int animalDeath;
 
-    Partie(){
+    public Partie(){
         this.p=new Plateau();
         this.j=new Joueur();
         this.score=0;
