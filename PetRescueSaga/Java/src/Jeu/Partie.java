@@ -24,9 +24,10 @@ public class Partie {
                 System.out.println("Score :"+this.score);
                 System.out.println("Animaux sauvés :"+this.animalSave+"/4");
                 System.out.println("Animaux mort :"+this.animalDeath+"/4");
-                System.out.println("Bonus Peinture "+this.j.bonus.peinture+"/ Fusée "+this.j.bonus.fusee+"/ Sauvetage "+this.j.bonus.sauvatage);
-                //Mettre en place les bonus, Peut être un system de niv
 
+                System.out.println("Bonus Peinture "+this.j.bonus.peinture+"/ Fusée "+this.j.bonus.fusee+"/ Sauvetage "+this.j.bonus.sauvatage);
+
+                //Mettre en place les bonus, Peut être un system de niv
                 this.p.afficherPlateau();
                 System.out.println("Case à jouer (x,y)");
                 System.out.println("Quel x ?");
@@ -39,8 +40,8 @@ public class Partie {
                 this.animalSave+=this.p.aniSave();
                 this.p.refreshPlateau();
                 if(nbrTour%6==0){
-                    this.animalDeath+=this.p.nbrAnimauxPerdu();
                     this.p.ajouteLigneEnBas();
+                    this.animalDeath+=this.p.nbrAnimauxPerdu();
                     nbrTour++;
                     if(this.animalDeath>2) {
                         perdu = true;
