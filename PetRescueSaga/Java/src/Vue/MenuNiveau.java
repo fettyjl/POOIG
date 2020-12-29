@@ -17,12 +17,11 @@ public class MenuNiveau extends ImagePanel{
         c.gridx = 0;
         c.gridy = 0;
         this.add(this.titre,c);
-        c.gridx = 0;
-        c.gridy = 1;
+        c.gridy++;
         int x=1;
-        while(x<11){
+        while(x<9){
             c.gridy++;
-            this.add(new JButton("Niveau "+x),c);
+            this.add(new JButton("Niveau  "+x+"     * * *"),c);
             x++;
         }
         c.gridy++;
