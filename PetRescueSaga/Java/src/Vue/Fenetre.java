@@ -11,6 +11,7 @@ public class Fenetre extends JFrame{
     MenuOuverture menuOuverture=new MenuOuverture(this);
     MenuNiveau menuNiveau=new MenuNiveau(this);
     public Fenetre() {
+        super("Pet Rescue Saga");
         this.setSize(1024, 768);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
@@ -21,6 +22,7 @@ public class Fenetre extends JFrame{
         this.container.add(this.menuOuverture, "MenuOuverture");
         this.container.add(this.menuNiveau, "MenuNiveau");
         this.add(this.container);
+
         this.cl.show(this.container, "MenuOuverture");
     }
 
