@@ -5,14 +5,15 @@ import javax.swing.*;
 import java.awt.*;
 
 public class MenuNiveau extends ImagePanel{
+    Fenetre fenetre;
     JLabel titre=new JLabel("<html><h1><strong><i><font color=\"white\">Niveau Disponible :</font></i></strong><hr></h1></html>");
-    JLabel panel=new JLabel();
+    JButton retour = new JButton("Retour");
+
     MenuNiveau(Fenetre fenetre){
         super("/imagejungle.png");
+        this.fenetre=fenetre;
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
-        c.gridwidth = GridBagConstraints.REMAINDER;
-        c.anchor = GridBagConstraints.NORTH;
         c.fill =GridBagConstraints.BOTH;
         c.gridx = 0;
         c.gridy = 0;
@@ -25,6 +26,8 @@ public class MenuNiveau extends ImagePanel{
             x++;
         }
         c.gridy++;
-        this.add(new JButton("Retour"),c);
+
+        this.add(this.retour,c);
+        this.retour.addActionListener(e -> this.fenetre.cl.show(this.fenetre.container,"MenuOuverture"));
     }
 }
