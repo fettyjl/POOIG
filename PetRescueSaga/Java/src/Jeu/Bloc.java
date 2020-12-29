@@ -1,7 +1,7 @@
 package Jeu;
 
 public class Bloc extends Container implements Comparable{
-    int i;
+    public int i;
 
     Bloc(int i) {
         this.i = i;

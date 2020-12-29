@@ -5,7 +5,7 @@ import java.awt.*;
 
 public class Fenetre extends JFrame{
 
-    Partie part = new Partie();
+    Partie part=new Partie();
     JPanel container = new JPanel();
     CardLayout cl;
     MenuOuverture menuOuverture=new MenuOuverture(this);

@@ -6,7 +6,7 @@ public class Plateau {
     int longueur, largeur;
     int nbAni;
     boolean [][] supression;
-    Case [][] plateau;
+    public Case [][] plateau;
     
     //Crée un plateau de taille 8*8, initialise un tableau boolean a false et un tableau avec des cases vides.
     Plateau(){

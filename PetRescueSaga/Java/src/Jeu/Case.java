@@ -1,5 +1,5 @@
 package Jeu;
 
 public class Case {
-    Container container;
+    public Container container;
 }

@@ -1,7 +1,7 @@
 package Jeu;
 import java.util.*;
 public class Partie {
-    Plateau p;
+    public Plateau p;
     Joueur j;
     int score;
     int animalSave;
