@@ -35,15 +35,14 @@ public class PartiePanel extends ImagePanel {
                     }else{
                         color=new Color(  39, 174, 96);
                     }
-                    gbc.gridx = col;
-                    gbc.gridy = row;
-                    add(new Carre(color,row,col), gbc);
+                }else if(fenetre.part.p.plateau[row][col].container instanceof Animal){
+                    color=new Color(  0, 0, 0);
+                }else{
+                    color=new Color( 191, 191, 191);
                 }
-                if(fenetre.part.p.plateau[row][col].container instanceof Animal){
-                    gbc.gridx = col;
-                    gbc.gridy = row;
-                    add(new Carre(new Color(0,0,0),row,col), gbc);
-                }
+                gbc.gridx = col;
+                gbc.gridy = row;
+                add(new Carre(color,row,col), gbc);
             }
         }
     }
@@ -71,9 +70,11 @@ public class PartiePanel extends ImagePanel {
             System.out.println(this.x);
             fenetre.part.p.caseAppuyer(this.x,this.y);
             fenetre.part.p.supprimerCase();
+            fenetre.part.p.refreshPlateau();
             fenetre.part.p.afficherPlateau();
-            fenetre.partiePanel.revalidate();
-
+            fenetre.partiePanel.removeAll();
+            fenetre.partiePanel.khey();
+            fenetre.validate();
         }
     }
     public class Anim extends JButton {
