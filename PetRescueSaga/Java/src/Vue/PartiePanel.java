@@ -13,7 +13,7 @@ public class PartiePanel extends ImagePanel {
     Fenetre fenetre;
 
     public PartiePanel(Fenetre fenetre) {
-        super("/coffre.jpg");
+        super("/voleur.jpeg");
         this.fenetre = fenetre;
         this.khey();
     }
@@ -24,6 +24,8 @@ public class PartiePanel extends ImagePanel {
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
                 Color color;
+                gbc.gridx = col;
+                gbc.gridy = row;
                 if(fenetre.part.p.plateau[row][col].container instanceof Bloc){
                     Bloc a=(Bloc) fenetre.part.p.plateau[row][col].container;
                     if(a.i == 0){
@@ -35,14 +37,14 @@ public class PartiePanel extends ImagePanel {
                     }else{
                         color=new Color(  39, 174, 96);
                     }
+                    add(new Carre(color,row,col), gbc);
                 }else if(fenetre.part.p.plateau[row][col].container instanceof Animal){
                     color=new Color(  0, 0, 0);
+                    add(new Carre(color,row,col), gbc);
                 }else{
                     color=new Color( 191, 191, 191);
+                    add(new Carre(color,row,col), gbc);
                 }
-                gbc.gridx = col;
-                gbc.gridy = row;
-                add(new Carre(color,row,col), gbc);
             }
         }
     }
@@ -62,7 +64,7 @@ public class PartiePanel extends ImagePanel {
 
         @Override
         public Dimension getPreferredSize() {
-            return new Dimension(60, 60);
+            return new Dimension(50, 50);
         }
 
         @Override
@@ -92,7 +94,7 @@ public class PartiePanel extends ImagePanel {
 
         @Override
         public Dimension getPreferredSize() {
-            return new Dimension(60, 60);
+            return new Dimension(50, 50);
         }
     }
 }
