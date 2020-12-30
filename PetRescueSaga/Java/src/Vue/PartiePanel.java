@@ -13,7 +13,7 @@ public class PartiePanel extends ImagePanel {
     Fenetre fenetre;
 
     public PartiePanel(Fenetre fenetre) {
-        super("/imagejungle.png");
+        super("/coffre.jpg");
         this.fenetre = fenetre;
         this.khey();
     }

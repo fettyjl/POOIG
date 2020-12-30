@@ -11,6 +11,7 @@ public class Fenetre extends JFrame{
     MenuOuverture menuOuverture=new MenuOuverture(this);
     MenuNiveau menuNiveau=new MenuNiveau(this);
     PartiePanel partiePanel = new PartiePanel(this);
+
     public Fenetre() {
         super("Pet Rescue Saga");
         this.setSize(1024, 768);
