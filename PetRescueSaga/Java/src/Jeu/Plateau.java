@@ -4,7 +4,7 @@ import java.util.Random;
 
 public class Plateau {
     int longueur, largeur;
-    int nbAni;
+    int nbArgent;
     boolean [][] supression;
     public Case [][] plateau;
     
@@ -12,7 +12,7 @@ public class Plateau {
     Plateau(){
         this.longueur=8;
         this.largeur=8;
-        this.nbAni=4;
+        this.nbArgent=4;
         this.supression=new boolean[this.longueur][this.largeur];
         this.plateau=new Case[this.longueur][this.largeur];
         for(int i=0; i < this.plateau.length; i++){
@@ -21,7 +21,7 @@ public class Plateau {
             }
         }
         this.remplirCase();
-        this.remplirAnimaux();
+        this.remplirArgent();
         
     }
 
@@ -33,18 +33,18 @@ public class Plateau {
             }
         }
     }
-    public void remplirAnimaux(){
+    public void remplirArgent(){
         if(this.longueur>1 && this.largeur>1) {
-            int a = this.nbAni;
+            int a = this.nbArgent;
             while (a > 0) {
                 int b = new Random().nextInt(this.largeur);
                 int c = new Random().nextInt(2);
-                if(!(this.plateau[0][b].container instanceof Animal) &&!((this.plateau[1][b].container instanceof Animal) )) {
+                if(!(this.plateau[0][b].container instanceof Argent) &&!((this.plateau[1][b].container instanceof Argent) )) {
                     if(c==1) {
-                        this.plateau[1][b].container = new Animal(new Random().nextInt(4));
+                        this.plateau[1][b].container = new Argent();
                         this.plateau[0][b].container = null;
                     }else{
-                        this.plateau[0][b].container = new Animal(new Random().nextInt(4));
+                        this.plateau[0][b].container = new Argent();
                     }
                     a--;
                 }
@@ -68,7 +68,7 @@ public class Plateau {
                         } else {
                             System.out.print("\u001B[33m" + "[3] " + "\u001B[0m");
                         }
-                    }else if(this.plateau[i][j].container instanceof Animal){
+                    }else if(this.plateau[i][j].container instanceof Argent){
                         System.out.print("[#] ");
                     }
                 }else{
@@ -97,6 +97,9 @@ public class Plateau {
                 this.supression[x][y]=true;
                 this.validationSuppression(x,y);
             }
+        }
+        if(this.nombreCaseSupp()==1){
+            this.supression[x][y]=false;
         }
     }
     /* Verifie si les cases ajacentes sont de même types et si les conditions sont respectées ->
@@ -141,20 +144,20 @@ public class Plateau {
     public void supprimerCase() {
         for (int i = 0; i < this.supression.length; i++) {
             for (int j = 0; j < this.supression[i].length; j++) {
-                if(this.supression[i][j]){
-                    this.supression[i][j]=false;
-                    this.plateau[i][j].container=null;
+                if (this.supression[i][j]) {
+                    this.supression[i][j] = false;
+                    this.plateau[i][j].container = null;
                 }
             }
         }
     }
     // Compte le nombre d'animaux save:
-    public int aniSave(){
+    public int argentSave(){
         int a=0;
         if(this.longueur>0) {
             int x = 0;
             while (x<this.largeur){
-                if(this.plateau[this.longueur-1][x].container instanceof Animal){
+                if(this.plateau[this.longueur-1][x].container instanceof Argent){
                     this.plateau[this.longueur-1][x].container = null;
                     a++;
                 }
@@ -243,12 +246,12 @@ public class Plateau {
     }
 
     //Utiliser avant ajouteLigneEnbas:
-    public int nbrAnimauxPerdu(){
+    public int nbrArgentPerdu(){
         int a=0;
         if(this.longueur>0) {
             int x = 0;
             while (x<this.largeur){
-                if(this.plateau[0][x].container instanceof Animal){
+                if(this.plateau[0][x].container instanceof Argent){
                     a++;
                 }
                 x++;
@@ -262,7 +265,7 @@ public class Plateau {
         int a=0;
         for (int i = 0; i < this.plateau.length; i++) {
             for (int j = 0; j < this.plateau[i].length; j++) {
-                if(this.plateau[i][j].container instanceof Animal)
+                if(this.plateau[i][j].container instanceof Argent)
                     a++;
             }
         }
@@ -280,9 +283,9 @@ public class Plateau {
         }
     }
 
-    public void sauvetageAnimaux(int x, int y){
+    public void sauvetageArgent(int x, int y){
         if(x>-1 & y>-1 && x<this.longueur && y<this.largeur){
-           if(this.plateau[x][y].container instanceof Animal){
+           if(this.plateau[x][y].container instanceof Argent){
                this.plateau[x][y].container=null;
            }
         }

@@ -1,7 +1,8 @@
 package Vue;
 
-import Jeu.Animal;
+import Jeu.Argent;
 import Jeu.Bloc;
+import Jeu.Niveau;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,13 +12,15 @@ import java.awt.event.ActionListener;
 public class PartiePanel extends ImagePanel {
 
     Fenetre fenetre;
+    Niveau n;
 
-    public PartiePanel(Fenetre fenetre) {
+    public PartiePanel(Fenetre fenetre, Niveau n) {
         super("/voleur.jpeg");
         this.fenetre = fenetre;
-        this.khey();
+        this.n=n;
+        this.refresh();
     }
-    public void khey(){
+    public void refresh(){
         setLayout(new GridBagLayout());
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(1, 1, 1, 1);
@@ -26,8 +29,8 @@ public class PartiePanel extends ImagePanel {
                 Color color;
                 gbc.gridx = col;
                 gbc.gridy = row;
-                if(fenetre.part.p.plateau[row][col].container instanceof Bloc){
-                    Bloc a=(Bloc) fenetre.part.p.plateau[row][col].container;
+                if(n.plateau.plateau[row][col].container instanceof Bloc){
+                    Bloc a=(Bloc) n.plateau.plateau[row][col].container;
                     if(a.i == 0){
                         color=new Color( 41, 128, 185 );
                     }else if(a.i == 1){
@@ -38,7 +41,7 @@ public class PartiePanel extends ImagePanel {
                         color=new Color(  39, 174, 96);
                     }
                     add(new Carre(color,row,col), gbc);
-                }else if(fenetre.part.p.plateau[row][col].container instanceof Animal){
+                }else if(n.plateau.plateau[row][col].container instanceof Argent){
                     color=new Color(  0, 0, 0);
                     add(new Carre(color,row,col), gbc);
                 }else{
@@ -69,13 +72,13 @@ public class PartiePanel extends ImagePanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println(this.x);
-            fenetre.part.p.caseAppuyer(this.x,this.y);
-            fenetre.part.p.supprimerCase();
-            fenetre.part.p.refreshPlateau();
-            fenetre.part.p.afficherPlateau();
+            System.out.println(n.niveau);
+            n.plateau.caseAppuyer(this.x,this.y);
+            n.plateau.supprimerCase();
+            n.plateau.refreshPlateau();
+            n.plateau.afficherPlateau();
             fenetre.partiePanel.removeAll();
-            fenetre.partiePanel.khey();
+            fenetre.partiePanel.refresh();
             fenetre.validate();
         }
     }

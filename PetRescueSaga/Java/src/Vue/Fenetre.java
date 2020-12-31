@@ -5,15 +5,16 @@ import java.awt.*;
 
 public class Fenetre extends JFrame{
 
-    Partie part=new Partie();
+    Game game;
     JPanel container = new JPanel();
     CardLayout cl;
     MenuOuverture menuOuverture=new MenuOuverture(this);
     MenuNiveau menuNiveau=new MenuNiveau(this);
-    PartiePanel partiePanel = new PartiePanel(this);
+    PartiePanel partiePanel=new PartiePanel(this, new Niveau(0));
 
-    public Fenetre() {
+    public Fenetre(Game game) {
         super("Pet Rescue Saga");
+        this.game=game;
         this.setSize(1024, 768);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
@@ -25,7 +26,6 @@ public class Fenetre extends JFrame{
         this.container.add(this.menuNiveau, "MenuNiveau");
         this.container.add(this.partiePanel, "PartiePanel");
         this.add(this.container);
-
         this.cl.show(this.container, "MenuOuverture");
     }
 
@@ -34,10 +34,10 @@ public class Fenetre extends JFrame{
             String laf = "com.sun.java.swing.plaf.gtk.GTKLookAndFeel";
             try {
                 UIManager.setLookAndFeel(laf);
-                Fenetre a= new Fenetre();
+                Fenetre a= new Fenetre(new Game());
                 a.setVisible(true);
             } catch (Exception e) {
-                Fenetre a = new Fenetre();
+                Fenetre a = new Fenetre(new Game());
                 a.setVisible(true);
             }
         });
