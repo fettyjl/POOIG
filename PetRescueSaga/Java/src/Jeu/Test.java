@@ -27,8 +27,9 @@ public class Test {
         System.out.println();
         test.afficherPlateau();
         */
-        Partie partie=new Partie();
-        partie.round();
+        Game jeu = new Game();
+        jeu.lanceurGame();
+        
 
     }
 }

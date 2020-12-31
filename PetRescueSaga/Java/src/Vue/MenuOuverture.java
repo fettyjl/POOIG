@@ -8,7 +8,7 @@ public class MenuOuverture extends ImagePanel {
     Fenetre fenetre;
     JLabel titre=new JLabel("<html><h1><strong><i><font color=\"white\"> Pet Rescue Saga </font></i></strong></h1><hr></html>");
     JButton buttonJouer = new JButton("Jouer");
-    JButton buttonAide = new JButton("Option");
+    JButton buttonOption = new JButton("Option");
     JButton buttonQuitter = new JButton("Quitter");
         MenuOuverture(Fenetre fenetre){
             super("/imagejungle.png");
@@ -24,7 +24,7 @@ public class MenuOuverture extends ImagePanel {
             c.gridy = 1;
             this.add(this.buttonJouer,c);
             c.gridy = 2;
-            this.add(this.buttonAide,c);
+            this.add(this.buttonOption,c);
             c.gridy = 3;
             this.add(this.buttonQuitter,c);
 

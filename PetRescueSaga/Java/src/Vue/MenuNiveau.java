@@ -3,6 +3,8 @@ package Vue;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class MenuNiveau extends ImagePanel{
     Fenetre fenetre;
@@ -22,12 +24,25 @@ public class MenuNiveau extends ImagePanel{
         int x=1;
         while(x<9){
             c.gridy++;
-            this.add(new JButton("Niveau  "+x+"     * * *"),c);
+            this.add(new BoutonNiveau(x),c);
             x++;
         }
         c.gridy++;
 
         this.add(this.retour,c);
-        this.retour.addActionListener(e -> this.fenetre.cl.show(this.fenetre.container,"MenuOuverture"));
+    }
+    public class BoutonNiveau extends JButton implements ActionListener {
+        int x;
+        BoutonNiveau(int x){
+            super("Niveau "+x+"   ****");
+            this.x=x-1;
+            addActionListener(this);
+        }
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            fenetre.partiePanel=new PartiePanel(fenetre,fenetre.game.listeNiveau.get(this.x));
+            fenetre.container.add(fenetre.partiePanel,"PartiePanel");
+            fenetre.cl.show(fenetre.container, "PartiePanel");
+        }
     }
 }

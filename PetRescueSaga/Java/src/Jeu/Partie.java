@@ -1,18 +1,19 @@
 package Jeu;
+import javax.swing.plaf.synth.SynthTabbedPaneUI;
 import java.util.*;
 public class Partie {
-    Plateau p;
     Joueur j;
+    Niveau n;
     int score;
-    int animalSave;
-    int animalDeath;
+    int argentSave;
+    int argentPerdu;
 
-    public Partie(){
-        this.p=new Plateau();
-        this.j=new Joueur();
+    public Partie(Niveau n){
+        this.j=j;
+        this.n=n;
         this.score=0;
-        this.animalSave=0;
-        this.animalDeath=0;
+        this.argentSave=0;
+        this.argentPerdu=0;
     }
     public void round(){
 
@@ -21,36 +22,44 @@ public class Partie {
             boolean perdu=false;
             int nbrTour=1;
             do{
+                System.out.println("Tour "+nbrTour);
                 System.out.println("Score :"+this.score);
-                System.out.println("Animaux sauvés :"+this.animalSave+"/4");
-                System.out.println("Animaux mort :"+this.animalDeath+"/4");
-
+                System.out.println("Sac d'argent sauvés :"+this.argentSave+"/4");
+                System.out.println("Sac perdu :"+this.argentPerdu+"/4");
                 System.out.println("Bonus Peinture "+this.j.bonus.peinture+"/ Fusée "+this.j.bonus.fusee+"/ Sauvetage "+this.j.bonus.sauvatage);
+                //Mettre en place les bonus
 
-                //Mettre en place les bonus, Peut être un system de niv
-                this.p.afficherPlateau();
+                this.n.plateau.afficherPlateau();
+
                 System.out.println("Case à jouer (x,y)");
-                System.out.println("Quel x ?");
-                x=sc.nextInt();
-                System.out.println("Quel y ?");
-                y=sc.nextInt();
-                this.p.caseAppuyer(x,y);
-                this.score+=this.p.nombreCaseSupp()*10;
-                this.p.supprimerCase();
-                this.animalSave+=this.p.aniSave();
-                this.p.refreshPlateau();
-                if(nbrTour%6==0){
-                    this.p.ajouteLigneEnBas();
-                    this.animalDeath+=this.p.nbrAnimauxPerdu();
-                    nbrTour++;
-                    if(this.animalDeath>2) {
+                do {
+                    System.out.println("Quel x ?");
+                    x = sc.nextInt();
+                    System.out.println("Quel y ?");
+                    y = sc.nextInt();
+                }while((x > -1 && x > n.plateau.longueur) || (y > -1 && y > n.plateau.largeur));
+
+                this.n.plateau.caseAppuyer(x,y);
+                int a= this.n.plateau.nombreCaseSupp()*10;
+                this.score+=a;
+                this.n.plateau.supprimerCase();
+                this.argentSave+=this.n.plateau.argentSave();
+                this.n.plateau.refreshPlateau();
+
+                if(nbrTour%(9-n.niveau)==0){
+                    System.out.println("ON est la !!!!!!!!!!!!!!");
+                    this.argentPerdu+=this.n.plateau.nbrArgentPerdu();
+                    this.n.plateau.ajouteLigneEnBas();
+                    if(this.argentPerdu>2) {
                         perdu = true;
-                        System.out.println("VOUS AVEZ PERDU !");
+                        System.out.println("La police vous a attrapé, vous n'avez pas réussi a sauvé un nombre de sac suffisant !");
                     }
                 }
-            }while(this.p.resteASave()!=0 && !perdu);
-
-            System.out.println("VOUS AVEZ GAGNEE!");
+                if(a>0)
+                nbrTour++;
+            }while(this.n.plateau.resteASave()!=0 && !perdu);
+            this.j.scoreTot+=this.score;
+            System.out.println("Vous avez réussi a sauvé un bon Nombre de sac !");
         }
 
     }
