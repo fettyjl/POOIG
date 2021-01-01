@@ -3,19 +3,19 @@ package Vue;
 import Jeu.Argent;
 import Jeu.Bloc;
 import Jeu.Niveau;
+import Jeu.Plateau;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Random;
 
 public class PartiePanel extends ImagePanel {
 
     Fenetre fenetre;
     Niveau n;
-    boolean bf=false;
-    boolean bc=false;
-    boolean bs=false;
+    boolean bf,bc,bs;
 
     public PartiePanel(Fenetre fenetre, Niveau n) {
         super("/voleur.jpeg");
@@ -55,12 +55,17 @@ public class PartiePanel extends ImagePanel {
         gbc.fill=GridBagConstraints.HORIZONTAL;
         gbc.gridx=8;
         gbc.gridy=0;
-        this.add(new JButton("Tour "+n.nbrTour),gbc);
+        JButton un=new JButton("Tour "+n.nbrTour);
+        un.setEnabled(false);
+        this.add(un,gbc);
         gbc.gridy++;
-        this.add(new JButton("Score:"+n.score),gbc);
+        JButton deux=new JButton("Score:"+n.score);
+        deux.setEnabled(false);
+        this.add(deux,gbc);
         gbc.gridy++;
-        this.add(new JButton("Sac sauvée/perdu: "+n.argentSave+"/"+n.argentPerdu),gbc);
-
+        JButton trois=new JButton("Sac sauvée/perdu: "+n.argentSave+"/"+n.argentPerdu);
+        trois.setEnabled(false);
+        this.add(trois,gbc);
 
         gbc.gridy=9;
         gbc.gridx=0;
@@ -69,44 +74,45 @@ public class PartiePanel extends ImagePanel {
         //Mettre en place les bonus
         JButton bonusF=new JButton("Bonus Fusée "+fenetre.game.joueur.bonus.fusee);
         bonusF.addActionListener(e ->{
-            bf=!bf;
+            bf=true;
             bc=false;
             bs=false;
         });
         this.add(bonusF,gbc);
-        gbc.gridx=5;
+        gbc.gridy=10;
+        gbc.gridx=0;
+        JButton bonusC=new JButton("Bonus Couleur "+fenetre.game.joueur.bonus.peinture);
+        bonusF.addActionListener(e ->{
+            bc=true;
+            bs=false;
+            bf=false;
+        });
+        this.add(bonusC,gbc);
+        gbc.gridy++;
+        JButton bonusS=new JButton("Bonus Sauvetage "+fenetre.game.joueur.bonus.sauvetage);
+        bonusF.addActionListener(e ->{
+            this.bs=true;
+            this.bc=false;
+            this.bf=false;
+        });
+
+        this.add(bonusS,gbc);
+        gbc.gridx=4;
         gbc.gridy=9;
+        JButton quatre=new JButton("Ligne apparation 1/"+(10-n.difficulte)+" tours");
+        quatre.setEnabled(false);
+        this.add(quatre,gbc);
+
+        gbc.gridx=4;
+        gbc.gridy=10;
         JButton retour =(new JButton("Retour"));
         retour.addActionListener(e -> {
             fenetre.menuNiveau = new MenuNiveau(fenetre);
             fenetre.container.add(fenetre.menuNiveau, "MenuNiveau");
             fenetre.cl.show(fenetre.container, "MenuNiveau");
-            Niveau a = new Niveau(n.difficulte);
-            a.resultat = true;
-            fenetre.game.listeNiveau.set(n.difficulte-1, a);
+            fenetre.game.listeNiveau.get(n.difficulte-1).plateau=new Plateau();
         });
         this.add(retour,gbc);
-        gbc.gridy++;
-        gbc.gridx=0;
-        JButton bonusC=new JButton("Bonus Couleur "+fenetre.game.joueur.bonus.peinture);
-        bonusF.addActionListener(e ->{
-            bc=!bc;
-            bs=false;
-            bf=false;
-        });
-        this.add(bonusC,gbc);
-
-        gbc.gridy++;
-        JButton bonusS=new JButton("Bonus Sauvetage "+fenetre.game.joueur.bonus.sauvetage);
-        bonusF.addActionListener(e ->{
-            bs=!bs;
-            bc=false;
-            bf=false;
-        });
-        this.add(bonusS,gbc);
-        gbc.gridy++;
-        this.add(new JButton("Ligne apparation 1/"+(10-n.difficulte)+" tours"),gbc);
-
     }
 
     public class Carre extends JButton implements ActionListener {
@@ -129,7 +135,10 @@ public class PartiePanel extends ImagePanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (bc || bf) {
+            //test
+            System.out.println(bs);
+            System.out.println(bc);
+            System.out.println(bf);
                 if (bf && fenetre.game.joueur.bonus.fusee > 0) {
                     n.argentSave += n.plateau.bonusEnColonne(this.y);
                     n.plateau.refreshPlateau();
@@ -137,12 +146,20 @@ public class PartiePanel extends ImagePanel {
                     fenetre.partiePanel.removeAll();
                     fenetre.partiePanel.refresh();
                     fenetre.validate();
-                    if (bc && fenetre.game.joueur.bonus.peinture > 0) {
-                        if (n.plateau.plateau[x][y].container instanceof Bloc) {
-                            Bloc a = (Bloc) n.plateau.plateau[x][y].container;
-                            a.changementCouleur();
-                            fenetre.game.joueur.bonus.peinture--;
-                        }
+                    if (n.plateau.resteASave() == 0) {
+                        fenetre.game.joueur.scoreTot += n.score;
+                        fenetre.game.joueur.addBonus();
+                        n.resultat = true;
+                        fenetre.panelFin = new PanelFin(fenetre, n);
+                        fenetre.container.add(fenetre.panelFin, "PanelFin");
+                        fenetre.cl.show(fenetre.container, "PanelFin");
+                        fenetre.game.listeNiveau.get(n.difficulte - 1).plateau = new Plateau();
+                        fenetre.game.listeNiveau.get(n.difficulte - 1).resultat = true;
+                    }
+                }else if(bc && fenetre.game.joueur.bonus.peinture > 0) {
+                    if (n.plateau.plateau[x][y].container instanceof Bloc) {
+                        n.plateau.plateau[x][y].container= ((Bloc) n.plateau.plateau[x][y].container).changementCouleur();
+                        fenetre.game.joueur.bonus.peinture--;
                         fenetre.partiePanel.removeAll();
                         fenetre.partiePanel.refresh();
                         fenetre.validate();
@@ -172,10 +189,11 @@ public class PartiePanel extends ImagePanel {
                     } else if (n.plateau.resteASave() == 0) {
                         fenetre.game.joueur.scoreTot+=n.score;
                         fenetre.game.joueur.addBonus();
+                        n.resultat=true;
                         fenetre.panelFin = new PanelFin(fenetre, n);
                         fenetre.container.add(fenetre.panelFin, "PanelFin");
                         fenetre.cl.show(fenetre.container, "PanelFin");
-                        fenetre.game.listeNiveau.set(n.difficulte - 1, new Niveau(n.difficulte));
+                        fenetre.game.listeNiveau.get(n.difficulte-1).plateau=new Plateau();
                         fenetre.game.listeNiveau.get(n.difficulte - 1).resultat = true;
                     } else {
                         fenetre.partiePanel.removeAll();
@@ -183,9 +201,14 @@ public class PartiePanel extends ImagePanel {
                         fenetre.validate();
                     }
                 }
+            if(bf)
+                bf=false;
+            if(bc)
+                bc=false;
+            if(bs)
+                bs=false;
             }
         }
-    }
     public class Bourse extends JButton implements ActionListener {
         String path;
         int x, y;
@@ -194,6 +217,10 @@ public class PartiePanel extends ImagePanel {
             this.path = path;
             this.x = x;
             this.y = y;
+            addActionListener(this);
+            setContentAreaFilled(false);
+            setBorderPainted(false);
+            setOpaque(true);
         }
 
         public void paintComponent(Graphics g) {
@@ -217,7 +244,23 @@ public class PartiePanel extends ImagePanel {
                     fenetre.partiePanel.refresh();
                     fenetre.validate();
                 }
+                if (n.plateau.resteASave() == 0) {
+                    fenetre.game.joueur.scoreTot += n.score;
+                    fenetre.game.joueur.addBonus();
+                    n.resultat = true;
+                    fenetre.panelFin = new PanelFin(fenetre, n);
+                    fenetre.container.add(fenetre.panelFin, "PanelFin");
+                    fenetre.cl.show(fenetre.container, "PanelFin");
+                    fenetre.game.listeNiveau.get(n.difficulte - 1).plateau = new Plateau();
+                    fenetre.game.listeNiveau.get(n.difficulte - 1).resultat = true;
+                }
             }
+            if(bf)
+                bf=false;
+            if(bc)
+                bc=false;
+            if(bs)
+                bs=false;
         }
     }
 }

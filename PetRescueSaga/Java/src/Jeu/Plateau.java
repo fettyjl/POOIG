@@ -11,7 +11,7 @@ public class Plateau {
     public Case [][] plateau;
     
     //Crée un plateau de taille 8*8, initialise un tableau boolean a false et un tableau avec des cases vides.
-    Plateau(){
+    public Plateau(){
         this.longueur=8;
         this.largeur=8;
         this.nbArgent=4;
@@ -160,9 +160,10 @@ public class Plateau {
             int x = 0;
             int y=0;
             while (y< this.largeur){
-                if(verifColonneVide(y)) {
+                if(verifNoBloc(y)) {
                     while (x < this.longueur) {
                         if (this.plateau[x][y].container instanceof Argent) {
+                            this.plateau[x][y].container=null;
                             a++;
                         }
                         x++;
@@ -171,6 +172,7 @@ public class Plateau {
                 y++;
             }
         }
+
         return a;
     }
     //Met à jour le plateau :
@@ -226,12 +228,25 @@ public class Plateau {
         return a;
     }
 
+    public boolean verifNoBloc(int y){
+        if(y>-1 && y< this.largeur) {
+            int x = 0;
+            while (x < this.longueur) {
+                if(this.plateau[x][y].container instanceof Bloc){
+                    return false;
+                }
+                x++;
+            }
+            return true;
+        }
+        return false;
+    }
     // Deplace les colonnes vers la gauche : 4->
     public boolean verifColonneVide(int y){
         if(y>-1 && y< this.largeur) {
             int x = 0;
             while (x < this.longueur) {
-                if(this.plateau[x][y].container instanceof Bloc){
+                if(this.plateau[x][y].container!=null){
                     return false;
                 }
                 x++;
@@ -285,9 +300,9 @@ public class Plateau {
         if(y>-1 && y< this.largeur) {
             int x = 0;
             while (x < this.longueur) {
-                this.plateau[x][y].container = null;
                 if(this.plateau[x][y].container instanceof Argent)
                     a++;
+                this.plateau[x][y].container = null;
                 x++;
             }
         }

@@ -37,8 +37,11 @@ public class PanelFin extends ImagePanel {
             fenetre.cl.show(fenetre.container, "MenuNiveau");
         });
         this.add(this.retour, gbc);
-        Niveau a = new Niveau(n.difficulte);
-        a.resultat = true;
-        fenetre.game.listeNiveau.set(n.difficulte-1, a);
+        fenetre.game.listeNiveau.get(n.difficulte-1).dispo = true;
+        fenetre.game.listeNiveau.get(n.difficulte-1).nbEtoile=n.argentSave-1;
+        Niveau b=fenetre.game.listeNiveau.get(n.difficulte);
+        if(n.resultat==true && b.dispo==false){
+            b.dispo = true;
+        }
     }
 }

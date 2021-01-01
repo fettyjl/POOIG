@@ -2,12 +2,13 @@ package Jeu;
 
 public class Niveau {
     public int difficulte;
-    int nbEtoile;
+    public int nbEtoile;
     public int score;
     public int argentSave;
     public int argentPerdu;
     public int nbrTour;
     public boolean resultat;
+    public boolean dispo;
     public Plateau plateau;
 
 
@@ -15,8 +16,9 @@ public class Niveau {
         this.difficulte=difficulte;
         this.nbEtoile=0;
         this.resultat=false;
+        this.dispo=false;
         if(difficulte==1)
-            this.resultat=true;
+            this.dispo=true;
         this.nbrTour=1;
         this.score=0;
         this.argentSave=0;

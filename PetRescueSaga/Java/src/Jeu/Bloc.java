@@ -9,8 +9,8 @@ public class Bloc extends Container implements Comparable{
         this.i = i;
     }
     // Bonus :
-    public void changementCouleur(){
-        this.i=new Random().nextInt(4);
+    public Bloc changementCouleur(){
+        return new Bloc(new Random().nextInt(4));
     }
 
     @Override
