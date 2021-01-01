@@ -105,7 +105,10 @@ public class PartiePanel extends ImagePanel {
             fenetre.menuNiveau = new MenuNiveau(fenetre);
             fenetre.container.add(fenetre.menuNiveau, "MenuNiveau");
             fenetre.cl.show(fenetre.container, "MenuNiveau");
-            fenetre.game.listeNiveau.get(n.difficulte - 1).plateau = new Plateau();
+            Niveau a = new Niveau(n.difficulte);
+            a.dispo = true;
+            a.nbEtoile = fenetre.game.listeNiveau.get(n.difficulte - 1).nbEtoile;
+            fenetre.game.listeNiveau.set(n.difficulte-1,a);
         });
         this.add(retour, gbc);
     }
