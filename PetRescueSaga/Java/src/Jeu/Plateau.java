@@ -6,15 +6,14 @@ import java.util.Random;
 
 public class Plateau {
     int longueur, largeur;
-    int nbArgent;
+    final int nbArgent=4;
     boolean [][] supression;
-    public Case [][] plateau;
+    Case [][] plateau;
 
     //Crée un plateau de taille 8*8, initialise un tableau boolean a false et un tableau avec des cases vides.
     public Plateau(){
         this.longueur=8;
         this.largeur=8;
-        this.nbArgent=4;
         this.supression=new boolean[this.longueur][this.largeur];
         this.plateau=new Case[this.longueur][this.largeur];
         for(int i=0; i < this.plateau.length; i++){
@@ -317,5 +316,41 @@ public class Plateau {
             }
         }
         return false;
+    }
+
+    public int getLargeur() {
+        return largeur;
+    }
+
+    public void setLargeur(int largeur) {
+        this.largeur = largeur;
+    }
+
+    public int getLongueur() {
+        return longueur;
+    }
+
+    public void setLongueur(int longueur) {
+        this.longueur = longueur;
+    }
+
+    public int getNbArgent() {
+        return nbArgent;
+    }
+
+    public Case[][] getPlateau() {
+        return plateau;
+    }
+
+    public void setPlateau(Case[][] plateau) {
+        this.plateau = plateau;
+    }
+
+    public boolean[][] getSupression() {
+        return supression;
+    }
+
+    public void setSupression(boolean[][] supression) {
+        this.supression = supression;
     }
 }

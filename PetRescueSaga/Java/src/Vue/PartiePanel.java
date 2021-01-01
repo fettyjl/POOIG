@@ -32,19 +32,19 @@ public class PartiePanel extends ImagePanel {
                 Color color;
                 gbc.gridx = col;
                 gbc.gridy = row;
-                if (n.plateau.plateau[row][col].container instanceof Bloc) {
-                    Bloc a = (Bloc) n.plateau.plateau[row][col].container;
-                    if (a.i == 0) {
+                if (n.getPlateau().getPlateau()[row][col].getContainer() instanceof Bloc) {
+                    Bloc a = (Bloc) n.getPlateau().getPlateau()[row][col].getContainer();
+                    if (a.getI() == 0) {
                         color = new Color(41, 128, 185);
-                    } else if (a.i == 1) {
+                    } else if (a.getI() == 1) {
                         color = new Color(231, 76, 60);
-                    } else if (a.i == 2) {
+                    } else if (a.getI() == 2) {
                         color = new Color(244, 208, 63);
                     } else {
                         color = new Color(39, 174, 96);
                     }
                     add(new Carre(color, row, col), gbc);
-                } else if (n.plateau.plateau[row][col].container instanceof Argent) {
+                } else if (n.getPlateau().getPlateau()[row][col].getContainer() instanceof Argent) {
                     add(new Bourse("/bourse.jpeg", row, col), gbc);
                 } else {
                     color = new Color(191, 191, 191);
@@ -55,15 +55,15 @@ public class PartiePanel extends ImagePanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 8;
         gbc.gridy = 0;
-        JButton un = new JButton("Tour " + n.nbrTour);
+        JButton un = new JButton("Tour " + n.getNbrTour());
         un.setEnabled(false);
         this.add(un, gbc);
         gbc.gridy++;
-        JButton deux = new JButton("Score:" + n.score);
+        JButton deux = new JButton("Score:" + n.getScore());
         deux.setEnabled(false);
         this.add(deux, gbc);
         gbc.gridy++;
-        JButton trois = new JButton("Sac sauvée " + n.argentSave + "/ perdu " + n.argentPerdu);
+        JButton trois = new JButton("Sac sauvée " + n.getArgentSave() + "/ perdu " + n.getArgentPerdu());
         trois.setEnabled(false);
         this.add(trois, gbc);
 
@@ -72,22 +72,22 @@ public class PartiePanel extends ImagePanel {
         gbc.gridwidth = 4;
 
         //Mettre en place les bonus
-        JButton bonusF = new JButton("Bonus Fusée " + fenetre.game.joueur.bonus.fusee);
+        JButton bonusF = new JButton("Bonus Fusée " + fenetre.game.getJoueur().getBonus().getFusee());
         bonusF.addActionListener(e -> bf = true);
         this.add(bonusF, gbc);
         gbc.gridy = 10;
         gbc.gridx = 0;
-        JButton bonusC = new JButton("Bonus Couleur " + fenetre.game.joueur.bonus.peinture);
+        JButton bonusC = new JButton("Bonus Couleur " + fenetre.game.getJoueur().getBonus().getPeinture());
         bonusC.addActionListener(e -> bc = true);
         this.add(bonusC, gbc);
         gbc.gridy++;
-        JButton bonusS = new JButton("Bonus Sauvetage " + fenetre.game.joueur.bonus.sauvetage);
+        JButton bonusS = new JButton("Bonus Sauvetage " + fenetre.game.getJoueur().getBonus().getSauvetage());
         bonusS.addActionListener(e -> this.bs = true);
 
         this.add(bonusS, gbc);
         gbc.gridx = 4;
         gbc.gridy = 9;
-        JButton quatre = new JButton("Ligne apparation 1/" + (10 - n.difficulte) + " tours");
+        JButton quatre = new JButton("Ligne apparation 1/" + (10 - n.getDifficulte()) + " tours");
         quatre.setEnabled(false);
         this.add(quatre, gbc);
 
@@ -98,10 +98,10 @@ public class PartiePanel extends ImagePanel {
             fenetre.menuNiveau = new MenuNiveau(fenetre);
             fenetre.container.add(fenetre.menuNiveau, "MenuNiveau");
             fenetre.cl.show(fenetre.container, "MenuNiveau");
-            Niveau a = new Niveau(n.difficulte);
-            a.dispo = true;
-            a.nbEtoile = fenetre.game.listeNiveau.get(n.difficulte - 1).nbEtoile;
-            fenetre.game.listeNiveau.set(n.difficulte-1,a);
+            Niveau a = new Niveau(n.getDifficulte());
+            a.setDispo(true);
+            a.setNbEtoile(fenetre.game.getListeNiveau().get(n.getDifficulte() - 1).getNbEtoile());
+            fenetre.game.getListeNiveau().set(n.getDifficulte() -1,a);
         });
         this.add(retour, gbc);
     }
@@ -126,65 +126,65 @@ public class PartiePanel extends ImagePanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (bf && fenetre.game.joueur.bonus.fusee > 0) {
-                n.argentSave += n.plateau.bonusEnColonne(this.y);
-                n.plateau.refreshPlateau();
-                fenetre.game.joueur.bonus.fusee--;
+            if (bf && fenetre.game.getJoueur().getBonus().getFusee() > 0) {
+                n.setArgentSave(n.getArgentSave()+n.getPlateau().bonusEnColonne(this.y));
+                n.getPlateau().refreshPlateau();
+                fenetre.game.getJoueur().getBonus().setFusee(fenetre.game.getJoueur().getBonus().getFusee()-1);
                 fenetre.partiePanel.removeAll();
                 fenetre.partiePanel.refresh();
                 fenetre.validate();
-                if (n.plateau.resteASave() == 0) {
-                    fenetre.game.joueur.scoreTot += n.score;
-                    fenetre.game.joueur.addBonus();
-                    n.resultat = true;
+                if (n.getPlateau().resteASave() == 0) {
+                    fenetre.game.getJoueur().setScoreTot(fenetre.game.getJoueur().getScoreTot()- n.getScore());
+                    fenetre.game.getJoueur().addBonus();
+                    n.setResultat(true);
                     fenetre.panelFin = new PanelFin(fenetre, n);
                     fenetre.container.add(fenetre.panelFin, "PanelFin");
                     fenetre.cl.show(fenetre.container, "PanelFin");
-                    fenetre.game.listeNiveau.get(n.difficulte - 1).plateau = new Plateau();
-                    fenetre.game.listeNiveau.get(n.difficulte - 1).resultat = true;
+                    fenetre.game.getListeNiveau().get(n.getDifficulte() - 1).setPlateau(new Plateau());
+                    fenetre.game.getListeNiveau().get(n.getDifficulte() - 1).setResultat(true);
                 }
-            } else if (bc && fenetre.game.joueur.bonus.peinture > 0) {
-                if (n.plateau.plateau[x][y].container instanceof Bloc) {
-                    n.plateau.plateau[x][y].container= ((Bloc) n.plateau.plateau[x][y].container).changementCouleur();
-                    fenetre.game.joueur.bonus.peinture--;
+            } else if (bc && fenetre.game.getJoueur().getBonus().getPeinture() > 0) {
+                if (n.getPlateau().getPlateau()[x][y].getContainer() instanceof Bloc) {
+                    n.getPlateau().getPlateau()[x][y].setContainer(((Bloc) n.getPlateau().getPlateau()[x][y].getContainer()).changementCouleur());
+                    fenetre.game.getJoueur().getBonus().setPeinture(fenetre.game.getJoueur().getBonus().getPeinture()-1);
                     fenetre.partiePanel.removeAll();
                     fenetre.partiePanel.refresh();
                     fenetre.validate();
                 }
             } else {
-                n.plateau.caseAppuyer(this.x, this.y);
-                int a = n.plateau.nombreCaseSupp() * 10;
+                n.getPlateau().caseAppuyer(this.x, this.y);
+                int a = n.getPlateau().nombreCaseSupp() * 10;
                 if (a > 0) {
-                    n.score += a;
-                    n.plateau.supprimerCase();
-                    n.argentSave += n.plateau.argentSave();
-                    n.plateau.refreshPlateau();
+                    n.setScore(n.getScore()+a);
+                    n.getPlateau().supprimerCase();
+                    n.setArgentSave(n.getArgentSave()+ n.getPlateau().argentSave());
+                    n.getPlateau().refreshPlateau();
                     fenetre.partiePanel.removeAll();
                     fenetre.partiePanel.refresh();
                     fenetre.validate();
 
-                    if (n.nbrTour % (10 - n.difficulte) == 0) {
-                        n.argentPerdu += n.plateau.nbrArgentPerdu();
-                        n.plateau.ajouteLigneEnBas();
+                    if (n.getNbrTour() % (10 - n.getDifficulte()) == 0) {
+                        n.setArgentPerdu(n.getArgentPerdu()- n.getPlateau().nbrArgentPerdu());
+                        n.getPlateau().ajouteLigneEnBas();
                         fenetre.partiePanel.removeAll();
                         fenetre.partiePanel.refresh();
                         fenetre.validate();
                     }
-                    n.nbrTour++;
+                    n.setNbrTour(n.getNbrTour()+1);
                 }
-                if (n.argentPerdu > 2) {
+                if (n.getArgentPerdu() > 2) {
                     fenetre.panelFin = new PanelFin(fenetre, n);
                     fenetre.container.add(fenetre.panelFin, "PanelFin");
                     fenetre.cl.show(fenetre.container, "PanelFin");
-                } else if (n.plateau.resteASave() == 0) {
-                    fenetre.game.joueur.scoreTot += n.score;
-                    fenetre.game.joueur.addBonus();
-                    n.resultat = true;
+                } else if (n.getPlateau().resteASave() == 0) {
+                    fenetre.game.getJoueur().setScoreTot(fenetre.game.getJoueur().getScoreTot()+n.getScore());
+                    fenetre.game.getJoueur().addBonus();
+                    n.setResultat(true);
                     fenetre.panelFin = new PanelFin(fenetre, n);
                     fenetre.container.add(fenetre.panelFin, "PanelFin");
                     fenetre.cl.show(fenetre.container, "PanelFin");
-                    fenetre.game.listeNiveau.get(n.difficulte - 1).plateau = new Plateau();
-                    fenetre.game.listeNiveau.get(n.difficulte - 1).resultat = true;
+                    fenetre.game.getListeNiveau().get(n.getDifficulte() - 1).setPlateau(new Plateau());
+                    fenetre.game.getListeNiveau().get(n.getDifficulte() - 1).setResultat(true);
                 } else {
                     fenetre.partiePanel.removeAll();
                     fenetre.partiePanel.refresh();
@@ -226,23 +226,23 @@ public class PartiePanel extends ImagePanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (bs && fenetre.game.joueur.bonus.sauvetage > 0) {
-                if (n.plateau.sauvetageArgent(this.x, this.y)) {
-                    n.argentSave++;
-                    fenetre.game.joueur.bonus.sauvetage--;
+            if (bs && fenetre.game.getJoueur().getBonus().getSauvetage() > 0) {
+                if (n.getPlateau().sauvetageArgent(this.x, this.y)) {
+                    n.setArgentSave(n.getArgentSave()+1);
+                    fenetre.game.getJoueur().getBonus().setSauvetage(fenetre.game.getJoueur().getBonus().getSauvetage()-1);
                     fenetre.partiePanel.removeAll();
                     fenetre.partiePanel.refresh();
                     fenetre.validate();
                 }
-                if (n.plateau.resteASave() == 0) {
-                    fenetre.game.joueur.scoreTot += n.score;
-                    fenetre.game.joueur.addBonus();
-                    n.resultat = true;
+                if (n.getPlateau().resteASave() == 0) {
+                    fenetre.game.getJoueur().setScoreTot(fenetre.game.getJoueur().getScoreTot()+n.getScore());
+                    fenetre.game.getJoueur().addBonus();
+                    n.setResultat(true);
                     fenetre.panelFin = new PanelFin(fenetre, n);
                     fenetre.container.add(fenetre.panelFin, "PanelFin");
                     fenetre.cl.show(fenetre.container, "PanelFin");
-                    fenetre.game.listeNiveau.get(n.difficulte - 1).plateau = new Plateau();
-                    fenetre.game.listeNiveau.get(n.difficulte - 1).resultat = true;
+                    fenetre.game.getListeNiveau().get(n.getDifficulte() - 1).setPlateau(new Plateau());
+                    fenetre.game.getListeNiveau().get(n.getDifficulte() - 1).setResultat(true);
                 }
             }
             if (bs || bc || bf) {

@@ -28,10 +28,10 @@ public class MenuNiveau extends ImagePanel {
         c.gridy = 0;
         this.add(this.titre, c);
         c.gridy++;
-        this.add(new JButton("Score Total : " + fenetre.game.joueur.scoreTot), c);
+        this.add(new JButton("Score Total : " + fenetre.game.getJoueur().getScoreTot()), c);
         int x = 1;
         while (x < 9) {
-            int a = fenetre.game.listeNiveau.get(x - 1).nbEtoile;
+            int a = fenetre.game.getListeNiveau().get(x - 1).getNbEtoile();
             c.gridy++;
             this.add(new BoutonNiveau(x), c);
             c.gridx++;
@@ -68,8 +68,8 @@ public class MenuNiveau extends ImagePanel {
         BoutonNiveau(int x) {
             super("Mission " + x);
             this.x = x - 1;
-            Niveau a = fenetre.game.listeNiveau.get(x - 1);
-            if (!a.dispo) {
+            Niveau a = fenetre.game.getListeNiveau().get(x - 1);
+            if (!a.isDispo()) {
                 this.setEnabled(false);
                 this.setText("(bloquée) " + this.getText());
             }
@@ -78,7 +78,7 @@ public class MenuNiveau extends ImagePanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            fenetre.partiePanel = new PartiePanel(fenetre, fenetre.game.listeNiveau.get(this.x));
+            fenetre.partiePanel = new PartiePanel(fenetre, fenetre.game.getListeNiveau().get(this.x));
             fenetre.container.add(fenetre.partiePanel, "PartiePanel");
             fenetre.cl.show(fenetre.container, "PartiePanel");
         }

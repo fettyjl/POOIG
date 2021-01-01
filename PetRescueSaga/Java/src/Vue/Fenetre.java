@@ -34,19 +34,5 @@ public class Fenetre extends JFrame {
         this.add(this.container);
         this.cl.show(this.container, "MenuOuverture");
     }
-
-    public static void main(String[] args) {
-        EventQueue.invokeLater(() -> {
-            String laf = "com.sun.java.swing.plaf.gtk.GTKLookAndFeel";
-            try {
-                UIManager.setLookAndFeel(laf);
-                Fenetre a = new Fenetre(new Game());
-                a.setVisible(true);
-            } catch (Exception e) {
-                Fenetre a = new Fenetre(new Game());
-                a.setVisible(true);
-            }
-        });
-    }
 }
 

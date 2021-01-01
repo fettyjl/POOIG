@@ -19,13 +19,13 @@ public class PanelFin extends ImagePanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
         gbc.gridx = 0;
         gbc.gridy = 0;
-        this.add(new JButton("Score final :" + n.score), gbc);
+        this.add(new JButton("Score final :" + n.getScore()), gbc);
         gbc.gridy++;
-        this.add(new JButton("Sac d'argent sauvée :" + n.argentSave), gbc);
+        this.add(new JButton("Sac d'argent sauvée :" + n.getArgentSave()), gbc);
         gbc.gridy++;
-        this.add(new JButton("Sac d'argent Perdu :" + (4 - n.argentSave)), gbc);
+        this.add(new JButton("Sac d'argent Perdu :" + (4 - n.getArgentSave())), gbc);
         gbc.gridy++;
-        if (n.resultat)
+        if (n.isResultat())
             this.add(new JButton("Mission Réussite !"), gbc);
         else this.add(new JButton("Les policiers vous ont attrapé !"), gbc);
         gbc.gridy++;
@@ -37,14 +37,14 @@ public class PanelFin extends ImagePanel {
             fenetre.cl.show(fenetre.container, "MenuNiveau");
         });
         this.add(this.retour, gbc);
-        Niveau a = new Niveau(n.difficulte);
-        a.dispo = fenetre.game.listeNiveau.get(n.difficulte - 1).dispo;
-        a.nbEtoile = n.argentSave - 1;
-        fenetre.game.listeNiveau.set(n.difficulte-1,a);
-        if (n.difficulte < fenetre.game.listeNiveau.size()) {
-            Niveau b = fenetre.game.listeNiveau.get(n.difficulte);
-            if (n.resultat && !b.dispo) {
-                b.dispo = true;
+        Niveau a = new Niveau(n.getDifficulte());
+        a.setDispo(fenetre.game.getListeNiveau().get(n.getDifficulte() - 1).isDispo());
+        a.setNbEtoile(n.getArgentSave() - 1);
+        fenetre.game.getListeNiveau().set(n.getDifficulte() -1,a);
+        if (n.getDifficulte() < fenetre.game.getListeNiveau().size()) {
+            Niveau b = fenetre.game.getListeNiveau().get(n.getDifficulte());
+            if (n.isResultat() && !b.isDispo()) {
+                b.setDispo(true);
             }
         }
     }

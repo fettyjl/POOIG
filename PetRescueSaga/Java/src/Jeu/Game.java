@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
-    public Joueur joueur;
-    public ArrayList<Niveau> listeNiveau = new ArrayList<>();
+    Joueur joueur;
+    ArrayList<Niveau> listeNiveau = new ArrayList<>();
 
     public Game() {
         this.joueur = new Joueur();
@@ -74,5 +74,21 @@ public class Game {
                 }
             } while (!(s > 1 && s < listeNiveau.size() + 1));
         }
+    }
+
+    public Joueur getJoueur() {
+        return joueur;
+    }
+
+    public void setJoueur(Joueur joueur) {
+        this.joueur = joueur;
+    }
+
+    public ArrayList<Niveau> getListeNiveau() {
+        return listeNiveau;
+    }
+
+    public void setListeNiveau(ArrayList<Niveau> listeNiveau) {
+        this.listeNiveau = listeNiveau;
     }
 }

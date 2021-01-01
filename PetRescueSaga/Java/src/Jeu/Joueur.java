@@ -2,13 +2,11 @@ package Jeu;
 
 
 public class Joueur {
-    public int scoreTot;
-    int niveau;
-    public Bonus bonus;
+    int scoreTot;
+    Bonus bonus;
 
     Joueur() {
         this.scoreTot = 0;
-        this.niveau = 0;
         this.bonus = new Bonus();
     }
 
@@ -18,5 +16,21 @@ public class Joueur {
             bonus.rajout();
             a--;
         }
+    }
+
+    public Bonus getBonus() {
+        return bonus;
+    }
+
+    public void setBonus(Bonus bonus) {
+        this.bonus = bonus;
+    }
+
+    public int getScoreTot() {
+        return scoreTot;
+    }
+
+    public void setScoreTot(int scoreTot) {
+        this.scoreTot = scoreTot;
     }
 }

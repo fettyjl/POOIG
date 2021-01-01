@@ -3,7 +3,7 @@ package Jeu;
 import java.util.Random;
 
 public class Bloc extends Container implements Comparable {
-    public int i;
+    int i;
 
     Bloc(int i) {
         this.i = i;
@@ -27,5 +27,13 @@ public class Bloc extends Container implements Comparable {
             }
         }
         return 0;
+    }
+
+    public int getI() {
+        return i;
+    }
+
+    public void setI(int i) {
+        this.i = i;
     }
 }
