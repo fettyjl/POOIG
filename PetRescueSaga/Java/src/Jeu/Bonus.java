@@ -12,9 +12,9 @@ public class Bonus {
     }
 
     public void rajout() {
-        this.fusee = fusee + 2;
-        this.peinture = peinture + 3;
         this.fusee = fusee + 1;
+        this.peinture = peinture + 2;
+        this.sauvetage= sauvetage + 1;
     }
 
     public int getFusee() {

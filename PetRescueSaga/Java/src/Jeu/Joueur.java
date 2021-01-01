@@ -11,7 +11,7 @@ public class Joueur {
     }
 
     public void addBonus() {
-        int a = scoreTot / 500;
+        int a = scoreTot / 1500;
         while (a>0) {
             bonus.rajout();
             a--;

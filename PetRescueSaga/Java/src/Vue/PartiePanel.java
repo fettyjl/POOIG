@@ -134,7 +134,7 @@ public class PartiePanel extends ImagePanel {
                 fenetre.partiePanel.refresh();
                 fenetre.validate();
                 if (n.getPlateau().resteASave() == 0) {
-                    fenetre.game.getJoueur().setScoreTot(fenetre.game.getJoueur().getScoreTot()- n.getScore());
+                    fenetre.game.getJoueur().setScoreTot(fenetre.game.getJoueur().getScoreTot()+ n.getScore());
                     fenetre.game.getJoueur().addBonus();
                     n.setResultat(true);
                     fenetre.panelFin = new PanelFin(fenetre, n);
@@ -159,20 +159,14 @@ public class PartiePanel extends ImagePanel {
                     n.getPlateau().supprimerCase();
                     n.setArgentSave(n.getArgentSave()+ n.getPlateau().argentSave());
                     n.getPlateau().refreshPlateau();
-                    fenetre.partiePanel.removeAll();
-                    fenetre.partiePanel.refresh();
-                    fenetre.validate();
 
                     if (n.getNbrTour() % (10 - n.getDifficulte()) == 0) {
-                        n.setArgentPerdu(n.getArgentPerdu()- n.getPlateau().nbrArgentPerdu());
+                        n.setArgentPerdu(n.getArgentPerdu()+ n.getPlateau().nbrArgentPerdu());
                         n.getPlateau().ajouteLigneEnBas();
-                        fenetre.partiePanel.removeAll();
-                        fenetre.partiePanel.refresh();
-                        fenetre.validate();
                     }
                     n.setNbrTour(n.getNbrTour()+1);
                 }
-                if (n.getArgentPerdu() > 2) {
+                if (n.getArgentPerdu() > 1) {
                     fenetre.panelFin = new PanelFin(fenetre, n);
                     fenetre.container.add(fenetre.panelFin, "PanelFin");
                     fenetre.cl.show(fenetre.container, "PanelFin");

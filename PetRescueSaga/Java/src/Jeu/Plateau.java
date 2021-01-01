@@ -317,7 +317,6 @@ public class Plateau {
         }
         return false;
     }
-
     public int getLargeur() {
         return largeur;
     }
