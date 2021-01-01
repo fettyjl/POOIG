@@ -91,7 +91,6 @@ public class PartiePanel extends ImagePanel {
             int a= n.plateau.nombreCaseSupp()*10;
             if(a>0){
                 n.score+=a;
-                System.out.println(n.argentSave);
                 n.plateau.supprimerCase();
                 n.argentSave+=n.plateau.argentSave();
                 n.plateau.refreshPlateau();

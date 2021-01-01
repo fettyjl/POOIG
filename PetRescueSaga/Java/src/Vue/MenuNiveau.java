@@ -16,6 +16,9 @@ public class MenuNiveau extends ImagePanel{
     MenuNiveau(Fenetre fenetre){
         super("/prepa.jpeg");
         this.fenetre=fenetre;
+        this.init();
+    }
+    public void init(){
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
         c.fill =GridBagConstraints.BOTH;
@@ -36,14 +39,12 @@ public class MenuNiveau extends ImagePanel{
     public class BoutonNiveau extends JButton implements ActionListener {
         int x;
         BoutonNiveau(int x){
-            super("Niveau "+x+"   ****");
+            super("Mission "+x+"   ****");
             this.x=x-1;
             Niveau a=fenetre.game.listeNiveau.get(x-1);
             if(!a.resultat) {
-                //finir
                 this.setEnabled(false);
-                this.setBackground(new Color(255,255,255));
-                this.setForeground(new Color(0,0,0));
+                this.setText("(bloquée) "+this.getText());
             }
             addActionListener(this);
         }
