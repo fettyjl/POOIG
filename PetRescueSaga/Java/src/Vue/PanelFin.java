@@ -26,8 +26,8 @@ public class PanelFin extends ImagePanel {
         this.add(new JButton("Sac d'argent Perdu :" + (4 - n.argentSave)), gbc);
         gbc.gridy++;
         if (n.resultat)
-            this.add(new JButton("Vous avez Gagnée !"), gbc);
-        else this.add(new JButton("Vous avez Perdu !"), gbc);
+            this.add(new JButton("Mission Réussite !"), gbc);
+        else this.add(new JButton("Les policiers vous ont attrapé !"), gbc);
         gbc.gridy++;
         this.add(new JButton(), gbc);
         gbc.gridy++;
@@ -41,7 +41,7 @@ public class PanelFin extends ImagePanel {
         fenetre.game.listeNiveau.get(n.difficulte - 1).nbEtoile = n.argentSave - 1;
         if (n.difficulte < fenetre.game.listeNiveau.size()) {
             Niveau b = fenetre.game.listeNiveau.get(n.difficulte);
-            if (n.resultat == true && b.dispo == false) {
+            if (n.resultat && !b.dispo) {
                 b.dispo = true;
             }
         }
