@@ -9,7 +9,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Random;
 
 public class PartiePanel extends ImagePanel {
 
@@ -74,22 +73,16 @@ public class PartiePanel extends ImagePanel {
 
         //Mettre en place les bonus
         JButton bonusF = new JButton("Bonus Fusée " + fenetre.game.joueur.bonus.fusee);
-        bonusF.addActionListener(e -> {
-            bf = true;
-        });
+        bonusF.addActionListener(e -> bf = true);
         this.add(bonusF, gbc);
         gbc.gridy = 10;
         gbc.gridx = 0;
         JButton bonusC = new JButton("Bonus Couleur " + fenetre.game.joueur.bonus.peinture);
-        bonusC.addActionListener(e -> {
-            bc = true;
-        });
+        bonusC.addActionListener(e -> bc = true);
         this.add(bonusC, gbc);
         gbc.gridy++;
         JButton bonusS = new JButton("Bonus Sauvetage " + fenetre.game.joueur.bonus.sauvetage);
-        bonusS.addActionListener(e -> {
-            this.bs = true;
-        });
+        bonusS.addActionListener(e -> this.bs = true);
 
         this.add(bonusS, gbc);
         gbc.gridx = 4;
