@@ -5,10 +5,9 @@ import java.util.Scanner;
 
 public class Game {
     Joueur joueur;
-    public ArrayList<Niveau> listeNiveau;
+    public ArrayList<Niveau> listeNiveau=new ArrayList<>();
     public Game(){
         this.joueur=new Joueur();
-        listeNiveau=new ArrayList<Niveau>();
         int i=1;
         while(i<9) {
             listeNiveau.add(new Niveau(i));
@@ -20,7 +19,7 @@ public class Game {
             System.out.println("Bienvenue sur le Jeu Payday !");
             System.out.println("Liste des niveaux :");
             for (Niveau n : this.listeNiveau) {
-                System.out.println("Niveau " + n.niveau);
+                System.out.println("Niveau " + n.difficulte);
             }
             int s;
             do {
@@ -28,17 +27,13 @@ public class Game {
                 s = sc.nextInt();
                 if (s > 0 && s < listeNiveau.size()+1) {
                      Niveau choix =listeNiveau.get(s-1);
-                    int score=0;
-                    int argentSave=0;
-                    int argentPerdu=0;
                     int x,y;
-                    int nbrTour=1;
                     boolean perdu=false;
                     do{
-                        System.out.println("Tour "+nbrTour);
-                        System.out.println("Score :"+score);
-                        System.out.println("Sac d'argent sauvés :"+argentSave+"/4");
-                        System.out.println("Sac perdu :"+argentPerdu+"/4");
+                        System.out.println("Tour "+choix.nbrTour);
+                        System.out.println("Score :"+choix.score);
+                        System.out.println("Sac d'argent sauvés :"+choix.argentSave+"/4");
+                        System.out.println("Sac perdu :"+choix.argentPerdu+"/4");
                         System.out.println("Bonus Peinture "+this.joueur.bonus.peinture+"/ Fusée "+this.joueur.bonus.fusee+"/ Sauvetage "+this.joueur.bonus.sauvatage);
                         //Mettre en place les bonus
 
@@ -54,24 +49,24 @@ public class Game {
 
                         choix.plateau.caseAppuyer(x,y);
                         int a= choix.plateau.nombreCaseSupp()*10;
-                        score+=a;
+                        choix.score+=a;
                         choix.plateau.supprimerCase();
-                        argentSave+=choix.plateau.argentSave();
+                        choix.argentSave+=choix.plateau.argentSave();
                         choix.plateau.refreshPlateau();
 
-                        if(nbrTour%(9-choix.niveau)==0){
-                            argentPerdu+=choix.plateau.nbrArgentPerdu();
+                        if(choix.nbrTour%(9-choix.difficulte-1)==0){
+                            choix.argentPerdu+=choix.plateau.nbrArgentPerdu();
                             choix.plateau.ajouteLigneEnBas();
-                            if(argentPerdu>2) {
+                            if(choix.argentPerdu>2) {
                                 perdu = true;
                                 System.out.println("La police vous a attrapé, vous n'avez pas réussi a sauvé un nombre de sac suffisant !");
                             }
                         }
                         if(a>0)
-                            nbrTour++;
+                            choix.nbrTour++;
                     }while(choix.plateau.resteASave()!=0 && !perdu);
                     if(!perdu) {
-                        this.joueur.scoreTot += score;
+                        this.joueur.scoreTot += choix.score;
                         System.out.println("Vous avez réussi a sauvé un bon Nombre de sac !");
                     }
                 }

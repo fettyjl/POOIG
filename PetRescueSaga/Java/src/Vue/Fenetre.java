@@ -5,15 +5,16 @@ import java.awt.*;
 
 public class Fenetre extends JFrame{
 
-    Game game;
+    Game game=new Game();
     JPanel container = new JPanel();
     CardLayout cl;
     MenuOuverture menuOuverture=new MenuOuverture(this);
     MenuNiveau menuNiveau=new MenuNiveau(this);
     PartiePanel partiePanel=new PartiePanel(this, new Niveau(0));
+    public PanelFin panelFin=new PanelFin(this, new Niveau(0));;
 
     public Fenetre(Game game) {
-        super("Pet Rescue Saga");
+        super("Payday !");
         this.game=game;
         this.setSize(1024, 768);
         this.setResizable(false);
@@ -25,6 +26,8 @@ public class Fenetre extends JFrame{
         this.container.add(this.menuOuverture, "MenuOuverture");
         this.container.add(this.menuNiveau, "MenuNiveau");
         this.container.add(this.partiePanel, "PartiePanel");
+        this.container.add(this.panelFin, "PanelFin");
+
         this.add(this.container);
         this.cl.show(this.container, "MenuOuverture");
     }

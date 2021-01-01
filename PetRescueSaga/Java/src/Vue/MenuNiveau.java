@@ -1,6 +1,8 @@
 package Vue;
 
 
+import Jeu.Niveau;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -12,7 +14,7 @@ public class MenuNiveau extends ImagePanel{
     JButton retour = new JButton("Retour");
 
     MenuNiveau(Fenetre fenetre){
-        super("/imagejungle.png");
+        super("/prepa.jpeg");
         this.fenetre=fenetre;
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
@@ -28,7 +30,7 @@ public class MenuNiveau extends ImagePanel{
             x++;
         }
         c.gridy++;
-
+        this.retour.addActionListener(e -> { fenetre.cl.show(fenetre.container, "MenuOuverture"); });
         this.add(this.retour,c);
     }
     public class BoutonNiveau extends JButton implements ActionListener {
@@ -36,6 +38,13 @@ public class MenuNiveau extends ImagePanel{
         BoutonNiveau(int x){
             super("Niveau "+x+"   ****");
             this.x=x-1;
+            Niveau a=fenetre.game.listeNiveau.get(x-1);
+            if(!a.resultat) {
+                //finir
+                this.setEnabled(false);
+                this.setBackground(new Color(255,255,255));
+                this.setForeground(new Color(0,0,0));
+            }
             addActionListener(this);
         }
         @Override

@@ -13,6 +13,9 @@ public class PartiePanel extends ImagePanel {
 
     Fenetre fenetre;
     Niveau n;
+    boolean bf=false;
+    boolean bc=false;
+    boolean bs=false;
 
     public PartiePanel(Fenetre fenetre, Niveau n) {
         super("/voleur.jpeg");
@@ -50,6 +53,14 @@ public class PartiePanel extends ImagePanel {
                 }
             }
         }
+        JButton bonusF=new JButton("Bonus Fusée");
+        bonusF.addActionListener(e ->{bf=!bf;});
+
+        JButton bonusC=new JButton("Bonus Couleur");
+        bonusF.addActionListener(e ->{bc=!bc;});
+
+        JButton bonusS=new JButton("Bonus Sauvetage");
+        bonusF.addActionListener(e ->{bs=!bs;});
     }
 
     public class Carre extends JButton implements ActionListener {
@@ -72,32 +83,44 @@ public class PartiePanel extends ImagePanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            System.out.println(n.niveau);
+
+            if(bs || bc ||bs) {
+    //Mettre en place les bonus
+            }else{
             n.plateau.caseAppuyer(this.x,this.y);
-            n.plateau.supprimerCase();
-            n.plateau.refreshPlateau();
-            n.plateau.afficherPlateau();
-            fenetre.partiePanel.removeAll();
-            fenetre.partiePanel.refresh();
-            fenetre.validate();
-        }
-    }
-    public class Anim extends JButton {
-        int x,y;
+            int a= n.plateau.nombreCaseSupp()*10;
+            if(a>0){
+                n.score+=a;
+                System.out.println(n.argentSave);
+                n.plateau.supprimerCase();
+                n.argentSave+=n.plateau.argentSave();
+                n.plateau.refreshPlateau();
+                System.out.println(n.nbrTour%(10-n.difficulte));
 
-        public Anim(Color background,int x, int y) {
-            this.x=x;
-            this.y=y;
-            setContentAreaFilled(false);
-            setBorderPainted(false);
-            setBackground(background);
-            setOpaque(true);
-            setEnabled(false);
+                if(n.nbrTour%(10-n.difficulte)==0){
+                    n.argentPerdu+=n.plateau.nbrArgentPerdu();
+                    fenetre.partiePanel.refresh();
+                    n.plateau.ajouteLigneEnBas();
+                    fenetre.partiePanel.refresh();
+                }
+                n.nbrTour++;
+            }
+            if(n.argentPerdu>2) {
+                fenetre.panelFin=new PanelFin(fenetre,n);
+                fenetre.container.add(fenetre.panelFin,"PanelFin");
+                fenetre.cl.show(fenetre.container, "PanelFin");
+            }else if(n.plateau.resteASave()==0){
+                fenetre.panelFin=new PanelFin(fenetre,n);
+                fenetre.container.add(fenetre.panelFin,"PanelFin");
+                fenetre.cl.show(fenetre.container, "PanelFin");
+                fenetre.game.listeNiveau.set(n.difficulte-1,new Niveau(n.difficulte));
+                fenetre.game.listeNiveau.get(n.difficulte-1).resultat=true;
+            }else {
+                fenetre.partiePanel.removeAll();
+                fenetre.partiePanel.refresh();
+                fenetre.validate();
+            }
         }
-
-        @Override
-        public Dimension getPreferredSize() {
-            return new Dimension(50, 50);
         }
     }
 }

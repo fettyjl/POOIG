@@ -6,12 +6,12 @@ import java.awt.*;
 public class MenuOuverture extends ImagePanel {
 
     Fenetre fenetre;
-    JLabel titre=new JLabel("<html><h1><strong><i><font color=\"white\"> Pet Rescue Saga </font></i></strong></h1><hr></html>");
+    JLabel titre=new JLabel("<html><h1><strong><i><font color=\"white\"> Payday !</font></i></strong></h1><hr></html>");
     JButton buttonJouer = new JButton("Jouer");
     JButton buttonOption = new JButton("Option");
     JButton buttonQuitter = new JButton("Quitter");
         MenuOuverture(Fenetre fenetre){
-            super("/imagejungle.png");
+            super("/bank.jpeg");
             this.fenetre=fenetre;
             this.setLayout(new GridBagLayout());
             GridBagConstraints c = new GridBagConstraints();

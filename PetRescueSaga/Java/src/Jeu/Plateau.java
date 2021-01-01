@@ -156,12 +156,17 @@ public class Plateau {
         int a=0;
         if(this.longueur>0) {
             int x = 0;
-            while (x<this.largeur){
-                if(this.plateau[this.longueur-1][x].container instanceof Argent){
-                    this.plateau[this.longueur-1][x].container = null;
-                    a++;
+            int y=0;
+            while (y< this.largeur){
+                if(verifColonneVide(y)) {
+                    while (x < this.longueur) {
+                        if (this.plateau[x][y].container instanceof Argent) {
+                            a++;
+                        }
+                        x++;
+                    }
                 }
-                x++;
+                y++;
             }
         }
         return a;
@@ -224,7 +229,7 @@ public class Plateau {
         if(y>-1 && y< this.largeur) {
             int x = 0;
             while (x < this.longueur) {
-                if(this.plateau[x][y].container != null){
+                if(this.plateau[x][y].container instanceof Bloc){
                     return false;
                 }
                 x++;
