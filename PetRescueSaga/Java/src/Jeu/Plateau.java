@@ -317,6 +317,16 @@ public class Plateau {
         }
         return false;
     }
+    public boolean plusDeCoup(){
+        for(int i=0; i < this.plateau.length; i++){
+            for (int j=0; j< this.plateau[i].length; j++){
+                if(this.plateau[i][j].container!=null) {
+                    // Si une case autour est de meme couleur renvoie false
+                }
+            }
+        }
+        return true;
+    }
     public int getLargeur() {
         return largeur;
     }
