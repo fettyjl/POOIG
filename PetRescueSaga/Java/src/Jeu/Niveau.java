@@ -12,17 +12,17 @@ public class Niveau {
     public Plateau plateau;
 
 
-    public Niveau(int difficulte){
-        this.difficulte=difficulte;
-        this.nbEtoile=0;
-        this.resultat=false;
-        this.dispo=false;
-        if(difficulte==1)
-            this.dispo=true;
-        this.nbrTour=1;
-        this.score=0;
-        this.argentSave=0;
-        this.argentPerdu=0;
-        this.plateau=new Plateau();
+    public Niveau(int difficulte) {
+        this.difficulte = difficulte;
+        this.nbEtoile = 0;
+        this.resultat = false;
+        this.dispo = false;
+        if (difficulte == 1)
+            this.dispo = true;
+        this.nbrTour = 1;
+        this.score = 0;
+        this.argentSave = 0;
+        this.argentPerdu = 0;
+        this.plateau = new Plateau();
     }
 }
