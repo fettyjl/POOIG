@@ -6,14 +6,14 @@ public class Bonus {
     public int sauvetage;
 
     Bonus() {
-        this.fusee = 3;
+        this.fusee = 2;
         this.peinture = 3;
-        this.sauvetage = 3;
+        this.sauvetage = 1;
     }
 
-    public void rajout(int a) {
-        this.fusee = fusee + a;
-        this.peinture = peinture + a;
+    public void rajout() {
+        this.fusee = fusee + 2;
+        this.peinture = peinture + 3;
         this.fusee = fusee + 1;
     }
 }

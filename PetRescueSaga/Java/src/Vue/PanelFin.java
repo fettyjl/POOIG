@@ -39,9 +39,11 @@ public class PanelFin extends ImagePanel {
         this.add(this.retour, gbc);
         fenetre.game.listeNiveau.get(n.difficulte - 1).dispo = true;
         fenetre.game.listeNiveau.get(n.difficulte - 1).nbEtoile = n.argentSave - 1;
-        Niveau b = fenetre.game.listeNiveau.get(n.difficulte);
-        if (n.resultat == true && b.dispo == false) {
-            b.dispo = true;
+        if (n.difficulte < fenetre.game.listeNiveau.size()) {
+            Niveau b = fenetre.game.listeNiveau.get(n.difficulte);
+            if (n.resultat == true && b.dispo == false) {
+                b.dispo = true;
+            }
         }
     }
 }

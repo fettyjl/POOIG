@@ -38,19 +38,19 @@ public class MenuNiveau extends ImagePanel {
             if (a > 0)
                 this.add(new BoutonEtoile(Color.yellow), c);
             else
-                this.add(new BoutonEtoile(Color.black), c);
+                this.add(new BoutonEtoile(Color.gray), c);
             a--;
             c.gridx++;
             if (a > 0)
                 this.add(new BoutonEtoile(Color.yellow), c);
             else
-                this.add(new BoutonEtoile(Color.black), c);
+                this.add(new BoutonEtoile(Color.gray), c);
             a--;
             c.gridx++;
             if (a > 0)
                 this.add(new BoutonEtoile(Color.yellow), c);
             else
-                this.add(new BoutonEtoile(Color.black), c);
+                this.add(new BoutonEtoile(Color.gray), c);
             a--;
             c.gridx = c.gridx - 3;
             x++;
@@ -87,6 +87,8 @@ public class MenuNiveau extends ImagePanel {
     public class BoutonEtoile extends JButton {
         BoutonEtoile(Color b) {
             this.setBackground(b);
+            setContentAreaFilled(false);
+            setBorderPainted(false);
             this.setOpaque(true);
         }
 

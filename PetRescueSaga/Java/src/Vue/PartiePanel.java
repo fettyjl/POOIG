@@ -149,7 +149,7 @@ public class PartiePanel extends ImagePanel {
                 }
             } else if (bc && fenetre.game.joueur.bonus.peinture > 0) {
                 if (n.plateau.plateau[x][y].container instanceof Bloc) {
-                    n.plateau.plateau[x][y].container = ((Bloc) n.plateau.plateau[x][y].container).changementCouleur();
+                    n.plateau.plateau[x][y].container= ((Bloc) n.plateau.plateau[x][y].container).changementCouleur();
                     fenetre.game.joueur.bonus.peinture--;
                     fenetre.partiePanel.removeAll();
                     fenetre.partiePanel.refresh();
@@ -194,6 +194,11 @@ public class PartiePanel extends ImagePanel {
                     fenetre.partiePanel.refresh();
                     fenetre.validate();
                 }
+            }
+            if (bs || bc || bf) {
+                bs = false;
+                bf = false;
+                bc = false;
             }
         }
     }
@@ -243,6 +248,11 @@ public class PartiePanel extends ImagePanel {
                     fenetre.game.listeNiveau.get(n.difficulte - 1).plateau = new Plateau();
                     fenetre.game.listeNiveau.get(n.difficulte - 1).resultat = true;
                 }
+            }
+            if (bs || bc || bf) {
+                bs = false;
+                bf = false;
+                bc = false;
             }
         }
     }
