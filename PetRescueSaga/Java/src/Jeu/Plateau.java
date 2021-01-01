@@ -1,5 +1,7 @@
 package Jeu;
 
+import Vue.Fenetre;
+
 import java.util.Random;
 
 public class Plateau {
@@ -277,22 +279,28 @@ public class Plateau {
         return a;
     }
 
-    // Prototype Bonus Joueur:
-    public void suppressionEnColonne(int y){
+    // Prototype Bonus Joueur: Renvoie le nombre d'argent supprimer avec:
+    public int bonusEnColonne(int y){
+        int a=0;
         if(y>-1 && y< this.largeur) {
             int x = 0;
             while (x < this.longueur) {
                 this.plateau[x][y].container = null;
+                if(this.plateau[x][y].container instanceof Argent)
+                    a++;
                 x++;
             }
         }
+        return a;
     }
 
-    public void sauvetageArgent(int x, int y){
-        if(x>-1 & y>-1 && x<this.longueur && y<this.largeur){
-           if(this.plateau[x][y].container instanceof Argent){
-               this.plateau[x][y].container=null;
-           }
+    public boolean sauvetageArgent(int x, int y) {
+        if (x > -1 & y > -1 && x < this.longueur && y < this.largeur) {
+            if (this.plateau[x][y].container instanceof Argent) {
+                this.plateau[x][y].container = null;
+                return true;
+            }
         }
+        return false;
     }
 }

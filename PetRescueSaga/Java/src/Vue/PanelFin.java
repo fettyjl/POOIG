@@ -36,10 +36,9 @@ public class PanelFin extends ImagePanel {
             fenetre.container.add(fenetre.menuNiveau, "MenuNiveau");
             fenetre.cl.show(fenetre.container, "MenuNiveau");
         });
-        this.retour.setBackground(new Color(200, 225, 255));
         this.add(this.retour, gbc);
         Niveau a = new Niveau(n.difficulte);
         a.resultat = true;
-        fenetre.game.listeNiveau.set(n.difficulte, a);
+        fenetre.game.listeNiveau.set(n.difficulte-1, a);
     }
 }

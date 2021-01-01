@@ -21,11 +21,13 @@ public class MenuNiveau extends ImagePanel{
     public void init(){
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();
+        c.insets = new Insets(1, 1, 1, 1);
         c.fill =GridBagConstraints.BOTH;
         c.gridx = 0;
         c.gridy = 0;
         this.add(this.titre,c);
         c.gridy++;
+        this.add(new JButton("Score Total : "+fenetre.game.joueur.scoreTot),c);
         int x=1;
         while(x<9){
             c.gridy++;

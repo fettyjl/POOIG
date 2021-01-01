@@ -1,5 +1,7 @@
 package Jeu;
 
+import java.util.Random;
+
 public class Bloc extends Container implements Comparable{
     public int i;
 
@@ -7,8 +9,8 @@ public class Bloc extends Container implements Comparable{
         this.i = i;
     }
     // Bonus :
-    void changementCouleur(int a){
-        this.i=a;
+    public void changementCouleur(){
+        this.i=new Random().nextInt(4);
     }
 
     @Override

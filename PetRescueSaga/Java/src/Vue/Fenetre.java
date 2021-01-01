@@ -11,12 +11,12 @@ public class Fenetre extends JFrame{
     MenuOuverture menuOuverture=new MenuOuverture(this);
     MenuNiveau menuNiveau=new MenuNiveau(this);
     PartiePanel partiePanel=new PartiePanel(this, new Niveau(0));
-    public PanelFin panelFin=new PanelFin(this, new Niveau(0));;
+    public PanelFin panelFin=new PanelFin(this, new Niveau(1));;
 
     public Fenetre(Game game) {
         super("Payday !");
         this.game=game;
-        this.setSize(1024, 768);
+        this.setSize(1137 , 853);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);

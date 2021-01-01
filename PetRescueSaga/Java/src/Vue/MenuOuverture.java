@@ -15,6 +15,7 @@ public class MenuOuverture extends ImagePanel {
             this.fenetre=fenetre;
             this.setLayout(new GridBagLayout());
             GridBagConstraints c = new GridBagConstraints();
+            c.insets = new Insets(1, 1, 1, 1);
             c.gridwidth = GridBagConstraints.REMAINDER;
             c.anchor = GridBagConstraints.NORTH;
             c.fill =GridBagConstraints.BOTH;

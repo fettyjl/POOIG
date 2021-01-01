@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Game {
-    Joueur joueur;
+    public Joueur joueur;
     public ArrayList<Niveau> listeNiveau=new ArrayList<>();
     public Game(){
         this.joueur=new Joueur();
@@ -34,7 +34,7 @@ public class Game {
                         System.out.println("Score :"+choix.score);
                         System.out.println("Sac d'argent sauvés :"+choix.argentSave+"/4");
                         System.out.println("Sac perdu :"+choix.argentPerdu+"/4");
-                        System.out.println("Bonus Peinture "+this.joueur.bonus.peinture+"/ Fusée "+this.joueur.bonus.fusee+"/ Sauvetage "+this.joueur.bonus.sauvatage);
+                        System.out.println("Bonus Peinture "+this.joueur.bonus.peinture+"/ Fusée "+this.joueur.bonus.fusee+"/ Sauvetage "+this.joueur.bonus.sauvetage);
                         //Mettre en place les bonus
 
                         choix.plateau.afficherPlateau();
