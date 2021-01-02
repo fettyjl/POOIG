@@ -14,7 +14,20 @@ public class Bonus {
     public void rajout() {
         this.fusee = fusee + 1;
         this.peinture = peinture + 2;
-        this.sauvetage= sauvetage + 1;
+        this.sauvetage = sauvetage + 1;
+    }
+
+    public boolean plusDeBonus() {
+        if (fusee == 0 && peinture == 0 && sauvetage == 0){
+            return true;
+        }
+        return false;
+    }
+    public boolean plusDeFetP(){
+        if (fusee == 0 && peinture == 0){
+            return true;
+        }
+        return false;
     }
 
     public int getFusee() {

@@ -166,11 +166,11 @@ public class PartiePanel extends ImagePanel {
                     }
                     n.setNbrTour(n.getNbrTour()+1);
                 }
-                if (n.getArgentPerdu() > 1) {
+                if (n.getArgentPerdu() > 1 || (n.getPlateau().plusDeCoup() && fenetre.game.getJoueur().getBonus().plusDeFetP() && fenetre.game.getJoueur().getBonus().getSauvetage() < n.getPlateau().resteASave() )) {
                     fenetre.panelFin = new PanelFin(fenetre, n);
                     fenetre.container.add(fenetre.panelFin, "PanelFin");
                     fenetre.cl.show(fenetre.container, "PanelFin");
-                } else if (n.getPlateau().resteASave() == 0) {
+                } else if (n.getPlateau().resteASave() == 0 || (n.getPlateau().plusDeCoup() && fenetre.game.getJoueur().getBonus().plusDeBonus() && n.getArgentSave() > 1)) {
                     fenetre.game.getJoueur().setScoreTot(fenetre.game.getJoueur().getScoreTot()+n.getScore());
                     fenetre.game.getJoueur().addBonus();
                     n.setResultat(true);
