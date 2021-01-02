@@ -10,12 +10,13 @@ public class Game {
     //Initialise une Game avec un Joueur et une liste de niveaux:
     public Game() {
         this.joueur = new Joueur();
-        int i = 1;
-        while (i < 9) {
+        int i = 0;
+        while (i < 8) {
             listeNiveau.add(new Niveau(i));
             i++;
         }
     }
+
     //Lance la partie sur le terminal:
     public void lanceurGame() {
         try (Scanner sc = new Scanner(System.in)) {
@@ -74,6 +75,30 @@ public class Game {
                     }
                 }
             } while (!(s > 1 && s < listeNiveau.size() + 1));
+        }
+    }
+
+    public void ActionBonusSauvetage(int x, int y, int n) {
+        if (joueur.bonus.sauvetage > 0) {
+            if (listeNiveau.get(n).plateau.sauvetageArgent(x, y)) {
+                listeNiveau.get(n).argentSave++;
+                joueur.bonus.sauvetage--;
+            }
+        }
+    }
+
+    public void ActionBonusFusée(int y, int n) {
+        if (joueur.bonus.fusee > 0) {
+            listeNiveau.get(n).argentSave += listeNiveau.get(n).plateau.bonusEnColonne(y);
+            listeNiveau.get(n).plateau.refreshPlateau();
+            joueur.bonus.fusee--;
+        }
+    }
+
+    public void ActionBonusPeinture(int x, int y, int n) {
+        if ((joueur.bonus.peinture > 0) && (listeNiveau.get(n).plateau.plateau[x][y].container instanceof Bloc)) {
+            listeNiveau.get(n).plateau.plateau[x][y].container = ((Bloc) listeNiveau.get(n).plateau.plateau[x][y].container).changementCouleur();
+            joueur.bonus.peinture--;
         }
     }
 

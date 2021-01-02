@@ -100,8 +100,8 @@ public class PartiePanel extends ImagePanel {
             fenetre.cl.show(fenetre.container, "MenuNiveau");
             Niveau a = new Niveau(n.getDifficulte());
             a.setDispo(true);
-            a.setNbEtoile(fenetre.game.getListeNiveau().get(n.getDifficulte() - 1).getNbEtoile());
-            fenetre.game.getListeNiveau().set(n.getDifficulte() -1,a);
+            a.setNbEtoile(fenetre.game.getListeNiveau().get(n.getDifficulte()).getNbEtoile());
+            fenetre.game.getListeNiveau().set(n.getDifficulte(), a);
         });
         this.add(retour, gbc);
     }
@@ -126,59 +126,54 @@ public class PartiePanel extends ImagePanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (bf && fenetre.game.getJoueur().getBonus().getFusee() > 0) {
-                n.setArgentSave(n.getArgentSave()+n.getPlateau().bonusEnColonne(this.y));
-                n.getPlateau().refreshPlateau();
-                fenetre.game.getJoueur().getBonus().setFusee(fenetre.game.getJoueur().getBonus().getFusee()-1);
+            if (bf) {
+                fenetre.game.ActionBonusFusée(this.y, n.getDifficulte());
                 fenetre.partiePanel.removeAll();
                 fenetre.partiePanel.refresh();
                 fenetre.validate();
                 if (n.getPlateau().resteASave() == 0) {
-                    fenetre.game.getJoueur().setScoreTot(fenetre.game.getJoueur().getScoreTot()+ n.getScore());
+                    fenetre.game.getJoueur().setScoreTot(fenetre.game.getJoueur().getScoreTot() + n.getScore());
                     fenetre.game.getJoueur().addBonus();
                     n.setResultat(true);
                     fenetre.panelFin = new PanelFin(fenetre, n);
                     fenetre.container.add(fenetre.panelFin, "PanelFin");
                     fenetre.cl.show(fenetre.container, "PanelFin");
-                    fenetre.game.getListeNiveau().get(n.getDifficulte() - 1).setPlateau(new Plateau());
-                    fenetre.game.getListeNiveau().get(n.getDifficulte() - 1).setResultat(true);
+                    fenetre.game.getListeNiveau().get(n.getDifficulte()).setPlateau(new Plateau());
+                    fenetre.game.getListeNiveau().get(n.getDifficulte()).setResultat(true);
                 }
-            } else if (bc && fenetre.game.getJoueur().getBonus().getPeinture() > 0) {
-                if (n.getPlateau().getPlateau()[x][y].getContainer() instanceof Bloc) {
-                    n.getPlateau().getPlateau()[x][y].setContainer(((Bloc) n.getPlateau().getPlateau()[x][y].getContainer()).changementCouleur());
-                    fenetre.game.getJoueur().getBonus().setPeinture(fenetre.game.getJoueur().getBonus().getPeinture()-1);
-                    fenetre.partiePanel.removeAll();
-                    fenetre.partiePanel.refresh();
-                    fenetre.validate();
-                }
+            } else if (bc) {
+                fenetre.game.ActionBonusPeinture(this.x, this.y, n.getDifficulte());
+                fenetre.partiePanel.removeAll();
+                fenetre.partiePanel.refresh();
+                fenetre.validate();
             } else {
                 n.getPlateau().caseAppuyer(this.x, this.y);
                 int a = n.getPlateau().nombreCaseSupp() * 10;
                 if (a > 0) {
-                    n.setScore(n.getScore()+a);
+                    n.setScore(n.getScore() + a);
                     n.getPlateau().supprimerCase();
-                    n.setArgentSave(n.getArgentSave()+ n.getPlateau().argentSave());
+                    n.setArgentSave(n.getArgentSave() + n.getPlateau().argentSave());
                     n.getPlateau().refreshPlateau();
 
                     if (n.getNbrTour() % (10 - n.getDifficulte()) == 0) {
-                        n.setArgentPerdu(n.getArgentPerdu()+ n.getPlateau().nbrArgentPerdu());
+                        n.setArgentPerdu(n.getArgentPerdu() + n.getPlateau().nbrArgentPerdu());
                         n.getPlateau().ajouteLigneEnBas();
                     }
-                    n.setNbrTour(n.getNbrTour()+1);
+                    n.setNbrTour(n.getNbrTour() + 1);
                 }
-                if (n.getArgentPerdu() > 1 || (n.getPlateau().plusDeCoup() && fenetre.game.getJoueur().getBonus().plusDeFetP() && fenetre.game.getJoueur().getBonus().getSauvetage() < n.getPlateau().resteASave() )) {
+                if (n.getArgentPerdu() > 1 || (n.getPlateau().plusDeCoup() && fenetre.game.getJoueur().getBonus().plusDeFetP() && fenetre.game.getJoueur().getBonus().getSauvetage() < n.getPlateau().resteASave())) {
                     fenetre.panelFin = new PanelFin(fenetre, n);
                     fenetre.container.add(fenetre.panelFin, "PanelFin");
                     fenetre.cl.show(fenetre.container, "PanelFin");
                 } else if (n.getPlateau().resteASave() == 0 || (n.getPlateau().plusDeCoup() && fenetre.game.getJoueur().getBonus().plusDeBonus() && n.getArgentSave() > 1)) {
-                    fenetre.game.getJoueur().setScoreTot(fenetre.game.getJoueur().getScoreTot()+n.getScore());
+                    fenetre.game.getJoueur().setScoreTot(fenetre.game.getJoueur().getScoreTot() + n.getScore());
                     fenetre.game.getJoueur().addBonus();
                     n.setResultat(true);
                     fenetre.panelFin = new PanelFin(fenetre, n);
                     fenetre.container.add(fenetre.panelFin, "PanelFin");
                     fenetre.cl.show(fenetre.container, "PanelFin");
-                    fenetre.game.getListeNiveau().get(n.getDifficulte() - 1).setPlateau(new Plateau());
-                    fenetre.game.getListeNiveau().get(n.getDifficulte() - 1).setResultat(true);
+                    fenetre.game.getListeNiveau().get(n.getDifficulte()).setPlateau(new Plateau());
+                    fenetre.game.getListeNiveau().get(n.getDifficulte()).setResultat(true);
                 } else {
                     fenetre.partiePanel.removeAll();
                     fenetre.partiePanel.refresh();
@@ -220,24 +215,21 @@ public class PartiePanel extends ImagePanel {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (bs && fenetre.game.getJoueur().getBonus().getSauvetage() > 0) {
-                if (n.getPlateau().sauvetageArgent(this.x, this.y)) {
-                    n.setArgentSave(n.getArgentSave()+1);
-                    fenetre.game.getJoueur().getBonus().setSauvetage(fenetre.game.getJoueur().getBonus().getSauvetage()-1);
-                    fenetre.partiePanel.removeAll();
-                    fenetre.partiePanel.refresh();
-                    fenetre.validate();
-                }
-                if (n.getPlateau().resteASave() == 0) {
-                    fenetre.game.getJoueur().setScoreTot(fenetre.game.getJoueur().getScoreTot()+n.getScore());
-                    fenetre.game.getJoueur().addBonus();
-                    n.setResultat(true);
-                    fenetre.panelFin = new PanelFin(fenetre, n);
-                    fenetre.container.add(fenetre.panelFin, "PanelFin");
-                    fenetre.cl.show(fenetre.container, "PanelFin");
-                    fenetre.game.getListeNiveau().get(n.getDifficulte() - 1).setPlateau(new Plateau());
-                    fenetre.game.getListeNiveau().get(n.getDifficulte() - 1).setResultat(true);
-                }
+            if (bs) {
+                fenetre.game.ActionBonusSauvetage(this.x, this.y, n.getDifficulte());
+                fenetre.partiePanel.removeAll();
+                fenetre.partiePanel.refresh();
+                fenetre.validate();
+            }
+            if (n.getPlateau().resteASave() == 0) {
+                fenetre.game.getJoueur().setScoreTot(fenetre.game.getJoueur().getScoreTot() + n.getScore());
+                fenetre.game.getJoueur().addBonus();
+                n.setResultat(true);
+                fenetre.panelFin = new PanelFin(fenetre, n);
+                fenetre.container.add(fenetre.panelFin, "PanelFin");
+                fenetre.cl.show(fenetre.container, "PanelFin");
+                fenetre.game.getListeNiveau().get(n.getDifficulte()).setPlateau(new Plateau());
+                fenetre.game.getListeNiveau().get(n.getDifficulte()).setResultat(true);
             }
             if (bs || bc || bf) {
                 bs = false;
@@ -247,3 +239,4 @@ public class PartiePanel extends ImagePanel {
         }
     }
 }
+

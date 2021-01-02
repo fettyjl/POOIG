@@ -29,10 +29,10 @@ public class MenuNiveau extends ImagePanel {
         this.add(this.titre, c);
         c.gridy++;
         this.add(new JButton("Score Total : " + fenetre.game.getJoueur().getScoreTot()), c);
-        int x = 1;
-        while (x < 9) {
-            int a = fenetre.game.getListeNiveau().get(x - 1).getNbEtoile();
-            c.gridy++;
+        int x = 0;
+        while (x < 8) {
+            int a = fenetre.game.getListeNiveau().get(x).getNbEtoile();
+                        c.gridy++;
             this.add(new BoutonNiveau(x), c);
             c.gridx++;
             if (a > 0)
@@ -66,9 +66,9 @@ public class MenuNiveau extends ImagePanel {
         int x;
 
         BoutonNiveau(int x) {
-            super("Mission " + x);
-            this.x = x - 1;
-            Niveau a = fenetre.game.getListeNiveau().get(x - 1);
+            super("Mission " + (x+1));
+            this.x = x;
+            Niveau a = fenetre.game.getListeNiveau().get(x);
             if (!a.isDispo()) {
                 this.setEnabled(false);
                 this.setText("(bloquée) " + this.getText());

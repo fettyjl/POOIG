@@ -38,11 +38,11 @@ public class PanelFin extends ImagePanel {
         });
         this.add(this.retour, gbc);
         Niveau a = new Niveau(n.getDifficulte());
-        a.setDispo(fenetre.game.getListeNiveau().get(n.getDifficulte() - 1).isDispo());
+        a.setDispo(fenetre.game.getListeNiveau().get(n.getDifficulte()).isDispo());
         a.setNbEtoile(n.getArgentSave() - 1);
-        fenetre.game.getListeNiveau().set(n.getDifficulte() -1,a);
+        fenetre.game.getListeNiveau().set(n.getDifficulte(),a);
         if (n.getDifficulte() < fenetre.game.getListeNiveau().size()) {
-            Niveau b = fenetre.game.getListeNiveau().get(n.getDifficulte());
+            Niveau b = fenetre.game.getListeNiveau().get(n.getDifficulte()+1);
             if (n.isResultat() && !b.isDispo()) {
                 b.setDispo(true);
             }

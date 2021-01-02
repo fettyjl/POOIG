@@ -21,7 +21,7 @@ public class Niveau {
         this.nbEtoile = 0;
         this.resultat = false;
         this.dispo = false;
-        if (difficulte == 1)
+        if (difficulte == 0)
             this.dispo = true;
         this.nbrTour = 1;
         this.score = 0;
