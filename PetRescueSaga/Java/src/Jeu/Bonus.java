@@ -10,19 +10,21 @@ public class Bonus {
         this.peinture = 3;
         this.sauvetage = 1;
     }
-
+    //Rajout de bonus :
     public void rajout() {
         this.fusee = fusee + 1;
         this.peinture = peinture + 2;
         this.sauvetage = sauvetage + 1;
     }
 
+    //Verifie si il n'y a plus de bonus:
     public boolean plusDeBonus() {
         if (fusee == 0 && peinture == 0 && sauvetage == 0){
             return true;
         }
         return false;
     }
+    //Verifie si il n'y a plus de bonus Fusée et Peinture:
     public boolean plusDeFetP(){
         if (fusee == 0 && peinture == 0){
             return true;

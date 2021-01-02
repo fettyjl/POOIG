@@ -7,6 +7,7 @@ public class Game {
     Joueur joueur;
     ArrayList<Niveau> listeNiveau = new ArrayList<>();
 
+    //Initialise une Game avec un Joueur et une liste de niveaux:
     public Game() {
         this.joueur = new Joueur();
         int i = 1;
@@ -15,7 +16,7 @@ public class Game {
             i++;
         }
     }
-
+    //Lance la partie sur le terminal:
     public void lanceurGame() {
         try (Scanner sc = new Scanner(System.in)) {
             System.out.println("Bienvenue sur le Jeu Payday !");

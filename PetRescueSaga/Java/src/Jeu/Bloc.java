@@ -9,7 +9,7 @@ public class Bloc extends Container implements Comparable {
         this.i = i;
     }
 
-    // Bonus :
+    // Bonus : Change la couleur d'un bloc
     public Bloc changementCouleur() {
         Bloc a = new Bloc(new Random().nextInt(4));
         while (a.i == this.i) {
@@ -17,7 +17,7 @@ public class Bloc extends Container implements Comparable {
         }
         return a;
     }
-
+    //Compare les blocs en fonction de leur couleur:
     @Override
     public int compareTo(Object o) {
         if (o instanceof Bloc) {

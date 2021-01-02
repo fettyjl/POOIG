@@ -11,6 +11,10 @@ public class Niveau {
     boolean dispo;
     Plateau plateau;
 
+    /*
+    Initialise un niveau avec une difficultée, un nombre d'etoile en fonction de la réussite, un score, un nombre d'argent gagner et perdu, un nombre de tour
+    un boolean qui vérifie si le niveau est disponible au joueur et un boolean qui indique si le joueur a réussit le niveau, un plateau de bloc et sac d'argent:
+     */
 
     public Niveau(int difficulte) {
         this.difficulte = difficulte;

@@ -34,7 +34,7 @@ public class Plateau {
             }
         }
     }
-
+    //Remplit le plateau d'un nombre de sac d'argent fixée:
     public void remplirArgent() {
         if (this.longueur > 1 && this.largeur > 1) {
             int a = this.nbArgent;
@@ -80,7 +80,7 @@ public class Plateau {
             System.out.println();
         }
     }
-
+    //Affiche le plateau de suppression:
     public void affichageBoolean() {
         for (int i = 0; i < this.supression.length; i++) {
             for (int j = 0; j < this.supression[i].length; j++) {
@@ -105,8 +105,8 @@ public class Plateau {
         }
     }
 
-    /* Verifie si les cases ajacentes sont de même types et si les conditions sont respectées ->
-       si c'est possible appel caseAppuyer(x,y) sur les cases adjacentes pour changer leurs valeurs a true
+    /* Verifie si les cases ajacentes sont de mêmes types et si les conditions sont respectées ->
+       si c'est possible appel caseAppuyer(x,y) sur les cases adjacentes pour changer leurs valeurs a true et repeter l'action de manière recursive:
      */
     public void validationSuppression(int x, int y) {
         if ((x & y) > -1 && x < this.longueur && y < this.largeur && (this.plateau[x][y].container != null) && (this.plateau[x][y].container instanceof Bloc)) {
@@ -200,6 +200,7 @@ public class Plateau {
         }
     }
 
+    //Décale les colonnes sur les colonnes vides à leur gauche:
     public void decalageColonne() {
         for (int i = 0; i < this.largeur - 1; i++) {
             if (verifColonneVide(i)) {
@@ -230,6 +231,7 @@ public class Plateau {
         return a;
     }
 
+    //Verifie si une colonne ne contient plus de Bloc:
     public boolean verifNoBloc(int y) {
         if (y > -1 && y < this.largeur) {
             int x = 0;
@@ -244,7 +246,7 @@ public class Plateau {
         return false;
     }
 
-    // Deplace les colonnes vers la gauche : 4->
+    //Verifie si une colonne est vide:
     public boolean verifColonneVide(int y) {
         if (y > -1 && y < this.largeur) {
             int x = 0;
@@ -260,7 +262,7 @@ public class Plateau {
     }
 
 
-    // ajoute une colonne en dessous par nombre de colonnes supprimer:
+    // Ajoute une ligne en dessous du plateau et décale toutes les autres lignes vers le haut:
     public void ajouteLigneEnBas() {
         for (int i = 0; i < this.longueur - 1; i++) {
             for (int j = 0; j < this.largeur; j++)
@@ -270,7 +272,7 @@ public class Plateau {
             this.plateau[this.longueur - 1][i].container = new Bloc(new Random().nextInt(4));
     }
 
-    //Utiliser avant ajouteLigneEnbas:
+    //Utiliser avant ajouteLigneEnbas: compte les sacs sur la dernière ligne avant leur suppression
     public int nbrArgentPerdu() {
         int a = 0;
         if (this.longueur > 0) {
@@ -285,7 +287,7 @@ public class Plateau {
         return a;
     }
 
-    //Plus d'annimaux à save = fin de partie
+    //Compte le nombre de sac a save: plus de sac à save = fin de partie
     public int resteASave() {
         int a = 0;
         for (int i = 0; i < this.plateau.length; i++) {
@@ -297,7 +299,7 @@ public class Plateau {
         return a;
     }
 
-    // Prototype Bonus Joueur: Renvoie le nombre d'argent supprimer avec:
+    //Bonus Joueur: Supprime la colonne et renvoie le nombre de sac contenu dessus:
     public int bonusEnColonne(int y) {
         int a = 0;
         if (y > -1 && y < this.largeur) {
@@ -312,6 +314,7 @@ public class Plateau {
         return a;
     }
 
+    //Sauve un sac d'argent au coordonnée x et y:
     public boolean sauvetageArgent(int x, int y) {
         if (x > -1 & y > -1 && x < this.longueur && y < this.largeur) {
             if (this.plateau[x][y].container instanceof Argent) {
@@ -322,6 +325,7 @@ public class Plateau {
         return false;
     }
 
+    //Vérifie si la case (x,y) peut encore etre choisie par le joueur(case adjacente de même couleur):
     public boolean choixPossible(int x, int y) {
         if ((x & y) > -1 && x < this.longueur && y < this.largeur && (this.plateau[x][y].container != null) && (this.plateau[x][y].container instanceof Bloc)) {
             Bloc a = (Bloc) this.plateau[x][y].container;
@@ -342,6 +346,7 @@ public class Plateau {
         return false;
     }
 
+    //Verifie si le joueur ne peut plus faire aucun coup:
     public boolean plusDeCoup() {
         for (int i = 0; i < this.plateau.length; i++) {
             for (int j = 0; j < this.plateau[i].length; j++) {
