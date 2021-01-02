@@ -200,7 +200,6 @@ public class Plateau {
         }
     }
 
-
     public void decalageColonne() {
         for (int i = 0; i < this.largeur - 1; i++) {
             if (verifColonneVide(i)) {
@@ -323,7 +322,7 @@ public class Plateau {
         return false;
     }
 
-    public boolean choixPossible(int x,int y){
+    public boolean choixPossible(int x, int y) {
         if ((x & y) > -1 && x < this.longueur && y < this.largeur && (this.plateau[x][y].container != null) && (this.plateau[x][y].container instanceof Bloc)) {
             Bloc a = (Bloc) this.plateau[x][y].container;
             if (x != this.longueur - 1 && a.compareTo(this.plateau[x + 1][y].container) == 1) {
@@ -342,11 +341,12 @@ public class Plateau {
         }
         return false;
     }
+
     public boolean plusDeCoup() {
         for (int i = 0; i < this.plateau.length; i++) {
             for (int j = 0; j < this.plateau[i].length; j++) {
-                if (this.plateau[i][j].container instanceof Bloc ) {
-                    if(choixPossible(i,j)){
+                if (this.plateau[i][j].container instanceof Bloc) {
+                    if (choixPossible(i, j)) {
                         return true;
                     }
                 }
