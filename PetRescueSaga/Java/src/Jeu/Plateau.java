@@ -56,6 +56,8 @@ public class Plateau {
 
     // Affiche le plateau :
     public void afficherPlateau(){
+
+
         for(int i=0; i < this.plateau.length; i++){
             for (int j=0; j< this.plateau[i].length; j++){
                 if(this.plateau[i][j].container!=null) {
@@ -317,5 +319,28 @@ public class Plateau {
             }
         }
         return false;
+    }
+    // prototype jsp si ça fonctionne pck j'ai pas trouvée le bonus fusée du coup je l'ai fait...
+
+    public Case[][] suppCol( int colSupp)
+    {
+        int ligne = this.plateau.length;
+        int colonne = this.plateau[0].length;
+
+        Case [][] newTab = new Case[ligne][colonne-1];
+
+        for(int i = 0; i < ligne; i++)
+        {
+            for(int j = 0; j < colSupp; j++)
+            {
+                newTab[i][j] = this.plateau[i][j];
+            }
+
+            for(int j = colSupp; j < colonne-1; j++)
+            {
+                newTab[i][j] = this.plateau[i][j+1];
+            }
+        }
+        return newTab;
     }
 }

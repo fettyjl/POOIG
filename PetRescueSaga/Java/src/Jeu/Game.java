@@ -50,32 +50,31 @@ public class Game {
                                      System.out.print("choisir entre (P)/(F) ou (S) ");
                                      String pfs = sc.next();
                                      switch (pfs) {
-
                                          case "P" -> {
                                              System.out.println("Case à jouer pour bonus Peinture ? (x,y)");
                                              Container a;
-                                             int q,z;
-                                             do {
-                                                 System.out.println("Quel x ?");
-                                                 q = sc.nextInt();
-                                                 System.out.println("Quel y ?");
-                                                 z = sc.nextInt();
-                                                 a = choix.plateau.plateau[q][z].container;
-                                             } while ((q > -1 && q > choix.plateau.longueur) || (z > -1 && z > choix.plateau.largeur) && !(a instanceof Bloc) );
-                                             Bloc b = (Bloc) a;
-                                             b = b.changementCouleur();
-                                             choix.plateau.refreshPlateau();
-                                             choix.plateau.afficherPlateau();
-
-                                         }
-                                         case "F" -> {
-                                             System.out.println("Case à jouer pour bonus Fusée ? (x,y)");
                                              do {
                                                  System.out.println("Quel x ?");
                                                  x = sc.nextInt();
                                                  System.out.println("Quel y ?");
                                                  y = sc.nextInt();
-                                             } while ((x > -1 && x > choix.plateau.longueur) || (y > -1 && y > choix.plateau.largeur));
+                                                 a = choix.plateau.plateau[x][y].container;
+                                             } while ((x > -1 && x> choix.plateau.longueur) || (y> -1 && y> choix.plateau.largeur) && !(a instanceof Bloc));
+                                             Bloc b = (Bloc) a;
+                                             b = b.changementCouleur();
+                                             choix.plateau.refreshPlateau();
+                                             choix.plateau.afficherPlateau();
+                                         }
+                                         case "F" -> {
+                                             System.out.println("Case sur la derniere ligne à jouer pour bonus Fusée ? (y)");
+                                             do {
+                                                 System.out.println("Quel y ?");
+                                                 y = sc.nextInt();
+                                             } while ( (y > -1 && y > choix.plateau.largeur));
+                                             choix.plateau.bonusEnColonne(y);
+                                             choix.plateau.refreshPlateau();
+                                             choix.plateau.afficherPlateau();
+
                                          }
                                          case "S" -> {
                                              System.out.println("Case à jouer pour bonus Sauvetage ? (x,y)");
