@@ -12,7 +12,7 @@ public class MenuOuverture extends ImagePanel {
     JButton buttonQuitter = new JButton("Quitter");
 
     MenuOuverture(Fenetre fenetre) {
-        super("/bank.jpeg");
+        super("Image/bank.jpeg");
         this.fenetre = fenetre;
         this.setLayout(new GridBagLayout());
         GridBagConstraints c = new GridBagConstraints();

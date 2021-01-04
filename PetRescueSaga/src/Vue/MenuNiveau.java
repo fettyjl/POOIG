@@ -14,7 +14,7 @@ public class MenuNiveau extends ImagePanel {
     JButton retour = new JButton("Retour");
 
     MenuNiveau(Fenetre fenetre) {
-        super("/prepa.jpeg");
+        super("Image/prepa.jpeg");
         this.fenetre = fenetre;
         this.init();
     }
@@ -32,7 +32,7 @@ public class MenuNiveau extends ImagePanel {
         int x = 0;
         while (x < 8) {
             int a = fenetre.game.getListeNiveau().get(x).getNbEtoile();
-                        c.gridy++;
+            c.gridy++;
             this.add(new BoutonNiveau(x), c);
             c.gridx++;
             if (a > 0)
@@ -66,7 +66,7 @@ public class MenuNiveau extends ImagePanel {
         int x;
 
         BoutonNiveau(int x) {
-            super("Mission " + (x+1));
+            super("Mission " + (x + 1));
             this.x = x;
             Niveau a = fenetre.game.getListeNiveau().get(x);
             if (!a.isDispo()) {

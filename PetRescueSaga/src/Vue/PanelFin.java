@@ -11,7 +11,7 @@ public class PanelFin extends ImagePanel {
     JButton retour = new JButton("Retour");
 
     PanelFin(Fenetre fenetre, Niveau n) {
-        super("/voleur.jpeg");
+        super("Image/voleur.jpeg");
         this.fenetre = fenetre;
         this.n = n;
         this.setLayout(new GridBagLayout());

@@ -17,7 +17,7 @@ public class PartiePanel extends ImagePanel {
     boolean bs, bf, bc;
 
     public PartiePanel(Fenetre fenetre, Niveau n) {
-        super("/voleur.jpeg");
+        super("Image/voleur.jpeg");
         this.fenetre = fenetre;
         this.n = n;
         this.refresh();
@@ -45,7 +45,7 @@ public class PartiePanel extends ImagePanel {
                     }
                     add(new Carre(color, row, col), gbc);
                 } else if (n.getPlateau().getPlateau()[row][col].getContainer() instanceof Argent) {
-                    add(new Bourse("/bourse.jpeg", row, col), gbc);
+                    add(new Bourse("Image/bourse.jpeg", row, col), gbc);
                 } else {
                     color = new Color(191, 191, 191);
                     add(new Carre(color, row, col), gbc);
@@ -128,6 +128,7 @@ public class PartiePanel extends ImagePanel {
         public void actionPerformed(ActionEvent e) {
             if (bf) {
                 fenetre.game.ActionBonusFusée(this.y, n.getDifficulte());
+                n.setNbrTour(n.getNbrTour() + 1);
                 fenetre.partiePanel.removeAll();
                 fenetre.partiePanel.refresh();
                 fenetre.validate();
@@ -143,6 +144,7 @@ public class PartiePanel extends ImagePanel {
                 }
             } else if (bc) {
                 fenetre.game.ActionBonusPeinture(this.x, this.y, n.getDifficulte());
+                n.setNbrTour(n.getNbrTour() + 1);
                 fenetre.partiePanel.removeAll();
                 fenetre.partiePanel.refresh();
                 fenetre.validate();
@@ -204,7 +206,7 @@ public class PartiePanel extends ImagePanel {
 
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
-            Image monImage = new ImageIcon(getClass().getResource(path)).getImage();
+            Image monImage = new ImageIcon("./"+path).getImage();
             g.drawImage(monImage, 0, 0, 50, 50, this);
 
         }
@@ -217,6 +219,7 @@ public class PartiePanel extends ImagePanel {
         public void actionPerformed(ActionEvent e) {
             if (bs) {
                 fenetre.game.ActionBonusSauvetage(this.x, this.y, n.getDifficulte());
+                n.setNbrTour(n.getNbrTour() + 1);
                 fenetre.partiePanel.removeAll();
                 fenetre.partiePanel.refresh();
                 fenetre.validate();
