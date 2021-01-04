@@ -23,7 +23,7 @@ public class Game {
             System.out.println("Bienvenue sur le Jeu Payday !");
             System.out.println("Liste des niveaux :");
             for (Niveau n : this.listeNiveau) {
-                System.out.println("Niveau " + n.difficulte+1);
+                System.out.println("Niveau " + (n.difficulte+1));
             }
             int s;
             do {
@@ -42,6 +42,76 @@ public class Game {
                         //Donner la possibilité au Joueur d'utiliser les bonus TODO
 
                         choix.plateau.afficherPlateau();
+
+                        boolean verif = false;
+                        String lettre = "NULL";
+
+                        do{
+                            System.out.print("Voulez utiliser un BONUS ? [Y/N]: ");
+                            lettre = sc.next();
+                            switch (lettre.toUpperCase()) {
+                                case "Y" -> {
+                                    lettre = "Y";
+                                    verif = true;
+                                }
+                                case "N" -> {
+                                    lettre = "N";
+                                    verif = true;
+                                }
+                                default -> System.out.println("Choisir entre Y ou N");
+                            }
+                        }while (!verif);
+
+                        if (lettre.equals("Y")){
+                            boolean verif2 = false;
+                            String lettre2 = "NULL";
+                            do {
+                                System.out.print("Quel BONUS voulez-vous utiliser ? Peinture/Fusée/Sauvetage ? [P/F/S]: ");
+                                lettre2 = sc.next();
+                                switch (lettre2.toUpperCase()) {
+                                    case "P" -> {
+                                        System.out.println("Case à jouer pour bonus Peinture ? (x,y)");
+                                        Container a;
+                                        do {
+                                            System.out.println("Quel x ?");
+                                            x = sc.nextInt();
+                                            System.out.println("Quel y ?");
+                                            y = sc.nextInt();
+                                            a = choix.plateau.plateau[x][y].container;
+                                        } while ((x < -1 || x > choix.plateau.longueur) || (y < -1 || y > choix.plateau.largeur) && !(a instanceof Bloc));
+                                        ActionBonusPeinture(x,y,choix.getDifficulte());
+                                        choix.plateau.afficherPlateau();
+                                        verif2 = true;
+                                    }
+                                    case "F" -> {
+                                        System.out.println("Case sur la derniere ligne à jouer pour bonus Fusée ? (y)");
+                                        do {
+                                            System.out.println("Quel y ?");
+                                            y = sc.nextInt();
+                                        } while ((y < -1 || y > choix.plateau.largeur));
+                                        ActionBonusFusée(y, choix.getDifficulte());
+                                        choix.plateau.afficherPlateau();
+                                        verif2 = true;
+                                    }
+                                    case "S" -> {
+                                        System.out.println("Case à jouer pour bonus Sauvetage ? (x,y)");
+                                        Container a;
+                                        do {
+                                            System.out.println("Quel x ?");
+                                            x = sc.nextInt();
+                                            System.out.println("Quel y ?");
+                                            y = sc.nextInt();
+                                            a = choix.plateau.plateau[x][y].container;
+                                        } while ((x < -1 || x > choix.plateau.longueur) || (y < -1 || y > choix.plateau.largeur) && !(a instanceof Argent));
+                                        ActionBonusSauvetage(x,y,choix.getDifficulte());
+                                        choix.plateau.afficherPlateau();
+                                        verif2 = true;
+                                    }
+                                    default -> System.out.println("FAIRE UN CHOIX ENTRE (P) (F) (S)");
+                                }
+                            }while (!verif2);
+                        }
+
 
                         System.out.println("Case à jouer (x,y)");
                         do {
@@ -117,5 +187,10 @@ public class Game {
 
     public void setListeNiveau(ArrayList<Niveau> listeNiveau) {
         this.listeNiveau = listeNiveau;
+    }
+
+    public static void main(String[] args) {
+        Game jeu = new Game();
+        jeu.lanceurGame();
     }
 }
