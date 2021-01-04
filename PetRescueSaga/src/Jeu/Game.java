@@ -42,7 +42,7 @@ public class Game {
 
                         choix.plateau.afficherPlateau();
 
-                        if(UtiliseBonus()){
+                        if (UtiliseBonus()) {
                             JouerBonus(choix);
                             int a = choix.plateau.nombreCaseSupp() * 10;
                             choix.score += a;
@@ -60,7 +60,7 @@ public class Game {
                                     }
                                 }
                             }
-                        } else{
+                        } else {
                             System.out.println("Case à jouer (x,y)");
                             do {
                                 System.out.println("Quel x ?");
@@ -88,8 +88,6 @@ public class Game {
                                 choix.nbrTour++;
                             }
                         }
-
-
                     } while ((choix.plateau.resteASave() != 0 || (choix.plateau.plusDeCoup() && joueur.bonus.plusDeBonus() && choix.argentSave > 1)) && !perdu);
                     if (!perdu) {
                         this.joueur.scoreTot += choix.score;
@@ -131,7 +129,7 @@ public class Game {
     public boolean UtiliseBonus() {
         boolean verif = false;
         boolean rep = false;
-        String lettre="NULL";
+        String lettre = "NULL";
         Scanner sc = new Scanner(System.in);
         do {
             System.out.print("Voulez utiliser un BONUS ? [Y/N]: ");
@@ -166,41 +164,75 @@ public class Game {
                 case "P" -> {
                     System.out.println("Case à jouer pour bonus Peinture ? (x,y)");
                     Container a;
-                    do {
-                        System.out.println("Quel x ?");
-                        x = sc.nextInt();
-                        System.out.println("Quel y ?");
-                        y = sc.nextInt();
-                        a = choix.plateau.plateau[x][y].container;
-                    } while ((x < -1 || x > choix.plateau.longueur) || (y < -1 || y > choix.plateau.largeur) && !(a instanceof Bloc));
-                    ActionBonusPeinture(x, y, choix.getDifficulte());
+                    try {
+                        do {
+                            System.out.println("Quel x ?");
+                            x = sc.nextInt();
+                            System.out.println("Quel y ?");
+                            y = sc.nextInt();
+                            a = choix.plateau.plateau[x][y].container;
+                        } while ((x < -1 || x > choix.plateau.longueur) || (y < -1 || y > choix.plateau.largeur) && !(a instanceof Bloc));
+                        ActionBonusPeinture(x, y, choix.getDifficulte());
+                    } catch (Exception e) {
+                        System.out.println("SAISIE INCORRECT !");
+                    }
                     verif2 = true;
                 }
                 case "F" -> {
                     System.out.println("Colonne sur laquel jouer pour bonus Fusée ? (y)");
-                    do {
-                        System.out.println("Quel y ?");
-                        y = sc.nextInt();
-                    } while ((y < -1 || y > choix.plateau.largeur));
-                    ActionBonusFusée(y, choix.getDifficulte());
+                    try {
+                        do {
+                            System.out.println("Quel y ?");
+                            y = sc.nextInt();
+                        } while (y < -1 || y > choix.plateau.largeur);
+                        ActionBonusFusée(y, choix.getDifficulte());
+                    } catch (Exception e) {
+                        System.out.println("SAISIE INCORRECT !");
+                    }
                     verif2 = true;
                 }
                 case "S" -> {
                     System.out.println("Case à jouer pour bonus Sauvetage ? (x,y)");
                     Container a;
-                    do {
-                        System.out.println("Quel x ?");
-                        x = sc.nextInt();
-                        System.out.println("Quel y ?");
-                        y = sc.nextInt();
-                        a = choix.plateau.plateau[x][y].container;
-                    } while ((x < -1 || x > choix.plateau.longueur) || (y < -1 || y > choix.plateau.largeur) && !(a instanceof Argent));
-                    ActionBonusSauvetage(x, y, choix.getDifficulte());
+                    try {
+                        do {
+                            System.out.println("Quel x ?");
+                            x = sc.nextInt();
+                            System.out.println("Quel y ?");
+                            y = sc.nextInt();
+                            a = choix.plateau.plateau[x][y].container;
+                        } while ((x < -1 || x > choix.plateau.longueur) || (y < -1 || y > choix.plateau.largeur) && !(a instanceof Argent));
+                        ActionBonusSauvetage(x, y, choix.getDifficulte());
+                    } catch (Exception e) {
+                        System.out.println("SAISIE INCORRECT !");
+                    }
                     verif2 = true;
                 }
                 default -> System.out.println("FAIRE UN CHOIX ENTRE (P) (F) (S)");
             }
         } while (!verif2);
+    }
+
+
+    public static void afficherPayDay(){
+        System.out.println("""
+                ============================================================================================================================= 
+                |                                                                                                                           |
+                |     /$$$$$$$                     /$$$$$$$                             /$$$$$$                                  \s          | 
+                |    | $$__  $$                   | $$__  $$                           /$$__  $$                                 \s          | 
+                |    | $$  \\ $$ /$$$$$$  /$$   /$$| $$  \\ $$  /$$$$$$  /$$   /$$      | $$  \\__/  /$$$$$$  /$$$$$$/$$$$   /$$$$$$\s          |    
+                |    | $$$$$$$/|____  $$| $$  | $$| $$  | $$ |____  $$| $$  | $$      | $$ /$$$$ |____  $$| $$_  $$_  $$ /$$__  $$          |
+                |    | $$____/  /$$$$$$$| $$  | $$| $$  | $$  /$$$$$$$| $$  | $$      | $$|_  $$  /$$$$$$$| $$ \\ $$ \\ $$| $$$$$$$$          |    
+                |    | $$      /$$__  $$| $$  | $$| $$  | $$ /$$__  $$| $$  | $$      | $$  \\ $$ /$$__  $$| $$ | $$ | $$| $$_____/          |
+                |    | $$     |  $$$$$$$|  $$$$$$$| $$$$$$$/|  $$$$$$$|  $$$$$$$      |  $$$$$$/|  $$$$$$$| $$ | $$ | $$|  $$$$$$$          |    
+                |    |__/      \\_______/ \\____  $$|_______/  \\_______/ \\____  $$       \\______/  \\_______/|__/ |__/ |__/ \\_______/          |    
+                |                        /$$  | $$                     /$$  | $$                                                 \s          |    
+                |                       |  $$$$$$/                    |  $$$$$$/                                                 \s          |    
+                |                        \\______/                      \\______/                                                  \s          |    
+                |                                                                                                                           |
+                =============================================================================================================================    
+                                     
+                """);
     }
 
     public Joueur getJoueur() {
@@ -221,6 +253,7 @@ public class Game {
 
     public static void main(String[] args) {
         Game jeu = new Game();
+        afficherPayDay();
         jeu.lanceurGame();
     }
 }
