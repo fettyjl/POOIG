@@ -39,7 +39,6 @@ public class Game {
                         System.out.println("Sac d'argent sauvés :" + choix.argentSave + "/4");
                         System.out.println("Sac perdu :" + choix.argentPerdu + "/4");
                         System.out.println("Bonus Peinture " + this.joueur.bonus.peinture + "/ Fusée " + this.joueur.bonus.fusee + "/ Sauvetage " + this.joueur.bonus.sauvetage);
-                        //Donner la possibilité au Joueur d'utiliser les bonus TODO
 
                         choix.plateau.afficherPlateau();
 
