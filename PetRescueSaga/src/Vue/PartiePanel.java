@@ -128,7 +128,6 @@ public class PartiePanel extends ImagePanel {
         public void actionPerformed(ActionEvent e) {
             if (bf) {
                 fenetre.game.ActionBonusFusée(this.y, n.getDifficulte());
-                n.setNbrTour(n.getNbrTour() + 1);
                 fenetre.partiePanel.removeAll();
                 fenetre.partiePanel.refresh();
                 fenetre.validate();
@@ -144,7 +143,6 @@ public class PartiePanel extends ImagePanel {
                 }
             } else if (bc) {
                 fenetre.game.ActionBonusPeinture(this.x, this.y, n.getDifficulte());
-                n.setNbrTour(n.getNbrTour() + 1);
                 fenetre.partiePanel.removeAll();
                 fenetre.partiePanel.refresh();
                 fenetre.validate();
@@ -219,7 +217,6 @@ public class PartiePanel extends ImagePanel {
         public void actionPerformed(ActionEvent e) {
             if (bs) {
                 fenetre.game.ActionBonusSauvetage(this.x, this.y, n.getDifficulte());
-                n.setNbrTour(n.getNbrTour() + 1);
                 fenetre.partiePanel.removeAll();
                 fenetre.partiePanel.refresh();
                 fenetre.validate();

@@ -59,7 +59,6 @@ public class Game {
                                         System.out.println("La police vous a attrapé, vous n'avez pas réussi a sauvé un nombre de sac suffisant !");
                                     }
                                 }
-                                choix.nbrTour++;
                             }
                         } else{
                             System.out.println("Case à jouer (x,y)");
@@ -107,6 +106,7 @@ public class Game {
             if (listeNiveau.get(n).plateau.sauvetageArgent(x, y)) {
                 listeNiveau.get(n).argentSave++;
                 joueur.bonus.sauvetage--;
+                listeNiveau.get(n).nbrTour++;
             }
         }
     }
@@ -116,6 +116,7 @@ public class Game {
             listeNiveau.get(n).argentSave += listeNiveau.get(n).plateau.bonusEnColonne(y);
             listeNiveau.get(n).plateau.refreshPlateau();
             joueur.bonus.fusee--;
+            listeNiveau.get(n).nbrTour++;
         }
     }
 
@@ -123,13 +124,14 @@ public class Game {
         if ((joueur.bonus.peinture > 0) && (listeNiveau.get(n).plateau.plateau[x][y].container instanceof Bloc)) {
             listeNiveau.get(n).plateau.plateau[x][y].container = ((Bloc) listeNiveau.get(n).plateau.plateau[x][y].container).changementCouleur();
             joueur.bonus.peinture--;
+            listeNiveau.get(n).nbrTour++;
         }
     }
 
     public boolean UtiliseBonus() {
         boolean verif = false;
         boolean rep = false;
-        String lettre = "NULL";
+        String lettre="NULL";
         Scanner sc = new Scanner(System.in);
         do {
             System.out.print("Voulez utiliser un BONUS ? [Y/N]: ");
@@ -172,17 +174,15 @@ public class Game {
                         a = choix.plateau.plateau[x][y].container;
                     } while ((x < -1 || x > choix.plateau.longueur) || (y < -1 || y > choix.plateau.largeur) && !(a instanceof Bloc));
                     ActionBonusPeinture(x, y, choix.getDifficulte());
-                    choix.plateau.afficherPlateau();
                     verif2 = true;
                 }
                 case "F" -> {
-                    System.out.println("Case sur la derniere ligne à jouer pour bonus Fusée ? (y)");
+                    System.out.println("Colonne sur laquel jouer pour bonus Fusée ? (y)");
                     do {
                         System.out.println("Quel y ?");
                         y = sc.nextInt();
                     } while ((y < -1 || y > choix.plateau.largeur));
                     ActionBonusFusée(y, choix.getDifficulte());
-                    choix.plateau.afficherPlateau();
                     verif2 = true;
                 }
                 case "S" -> {
@@ -196,7 +196,6 @@ public class Game {
                         a = choix.plateau.plateau[x][y].container;
                     } while ((x < -1 || x > choix.plateau.longueur) || (y < -1 || y > choix.plateau.largeur) && !(a instanceof Argent));
                     ActionBonusSauvetage(x, y, choix.getDifficulte());
-                    choix.plateau.afficherPlateau();
                     verif2 = true;
                 }
                 default -> System.out.println("FAIRE UN CHOIX ENTRE (P) (F) (S)");
