@@ -25,6 +25,7 @@ public class Game implements Serializable {
     //Lance la partie sur le terminal:
     public void lanceurGame() {
         try (Scanner sc = new Scanner(System.in)) {
+            System.out.println("Payday");
             System.out.println("Liste des niveaux :");
             for (Niveau n : this.listeNiveau) {
                 int i = n.nbEtoile;
@@ -154,7 +155,7 @@ public class Game implements Serializable {
 
     public void botGame() {
         try (Scanner sc = new Scanner(System.in)) {
-            afficherPayDay();
+            System.out.println("Payday");
             System.out.println("Liste des niveaux :");
             int m = 1;
             while (m < 9) {
