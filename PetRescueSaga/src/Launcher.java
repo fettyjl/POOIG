@@ -33,6 +33,7 @@ public class Launcher implements Serializable {
                     return;
             }
         }catch (Exception e){
+            e.printStackTrace();
             System.out.println("Une erreur vous a pas permis de lancer le jeu, Réessayez ...");
         }
     }

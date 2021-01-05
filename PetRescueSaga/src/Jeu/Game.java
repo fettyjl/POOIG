@@ -153,6 +153,7 @@ public class Game implements Serializable {
         return rep;
     }
 
+
     public void JouerBonus(Niveau choix) {
         int x, y;
         Scanner sc = new Scanner(System.in);
@@ -164,50 +165,45 @@ public class Game implements Serializable {
             lettre2 = sc.next();
             switch (lettre2.toUpperCase()) {
                 case "P" -> {
+                    int s = 0;
                     System.out.println("Case à jouer pour bonus Peinture ? (x,y)");
-                    Container a;
-                    try {
+                    do {
                         do {
-                            System.out.println("Quel x ?");
-                            x = sc.nextInt();
-                            System.out.println("Quel y ?");
-                            y = sc.nextInt();
-                            a = choix.plateau.plateau[x][y].container;
-                        } while ((x < -1 || x > choix.plateau.longueur) || (y < -1 || y > choix.plateau.largeur) && !(a instanceof Bloc));
-                        ActionBonusPeinture(x, y, choix.getDifficulte());
-                    } catch (Exception e) {
-                        System.out.println("SAISIE INCORRECT !");
-                    }
+                            if (s > 0)
+                                System.out.println("Saisie incorrect, Recommencez...");
+                            x = readInt(sc, "Quel X ? ", "Ceci n'est pas un nombre entier. Recommencez : ");
+                            y = readInt(sc, "Quel Y ? ", "Ceci n'est pas un nombre entier. Recommencez : ");
+                            s++;
+                        } while ((x < 0 || x > choix.plateau.longueur) || (y < 0 || y > choix.plateau.largeur));
+                    } while (!(choix.plateau.plateau[x][y].container instanceof Bloc));
+                    ActionBonusPeinture(x, y, choix.getDifficulte());
                     verif2 = true;
                 }
                 case "F" -> {
+                    int s = 0;
                     System.out.println("Colonne sur laquel jouer pour bonus Fusée ? (y)");
-                    try {
-                        do {
-                            System.out.println("Quel y ?");
-                            y = sc.nextInt();
-                        } while (y < -1 || y > choix.plateau.largeur);
-                        ActionBonusFusée(y, choix.getDifficulte());
-                    } catch (Exception e) {
-                        System.out.println("SAISIE INCORRECT !");
-                    }
+                    do {
+                        if (s > 0)
+                            System.out.println("Saisie incorrect, Recommencez...");
+                        y = readInt(sc, "Quel Y ? ", "Ceci n'est pas un nombre entier. Recommencez : ");
+                        s++;
+                    } while (y < 0 || y > choix.plateau.largeur);
+                    ActionBonusFusée(y, choix.getDifficulte());
                     verif2 = true;
                 }
                 case "S" -> {
                     System.out.println("Case à jouer pour bonus Sauvetage ? (x,y)");
-                    Container a;
-                    try {
+                    int s = 0;
+                    do {
                         do {
-                            System.out.println("Quel x ?");
-                            x = sc.nextInt();
-                            System.out.println("Quel y ?");
-                            y = sc.nextInt();
-                            a = choix.plateau.plateau[x][y].container;
-                        } while ((x < -1 || x > choix.plateau.longueur) || (y < -1 || y > choix.plateau.largeur) && !(a instanceof Argent));
-                        ActionBonusSauvetage(x, y, choix.getDifficulte());
-                    } catch (Exception e) {
-                        System.out.println("SAISIE INCORRECT !");
-                    }
+                            if (s > 0)
+                                System.out.println("Saisie incorrect, Recommencez...");
+                            x = readInt(sc, "Quel X ? ", "Ceci n'est pas un nombre entier. Recommencez : ");
+                            y = readInt(sc, "Quel Y ? ", "Ceci n'est pas un nombre entier. Recommencez : ");
+                            s++;
+                        } while ((x < 0 || x > choix.plateau.longueur) || (y < 0 || y > choix.plateau.largeur));
+                    }while( !(choix.plateau.plateau[x][y].container instanceof Argent));
+                    ActionBonusSauvetage(x, y, choix.getDifficulte());
                     verif2 = true;
                 }
                 default -> System.out.println("FAIRE UN CHOIX ENTRE (P) (F) (S)");
@@ -215,7 +211,7 @@ public class Game implements Serializable {
         } while (!verif2);
     }
 
-    public static void afficherPayDay(){
+    public static void afficherPayDay() {
         System.out.println("""
                 ============================================================================================================================= 
                 |                                                                                                                           |
@@ -234,6 +230,21 @@ public class Game implements Serializable {
                 =============================================================================================================================    
                                      
                 """);
+    }
+
+    public static int readInt(Scanner scanner, String prompt, String promptOnError) {
+
+        System.out.print(prompt);
+
+        while (!scanner.hasNextInt()) {
+            System.out.print(promptOnError);
+            scanner.nextLine(); // vidage saisie incorrect
+        }
+
+        final int input = scanner.nextInt();
+        scanner.nextLine(); // vidage buffer
+        return input;
+
     }
 
     public Joueur getJoueur() {
