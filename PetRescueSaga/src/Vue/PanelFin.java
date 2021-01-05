@@ -29,18 +29,26 @@ public class PanelFin extends ImagePanel {
             this.add(new JButton("Mission Réussite !"), gbc);
         else this.add(new JButton("Les policiers vous ont attrapé !"), gbc);
         gbc.gridy++;
-        this.add(new JButton(), gbc);
+        this.add(new JButton("Etoile obtenu sur cette partie "+(n.getArgentSave()-1)), gbc);
         gbc.gridy++;
         this.retour.addActionListener(e -> {
-            fenetre.menuNiveau = new MenuNiveau(fenetre);
-            fenetre.container.add(fenetre.menuNiveau, "MenuNiveau");
+            fenetre.menuNiveau.removeAll();
+            fenetre.menuNiveau.init();
+            fenetre.validate();
             fenetre.cl.show(fenetre.container, "MenuNiveau");
         });
         this.add(this.retour, gbc);
         Niveau a = new Niveau(n.getDifficulte());
         a.setDispo(fenetre.game.getListeNiveau().get(n.getDifficulte()).isDispo());
-        a.setNbEtoile(n.getArgentSave() - 1);
+
+        // Conserve le nombre d'etoile obtenu le plus haut:
+        if(fenetre.game.getListeNiveau().get(n.getDifficulte()).getNbEtoile() < (n.getArgentSave() - 1))
+             a.setNbEtoile(n.getArgentSave() - 1);
+        else
+            a.setNbEtoile(fenetre.game.getListeNiveau().get(n.getDifficulte()).getNbEtoile());
+
         fenetre.game.getListeNiveau().set(n.getDifficulte(),a);
+        // Debloque le prochain niveau :
         if (n.getDifficulte() < fenetre.game.getListeNiveau().size()) {
             Niveau b = fenetre.game.getListeNiveau().get(n.getDifficulte()+1);
             if (n.isResultat() && !b.isDispo()) {

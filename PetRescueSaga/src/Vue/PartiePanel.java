@@ -98,7 +98,6 @@ public class PartiePanel extends ImagePanel {
             fenetre.menuNiveau.removeAll();
             fenetre.menuNiveau.init();
             fenetre.validate();
-            fenetre.container.add(fenetre.menuNiveau, "MenuNiveau");
             fenetre.cl.show(fenetre.container, "MenuNiveau");
             Niveau a = new Niveau(n.getDifficulte());
             a.setDispo(true);
