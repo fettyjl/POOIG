@@ -10,7 +10,7 @@ public class MenuOuverture extends ImagePanel {
     Fenetre fenetre;
     JLabel titre = new JLabel("<html><h1><strong><i><font color=\"white\"> Payday !</font></i></strong></h1><hr></html>");
     JButton buttonJouer = new JButton("Jouer");
-    JButton buttonOption = new JButton("Aide");
+    JButton buttonAide= new JButton("Aide");
     JButton buttonQuitter = new JButton("Quitter");
 
     MenuOuverture(Fenetre fenetre) {
@@ -28,11 +28,12 @@ public class MenuOuverture extends ImagePanel {
         c.gridy = 1;
         this.add(this.buttonJouer, c);
         c.gridy = 2;
-        this.add(this.buttonOption, c);
+        this.add(this.buttonAide, c);
         c.gridy = 3;
         this.add(this.buttonQuitter, c);
 
         this.buttonJouer.addActionListener((e) -> this.fenetre.cl.show(this.fenetre.container, "MenuNiveau"));
+        this.buttonAide.addActionListener( (e) -> this.fenetre.cl.show(this.fenetre.container, "Aide"));
         this.buttonQuitter.addActionListener((e) -> {
             Serialisation.ecriture(fenetre.game);
             System.exit(0);

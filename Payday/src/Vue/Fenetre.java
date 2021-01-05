@@ -12,6 +12,7 @@ public class Fenetre extends JFrame {
     CardLayout cl;
     MenuOuverture menuOuverture = new MenuOuverture(this);
     MenuNiveau menuNiveau = new MenuNiveau(this);
+    Aide aide = new Aide(this);
     PartiePanel partiePanel = new PartiePanel(this, game.getListeNiveau().get(0));
     public PanelFin panelFin = new PanelFin(this, game.getListeNiveau().get(0));
 
@@ -33,6 +34,7 @@ public class Fenetre extends JFrame {
         this.container.add(this.menuNiveau, "MenuNiveau");
         this.container.add(this.partiePanel, "PartiePanel");
         this.container.add(this.panelFin, "PanelFin");
+        this.container.add(this.aide, "Aide");
 
         this.add(this.container);
         this.cl.show(this.container, "MenuOuverture");
