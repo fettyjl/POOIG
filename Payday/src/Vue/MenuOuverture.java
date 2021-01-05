@@ -10,7 +10,7 @@ public class MenuOuverture extends ImagePanel {
     Fenetre fenetre;
     JLabel titre = new JLabel("<html><h1><strong><i><font color=\"white\"> Payday !</font></i></strong></h1><hr></html>");
     JButton buttonJouer = new JButton("Jouer");
-    JButton buttonOption = new JButton("Option");
+    JButton buttonOption = new JButton("Aide");
     JButton buttonQuitter = new JButton("Quitter");
 
     MenuOuverture(Fenetre fenetre) {
