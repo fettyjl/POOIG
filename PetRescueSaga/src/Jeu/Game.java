@@ -21,7 +21,7 @@ public class Game implements Serializable {
     //Lance la partie sur le terminal:
     public void lanceurGame() {
         try (Scanner sc = new Scanner(System.in)) {
-            System.out.println("Bienvenue sur le Jeu Payday !");
+            afficherPayDay();
             System.out.println("Liste des niveaux :");
             for (Niveau n : this.listeNiveau) {
                 System.out.println("Niveau " + (n.difficulte + 1));
@@ -202,6 +202,27 @@ public class Game implements Serializable {
                 default -> System.out.println("FAIRE UN CHOIX ENTRE (P) (F) (S)");
             }
         } while (!verif2);
+    }
+
+    public static void afficherPayDay(){
+        System.out.println("""
+                ============================================================================================================================= 
+                |                                                                                                                           |
+                |     /$$$$$$$                     /$$$$$$$                             /$$$$$$                                  \s          | 
+                |    | $$__  $$                   | $$__  $$                           /$$__  $$                                 \s          | 
+                |    | $$  \\ $$ /$$$$$$  /$$   /$$| $$  \\ $$  /$$$$$$  /$$   /$$      | $$  \\__/  /$$$$$$  /$$$$$$/$$$$   /$$$$$$\s          |    
+                |    | $$$$$$$/|____  $$| $$  | $$| $$  | $$ |____  $$| $$  | $$      | $$ /$$$$ |____  $$| $$_  $$_  $$ /$$__  $$          |
+                |    | $$____/  /$$$$$$$| $$  | $$| $$  | $$  /$$$$$$$| $$  | $$      | $$|_  $$  /$$$$$$$| $$ \\ $$ \\ $$| $$$$$$$$          |    
+                |    | $$      /$$__  $$| $$  | $$| $$  | $$ /$$__  $$| $$  | $$      | $$  \\ $$ /$$__  $$| $$ | $$ | $$| $$_____/          |
+                |    | $$     |  $$$$$$$|  $$$$$$$| $$$$$$$/|  $$$$$$$|  $$$$$$$      |  $$$$$$/|  $$$$$$$| $$ | $$ | $$|  $$$$$$$          |    
+                |    |__/      \\_______/ \\____  $$|_______/  \\_______/ \\____  $$       \\______/  \\_______/|__/ |__/ |__/ \\_______/          |    
+                |                        /$$  | $$                     /$$  | $$                                                 \s          |    
+                |                       |  $$$$$$/                    |  $$$$$$/                                                 \s          |    
+                |                        \\______/                      \\______/                                                  \s          |    
+                |                                                                                                                           |
+                =============================================================================================================================    
+                                     
+                """);
     }
 
     public Joueur getJoueur() {
