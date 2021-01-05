@@ -156,7 +156,7 @@ public class Plateau implements Serializable {
         }
     }
 
-    // Compte le nombre d'animaux save:
+    // Compte le nombre d'argent save:
     public int argentSave() {
         int a = 0;
         if (this.longueur > 0) {

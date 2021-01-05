@@ -12,23 +12,28 @@ public class Bonus implements Serializable {
         this.peinture = 3;
         this.sauvetage = 1;
     }
+
     //Rajout de bonus :
     public void rajout() {
-        this.fusee = fusee + 1;
-        this.peinture = peinture + 2;
-        this.sauvetage = sauvetage + 1;
+        if (fusee < 15)
+            this.fusee = fusee + 1;
+        if (peinture < 14)
+            this.peinture = peinture + 2;
+        if (sauvetage < 15)
+            this.sauvetage = sauvetage + 1;
     }
 
     //Verifie si il n'y a plus de bonus:
     public boolean plusDeBonus() {
-        if (fusee == 0 && peinture == 0 && sauvetage == 0){
+        if (fusee == 0 && peinture == 0 && sauvetage == 0) {
             return true;
         }
         return false;
     }
+
     //Verifie si il n'y a plus de bonus Fusée et Peinture:
-    public boolean plusDeFetP(){
-        if (fusee == 0 && peinture == 0){
+    public boolean plusDeFetP() {
+        if (fusee == 0 && peinture == 0) {
             return true;
         }
         return false;

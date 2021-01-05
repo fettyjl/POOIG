@@ -49,7 +49,7 @@ public class PanelFin extends ImagePanel {
 
         fenetre.game.getListeNiveau().set(n.getDifficulte(),a);
         // Debloque le prochain niveau :
-        if (n.getDifficulte() < fenetre.game.getListeNiveau().size()) {
+        if (n.getDifficulte() < fenetre.game.getListeNiveau().size()-1) {
             Niveau b = fenetre.game.getListeNiveau().get(n.getDifficulte()+1);
             if (n.isResultat() && !b.isDispo()) {
                 b.setDispo(true);
