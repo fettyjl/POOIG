@@ -370,7 +370,6 @@ public class Plateau implements Serializable {
         }
         return false;
     }
-
     public int getLargeur() {
         return largeur;
     }

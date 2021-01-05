@@ -16,7 +16,7 @@ public class Launcher implements Serializable {
         try {
             Scanner sc = new Scanner(System.in);
 
-            System.out.println("1 : Jouer en Terminal \n2 : Jouer en Interface \n0 : Exit");
+            System.out.println("1 : Jouer en Terminal \n2 : Jouer en Interface \n3 : Faire jouer un bot \n0 : Exit");
 
             switch (sc.nextInt()) {
                 case 0:
@@ -28,6 +28,8 @@ public class Launcher implements Serializable {
                 case 2:
                     playInInter();
                     break;
+                case 3:
+                    playBot();
                 default:
                     System.exit(1);
                     return;
@@ -55,5 +57,8 @@ public class Launcher implements Serializable {
                 a.setVisible(true);
             }
         });
+    }
+    public static void playBot(){
+        new Game().botGame();
     }
 }

@@ -5,6 +5,7 @@ import Vue.MenuNiveau;
 import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Game implements Serializable {
@@ -120,7 +121,7 @@ public class Game implements Serializable {
                                     choix.nbrTour++;
                                 }
                             }
-                        } while ((choix.plateau.resteASave() != 0 || (choix.plateau.plusDeCoup() && joueur.bonus.plusDeBonus() && choix.argentSave > 1)) && !perdu);
+                        } while ((choix.plateau.resteASave() != 0 || (!choix.plateau.plusDeCoup() && joueur.bonus.plusDeBonus() && choix.argentSave > 1)) && !perdu);
                         if (!perdu) {
                             this.joueur.scoreTot += choix.score;
                             this.joueur.addBonus(choix.score);
@@ -147,7 +148,117 @@ public class Game implements Serializable {
                         default -> System.out.println("Choisir entre Y ou N");
                     }
                 } while (!verif);
-            } while (!(s > 1 && s < listeNiveau.size() + 1) || rejouer);
+            } while (!(s > 0 && s < listeNiveau.size() + 1) || rejouer);
+        }
+    }
+
+    public void botGame() {
+        try (Scanner sc = new Scanner(System.in)) {
+            afficherPayDay();
+            System.out.println("Liste des niveaux :");
+            int m = 1;
+            while (m < 9) {
+                System.out.println("Niveau " + m);
+                m++;
+            }
+            int n;
+            int x, y;
+            boolean perdu = false;
+            int f, p, s;
+            do {
+                n = readInt(sc, "Quel niveau voulez-vous sélectionné ? ", "Ceci n'est pas un nombre entier. Recommencez : ");
+                f = readInt(sc, "Combien de fusée ? ", "Ceci n'est pas un nombre entier. Recommencez : ");
+                p = readInt(sc, "Combien de peinture ? ", "Ceci n'est pas un nombre entier. Recommencez : ");
+                s = readInt(sc, "Quel niveau voulez-vous sélectionné ? ", "Ceci n'est pas un nombre entier. Recommencez : ");
+                if (!(n > 0 && n < listeNiveau.size()))
+                    System.out.println("Saisir un niveau existant");
+                Niveau niv = listeNiveau.get(n - 1);
+                joueur.bonus.fusee = f;
+                joueur.bonus.peinture = p;
+                joueur.bonus.sauvetage = s;
+
+                do {
+                    x = new Random().nextInt(8);
+                    y = new Random().nextInt(8);
+
+                    if (niv.plateau.plateau[x][y].caseEstVide(x, y)) {
+
+                    } else {
+                        System.out.println("Tour " + niv.nbrTour);
+                        System.out.println("Score :" + niv.score);
+                        System.out.println("Sac d'argent sauvés :" + niv.argentSave + "/4");
+                        System.out.println("Sac perdu :" + niv.argentPerdu + "/4");
+                        System.out.println("Bonus Peinture " +joueur.bonus.peinture + "/ Fusée " + joueur.bonus.fusee + "/ Sauvetage " + joueur.bonus.sauvetage);
+                        niv.plateau.afficherPlateau();
+                        if (niv.plateau.plateau[x][y].caseArgent(x, y)) {
+                            actionBonusSauvetage(x, y, n);
+                            int a = niv.plateau.nombreCaseSupp() * 10;
+                            niv.score += a;
+                            niv.plateau.supprimerCase();
+                            niv.argentSave += niv.plateau.argentSave();
+                            niv.plateau.refreshPlateau();
+
+                            if (a > 0) {
+                                if (niv.nbrTour % (10 - niv.difficulte) == 0) {
+                                    niv.argentPerdu += niv.plateau.nbrArgentPerdu();
+                                    niv.plateau.ajouteLigneEnBas();
+                                    if (niv.argentPerdu > 1 || ((niv.argentSave < 2) && !niv.plateau.plusDeCoup() && joueur.bonus.plusDeFetP() && joueur.bonus.sauvetage < niv.plateau.resteASave())) {
+                                        perdu = true;
+                                        System.out.println("La police vous a attrapé, vous n'avez pas réussi a sauvé un nombre de sac suffisant !");
+                                    }
+                                }
+                            }
+                        } else if (niv.plateau.plateau[x][y].caseBloc(x, y)) {
+                            if (!niv.plateau.choixPossible(x, y)) {
+                                if (joueur.bonus.peinture > 0) {
+                                    actionBonusPeinture(x, y, n);
+                                } else {
+                                    actionBonusFusee(y, n);
+                                }
+                                int a = niv.plateau.nombreCaseSupp() * 10;
+                                niv.score += a;
+                                niv.plateau.supprimerCase();
+                                niv.argentSave += niv.plateau.argentSave();
+                                niv.plateau.refreshPlateau();
+
+                                if (a > 0) {
+                                    if (niv.nbrTour % (10 - niv.difficulte) == 0) {
+                                        niv.argentPerdu += niv.plateau.nbrArgentPerdu();
+                                        niv.plateau.ajouteLigneEnBas();
+                                        if (niv.argentPerdu > 1 || ((niv.argentSave < 2) && !niv.plateau.plusDeCoup() && joueur.bonus.plusDeFetP() && joueur.bonus.sauvetage < niv.plateau.resteASave())) {
+                                            perdu = true;
+                                            System.out.println("La police vous a attrapé, vous n'avez pas réussi a sauvé un nombre de sac suffisant !");
+                                        }
+                                    }
+                                }
+                            } else {
+                                int a = niv.plateau.nombreCaseSupp() * 10;
+                                niv.score += a;
+                                niv.plateau.supprimerCase();
+                                niv.argentSave += niv.plateau.argentSave();
+                                niv.plateau.refreshPlateau();
+                                if (a > 0) {
+                                    if (niv.nbrTour % (10 - niv.difficulte) == 0) {
+                                        niv.argentPerdu += niv.plateau.nbrArgentPerdu();
+                                        niv.plateau.ajouteLigneEnBas();
+                                        if (niv.argentPerdu > 1 || ((niv.argentSave < 2) && !niv.plateau.plusDeCoup() && joueur.bonus.plusDeFetP() && joueur.bonus.sauvetage < niv.plateau.resteASave())) {
+                                            perdu = true;
+                                            System.out.println("La police vous a attrapé, vous n'avez pas réussi a sauvé un nombre de sac suffisant !");
+                                        }
+                                    }
+                                    niv.nbrTour++;
+                                }
+                            }
+                        }
+                    }
+                } while ((niv.plateau.resteASave() != 0 || (!niv.plateau.plusDeCoup() && joueur.bonus.plusDeBonus() && niv.argentSave > 1)) && !perdu);
+                if (!perdu) {
+                    this.joueur.scoreTot += niv.score;
+                    this.joueur.addBonus(niv.score);
+                    System.out.println("Vous avez réussi a sauvé un bon Nombre de sac !");
+                    this.listeNiveau.get(niv.difficulte + 1).dispo = true;
+                }
+            } while (!(n > 0 && n < listeNiveau.size()));
         }
     }
 
