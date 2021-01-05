@@ -162,11 +162,11 @@ public class PartiePanel extends ImagePanel {
                     }
                     n.setNbrTour(n.getNbrTour() + 1);
                 }
-                if (n.getArgentPerdu() > 1 || ((n.getArgentSave()<2) && !n.getPlateau().plusDeCoup() && fenetre.game.getJoueur().getBonus().plusDeFetP() && (fenetre.game.getJoueur().getBonus().getSauvetage() < n.getPlateau().resteASave()))) {
+                if (n.getArgentPerdu() > 1 || ((n.getArgentSave() < 2) && !n.getPlateau().plusDeCoup() && fenetre.game.getJoueur().getBonus().plusDeFetP() && (fenetre.game.getJoueur().getBonus().getSauvetage() < n.getPlateau().resteASave()))) {
                     fenetre.panelFin = new PanelFin(fenetre, n);
                     fenetre.container.add(fenetre.panelFin, "PanelFin");
                     fenetre.cl.show(fenetre.container, "PanelFin");
-                } else if (n.getPlateau().resteASave() == 0 || (!n.getPlateau().plusDeCoup() && fenetre.game.getJoueur().getBonus().plusDeBonus() && n.getArgentSave() > 1 && n.getArgentPerdu()<2)) {
+                } else if (n.getPlateau().resteASave() == 0 || (!n.getPlateau().plusDeCoup() && fenetre.game.getJoueur().getBonus().plusDeBonus() && n.getArgentSave() > 1 && n.getArgentPerdu() < 2)) {
                     fenetre.game.getJoueur().setScoreTot(fenetre.game.getJoueur().getScoreTot() + n.getScore());
                     n.setResultat(true);
                     fenetre.panelFin = new PanelFin(fenetre, n);
@@ -205,7 +205,7 @@ public class PartiePanel extends ImagePanel {
 
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
-            Image monImage = new ImageIcon("./"+path).getImage();
+            Image monImage = new ImageIcon("./" + path).getImage();
             g.drawImage(monImage, 0, 0, 50, 50, this);
 
         }

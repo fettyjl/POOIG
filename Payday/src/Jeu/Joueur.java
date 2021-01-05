@@ -16,7 +16,7 @@ public class Joueur implements Serializable {
     //Rajoute un nombre de bonus au joueur en fonction du score totale:
     public void addBonus(int b) {
         int a = b / 350;
-        while (a>0) {
+        while (a > 0) {
             bonus.rajout();
             a--;
         }

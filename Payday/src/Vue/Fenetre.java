@@ -7,12 +7,12 @@ import java.awt.*;
 
 public class Fenetre extends JFrame {
 
-    Game game=Serialisation.lecture("./Ressource/game.ser");
+    Game game = Serialisation.lecture("./Ressource/game.ser");
     JPanel container = new JPanel();
     CardLayout cl;
     MenuOuverture menuOuverture = new MenuOuverture(this);
     MenuNiveau menuNiveau = new MenuNiveau(this);
-    PartiePanel partiePanel = new PartiePanel(this,game.getListeNiveau().get(0));
+    PartiePanel partiePanel = new PartiePanel(this, game.getListeNiveau().get(0));
     public PanelFin panelFin = new PanelFin(this, game.getListeNiveau().get(0));
 
 

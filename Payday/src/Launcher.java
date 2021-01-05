@@ -32,13 +32,14 @@ public class Launcher implements Serializable {
                     System.exit(1);
                     return;
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             System.out.println("Une erreur a interrompu le jeu, Réessayez ...");
         }
     }
+
     public static void playInConsole() {
-        Game game=Serialisation.lecture("./Ressource/game.ser");
+        Game game = Serialisation.lecture("./Ressource/game.ser");
         game.lanceurGame();
     }
 

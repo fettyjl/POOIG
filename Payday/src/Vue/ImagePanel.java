@@ -13,7 +13,7 @@ public class ImagePanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Image monImage = new ImageIcon("./"+path).getImage();
+        Image monImage = new ImageIcon("./" + path).getImage();
         g.drawImage(monImage, 0, 0, this.getWidth(), this.getHeight(), this);
 
     }

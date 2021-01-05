@@ -28,7 +28,7 @@ public class MenuNiveau extends ImagePanel {
         c.gridy = 0;
         this.add(this.titre, c);
         c.gridy++;
-        JButton s=new JButton("Score Total : " + fenetre.game.getJoueur().getScoreTot());
+        JButton s = new JButton("Score Total : " + fenetre.game.getJoueur().getScoreTot());
         s.setEnabled(false);
         this.add(s, c);
         int x = 0;
