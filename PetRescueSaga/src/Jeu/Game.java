@@ -95,7 +95,6 @@ public class Game implements Serializable {
                     if (!perdu) {
                         this.joueur.scoreTot += choix.score;
                         System.out.println("Vous avez réussi a sauvé un bon Nombre de sac !");
-
                     }
                 }
             } while (!(s > 1 && s < listeNiveau.size() + 1));
