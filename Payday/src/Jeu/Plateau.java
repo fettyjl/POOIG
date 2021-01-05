@@ -57,8 +57,18 @@ public class Plateau implements Serializable {
 
     // Affiche le plateau :
     public void afficherPlateau() {
+    int z=0;
+    System.out.print("    ");
+    while(z<this.largeur){
+        System.out.print(z+"   ");
+        z++;
+    }
+    System.out.println();
+
         for (int i = 0; i < this.plateau.length; i++) {
             for (int j = 0; j < this.plateau[i].length; j++) {
+                if(j==0)
+                    System.out.print(i+"  ");
                 if (this.plateau[i][j].container != null) {
                     if (this.plateau[i][j].container instanceof Bloc) {
                         Bloc a = (Bloc) this.plateau[i][j].container;

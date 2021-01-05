@@ -1,5 +1,8 @@
 package Jeu;
 
+import Vue.MenuNiveau;
+
+import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -24,13 +27,38 @@ public class Game implements Serializable {
             afficherPayDay();
             System.out.println("Liste des niveaux :");
             for (Niveau n : this.listeNiveau) {
-                System.out.println("Niveau " + (n.difficulte + 1));
+                int i=n.nbEtoile;
+                System.out.print("Niveau " + (n.difficulte + 1));
+                if(n.dispo==true){
+                    System.out.println();
+                }else{
+                    System.out.println(" (bloqué)");
+                }
+                if (i > 0)
+                    System.out.print("\u001B[34m" +"*"+"\u001B[0m");
+                else
+                    System.out.print("*");
+                i--;
+                if (i > 0)
+                    System.out.print("\u001B[34m" +"*"+"\u001B[0m");
+                else
+                    System.out.print("*");
+                i--;
+                if (i > 0)
+                    System.out.print("\u001B[34m" +"*"+"\u001B[0m");
+                else
+                    System.out.print("*");
+                i--;
+                System.out.println();
             }
             int s;
+            boolean rejouer = false;
             do {
                 s = readInt(sc, "Quel niveau voulez-vous sélectionné ? ", "Ceci n'est pas un nombre entier. Recommencez : ");
-                if (s > 0 && s < listeNiveau.size() + 1) {
-                    Niveau choix = listeNiveau.get(s - 1);
+                if(!listeNiveau.get(s-1).dispo)
+                    System.out.println("Niveau pas encore débloqué !");
+                if (s > 0 && s < listeNiveau.size() + 1 && listeNiveau.get(s-1).dispo) {
+                    Niveau choix = listeNiveau.get(s-1);
                     int x, y;
                     boolean perdu = false;
                     do {
@@ -95,9 +123,28 @@ public class Game implements Serializable {
                         this.joueur.scoreTot += choix.score;
                         this.joueur.addBonus(choix.score);
                         System.out.println("Vous avez réussi a sauvé un bon Nombre de sac !");
+                        this.listeNiveau.get(choix.difficulte+1).dispo=true;
                     }
                 }
-            } while (!(s > 1 && s < listeNiveau.size() + 1));
+                boolean verif = false;
+                String lettre = "NULL";
+                do {
+                    System.out.print("Choisir un autre niveau ? [Y/N]: ");
+                    lettre = sc.next();
+                    switch (lettre.toUpperCase()) {
+                        case "Y" -> {
+                            lettre = "Y";
+                            verif = true;
+                            rejouer = true;
+                        }
+                        case "N" -> {
+                            lettre = "N";
+                            verif = true;
+                        }
+                        default -> System.out.println("Choisir entre Y ou N");
+                    }
+                } while (!verif);
+            } while (!(s > 1 && s < listeNiveau.size() + 1) || rejouer);
         }
     }
 
