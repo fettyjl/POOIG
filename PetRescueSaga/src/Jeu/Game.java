@@ -167,36 +167,48 @@ public class Game implements Serializable {
                 case "P" -> {
                     System.out.println("Case à jouer pour bonus Peinture ? (x,y)");
                     Container a;
-                    do {
-                        System.out.println("Quel x ?");
-                        x = sc.nextInt();
-                        System.out.println("Quel y ?");
-                        y = sc.nextInt();
-                        a = choix.plateau.plateau[x][y].container;
-                    } while ((x < -1 || x > choix.plateau.longueur) || (y < -1 || y > choix.plateau.largeur) && !(a instanceof Bloc));
-                    ActionBonusPeinture(x, y, choix.getDifficulte());
+                    try {
+                        do {
+                            System.out.println("Quel x ?");
+                            x = sc.nextInt();
+                            System.out.println("Quel y ?");
+                            y = sc.nextInt();
+                            a = choix.plateau.plateau[x][y].container;
+                        } while ((x < -1 || x > choix.plateau.longueur) || (y < -1 || y > choix.plateau.largeur) && !(a instanceof Bloc));
+                        ActionBonusPeinture(x, y, choix.getDifficulte());
+                    } catch (Exception e) {
+                        System.out.println("SAISIE INCORRECT !");
+                    }
                     verif2 = true;
                 }
                 case "F" -> {
                     System.out.println("Colonne sur laquel jouer pour bonus Fusée ? (y)");
-                    do {
-                        System.out.println("Quel y ?");
-                        y = sc.nextInt();
-                    } while ((y < -1 || y > choix.plateau.largeur));
-                    ActionBonusFusée(y, choix.getDifficulte());
+                    try {
+                        do {
+                            System.out.println("Quel y ?");
+                            y = sc.nextInt();
+                        } while (y < -1 || y > choix.plateau.largeur);
+                        ActionBonusFusée(y, choix.getDifficulte());
+                    } catch (Exception e) {
+                        System.out.println("SAISIE INCORRECT !");
+                    }
                     verif2 = true;
                 }
                 case "S" -> {
                     System.out.println("Case à jouer pour bonus Sauvetage ? (x,y)");
                     Container a;
-                    do {
-                        System.out.println("Quel x ?");
-                        x = sc.nextInt();
-                        System.out.println("Quel y ?");
-                        y = sc.nextInt();
-                        a = choix.plateau.plateau[x][y].container;
-                    } while ((x < -1 || x > choix.plateau.longueur) || (y < -1 || y > choix.plateau.largeur) && !(a instanceof Argent));
-                    ActionBonusSauvetage(x, y, choix.getDifficulte());
+                    try {
+                        do {
+                            System.out.println("Quel x ?");
+                            x = sc.nextInt();
+                            System.out.println("Quel y ?");
+                            y = sc.nextInt();
+                            a = choix.plateau.plateau[x][y].container;
+                        } while ((x < -1 || x > choix.plateau.longueur) || (y < -1 || y > choix.plateau.largeur) && !(a instanceof Argent));
+                        ActionBonusSauvetage(x, y, choix.getDifficulte());
+                    } catch (Exception e) {
+                        System.out.println("SAISIE INCORRECT !");
+                    }
                     verif2 = true;
                 }
                 default -> System.out.println("FAIRE UN CHOIX ENTRE (P) (F) (S)");
