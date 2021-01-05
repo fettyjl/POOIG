@@ -134,7 +134,6 @@ public class PartiePanel extends ImagePanel {
                 fenetre.validate();
                 if (n.getPlateau().resteASave() == 0) {
                     fenetre.game.getJoueur().setScoreTot(fenetre.game.getJoueur().getScoreTot() + n.getScore());
-                    fenetre.game.getJoueur().addBonus(n.getScore());
                     n.setResultat(true);
                     fenetre.panelFin = new PanelFin(fenetre, n);
                     fenetre.container.add(fenetre.panelFin, "PanelFin");
@@ -153,6 +152,7 @@ public class PartiePanel extends ImagePanel {
                 if (a > 0) {
                     n.setScore(n.getScore() + a);
                     n.getPlateau().supprimerCase();
+                    n.getPlateau().refreshPlateau();
                     n.setArgentSave(n.getArgentSave() + n.getPlateau().argentSave());
                     n.getPlateau().refreshPlateau();
 
@@ -168,7 +168,6 @@ public class PartiePanel extends ImagePanel {
                     fenetre.cl.show(fenetre.container, "PanelFin");
                 } else if (n.getPlateau().resteASave() == 0 || (!n.getPlateau().plusDeCoup() && fenetre.game.getJoueur().getBonus().plusDeBonus() && n.getArgentSave() > 1 && n.getArgentPerdu()<2)) {
                     fenetre.game.getJoueur().setScoreTot(fenetre.game.getJoueur().getScoreTot() + n.getScore());
-                    fenetre.game.getJoueur().addBonus(n.getScore());
                     n.setResultat(true);
                     fenetre.panelFin = new PanelFin(fenetre, n);
                     fenetre.container.add(fenetre.panelFin, "PanelFin");
@@ -225,7 +224,6 @@ public class PartiePanel extends ImagePanel {
             }
             if (n.getPlateau().resteASave() == 0) {
                 fenetre.game.getJoueur().setScoreTot(fenetre.game.getJoueur().getScoreTot() + n.getScore());
-                fenetre.game.getJoueur().addBonus(n.getScore());
                 n.setResultat(true);
                 fenetre.panelFin = new PanelFin(fenetre, n);
                 fenetre.container.add(fenetre.panelFin, "PanelFin");

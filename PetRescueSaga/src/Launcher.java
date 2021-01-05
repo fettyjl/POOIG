@@ -16,7 +16,7 @@ public class Launcher implements Serializable {
         try {
             Scanner sc = new Scanner(System.in);
 
-            System.out.println("1 : Jouer en Terminal \n2 : Jouer en interface \n0 : Exit");
+            System.out.println("1 : Jouer en Terminal \n2 : Jouer en Interface \n0 : Exit");
 
             switch (sc.nextInt()) {
                 case 0:
@@ -35,9 +35,7 @@ public class Launcher implements Serializable {
         }catch (Exception e){
             System.out.println("Une erreur vous a pas permis de lancer le jeu, Réessayez ...");
         }
-
     }
-
     public static void playInConsole() {
         Game game=Serialisation.lecture("./Ressource/game.ser");
         game.lanceurGame();

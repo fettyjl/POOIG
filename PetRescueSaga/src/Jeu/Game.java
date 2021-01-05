@@ -43,7 +43,7 @@ public class Game implements Serializable {
 
                         choix.plateau.afficherPlateau();
 
-                        if(UtiliseBonus()){
+                        if (UtiliseBonus()) {
                             JouerBonus(choix);
                             int a = choix.plateau.nombreCaseSupp() * 10;
                             choix.score += a;
@@ -55,13 +55,13 @@ public class Game implements Serializable {
                                 if (choix.nbrTour % (10 - choix.difficulte) == 0) {
                                     choix.argentPerdu += choix.plateau.nbrArgentPerdu();
                                     choix.plateau.ajouteLigneEnBas();
-                                    if (choix.argentPerdu > 1 || ((choix.argentSave<2) && !choix.plateau.plusDeCoup() && joueur.bonus.plusDeFetP() && joueur.bonus.sauvetage < choix.plateau.resteASave())) {
+                                    if (choix.argentPerdu > 1 || ((choix.argentSave < 2) && !choix.plateau.plusDeCoup() && joueur.bonus.plusDeFetP() && joueur.bonus.sauvetage < choix.plateau.resteASave())) {
                                         perdu = true;
                                         System.out.println("La police vous a attrapé, vous n'avez pas réussi a sauvé un nombre de sac suffisant !");
                                     }
                                 }
                             }
-                        } else{
+                        } else {
                             System.out.println("Case à jouer (x,y)");
                             do {
                                 System.out.println("Quel x ?");
@@ -81,7 +81,7 @@ public class Game implements Serializable {
                                 if (choix.nbrTour % (10 - choix.difficulte) == 0) {
                                     choix.argentPerdu += choix.plateau.nbrArgentPerdu();
                                     choix.plateau.ajouteLigneEnBas();
-                                    if (choix.argentPerdu > 1 || ((choix.argentSave<2) && !choix.plateau.plusDeCoup() && joueur.bonus.plusDeFetP() && joueur.bonus.sauvetage < choix.plateau.resteASave())) {
+                                    if (choix.argentPerdu > 1 || ((choix.argentSave < 2) && !choix.plateau.plusDeCoup() && joueur.bonus.plusDeFetP() && joueur.bonus.sauvetage < choix.plateau.resteASave())) {
                                         perdu = true;
                                         System.out.println("La police vous a attrapé, vous n'avez pas réussi a sauvé un nombre de sac suffisant !");
                                     }
@@ -132,7 +132,7 @@ public class Game implements Serializable {
     public boolean UtiliseBonus() {
         boolean verif = false;
         boolean rep = false;
-        String lettre="NULL";
+        String lettre = "NULL";
         Scanner sc = new Scanner(System.in);
         do {
             System.out.print("Voulez utiliser un BONUS ? [Y/N]: ");
@@ -218,10 +218,5 @@ public class Game implements Serializable {
 
     public void setListeNiveau(ArrayList<Niveau> listeNiveau) {
         this.listeNiveau = listeNiveau;
-    }
-
-    public static void main(String[] args) {
-        Game jeu = new Game();
-        jeu.lanceurGame();
     }
 }
