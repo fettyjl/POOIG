@@ -25,12 +25,11 @@ public class Game implements Serializable {
     //Lance la partie sur le terminal:
     public void lanceurGame() {
         try (Scanner sc = new Scanner(System.in)) {
-            afficherPayDay();
             System.out.println("Liste des niveaux :");
             for (Niveau n : this.listeNiveau) {
                 int i = n.nbEtoile;
                 System.out.print("Niveau " + (n.difficulte + 1));
-                if (n.dispo == true) {
+                if (n.dispo) {
                     System.out.println();
                 } else {
                     System.out.println(" (bloqué)");
@@ -136,16 +135,17 @@ public class Game implements Serializable {
                     System.out.print("Choisir un autre niveau ? [Y/N]: ");
                     lettre = sc.next();
                     switch (lettre.toUpperCase()) {
-                        case "Y" -> {
+                        case "Y":
                             lettre = "Y";
                             verif = true;
                             rejouer = true;
-                        }
-                        case "N" -> {
+                        break;
+                        case "N":
                             lettre = "N";
                             verif = true;
-                        }
-                        default -> System.out.println("Choisir entre Y ou N");
+                        break;
+                        default:
+                            System.out.println("Choisir entre Y ou N");
                     }
                 } while (!verif);
             } while (!(s > 0 && s < listeNiveau.size() + 1) || rejouer);
@@ -298,16 +298,17 @@ public class Game implements Serializable {
             System.out.print("Voulez utiliser un BONUS ? [Y/N]: ");
             lettre = sc.next();
             switch (lettre.toUpperCase()) {
-                case "Y" -> {
+                case "Y":
                     lettre = "Y";
                     verif = true;
                     rep = true;
-                }
-                case "N" -> {
+                break;
+                case "N":
                     lettre = "N";
                     verif = true;
-                }
-                default -> System.out.println("Choisir entre Y ou N");
+                break;
+                default:
+                    System.out.println("Choisir entre Y ou N");
             }
         } while (!verif);
 
@@ -324,9 +325,10 @@ public class Game implements Serializable {
         do {
             System.out.print("Quel BONUS voulez-vous utiliser ? Peinture/Fusée/Sauvetage ? [P/F/S]: ");
             lettre2 = sc.next();
+            int s = 0;
             switch (lettre2.toUpperCase()) {
-                case "P" -> {
-                    int s = 0;
+                case "P":
+                    s=0;
                     System.out.println("Case à jouer pour bonus Peinture ? (x,y)");
                     do {
                         do {
@@ -339,9 +341,9 @@ public class Game implements Serializable {
                     } while (!(choix.plateau.plateau[x][y].container instanceof Bloc));
                     actionBonusPeinture(x, y, choix.getDifficulte());
                     verif2 = true;
-                }
-                case "F" -> {
-                    int s = 0;
+                break;
+                case "F":
+                     s = 0;
                     System.out.println("Colonne sur laquel jouer pour bonus Fusée ? (y)");
                     do {
                         if (s > 0)
@@ -351,10 +353,10 @@ public class Game implements Serializable {
                     } while (y < 0 || y > choix.plateau.largeur);
                     actionBonusFusee(y, choix.getDifficulte());
                     verif2 = true;
-                }
-                case "S" -> {
+                break;
+                case "S":
                     System.out.println("Case à jouer pour bonus Sauvetage ? (x,y)");
-                    int s = 0;
+                    s = 0;
                     do {
                         do {
                             if (s > 0)
@@ -366,32 +368,13 @@ public class Game implements Serializable {
                     } while (!(choix.plateau.plateau[x][y].container instanceof Argent));
                     actionBonusSauvetage(x, y, choix.getDifficulte());
                     verif2 = true;
-                }
-                default -> System.out.println("FAIRE UN CHOIX ENTRE (P) (F) (S)");
+                break;
+                default:
+                    System.out.println("FAIRE UN CHOIX ENTRE (P) (F) (S)");
             }
         } while (!verif2);
     }
 
-    public static void afficherPayDay() {
-        System.out.println("""
-                ============================================================================================================================= 
-                |                                                                                                                           |
-                |     /$$$$$$$                     /$$$$$$$                             /$$$$$$                                  \s          | 
-                |    | $$__  $$                   | $$__  $$                           /$$__  $$                                 \s          | 
-                |    | $$  \\ $$ /$$$$$$  /$$   /$$| $$  \\ $$  /$$$$$$  /$$   /$$      | $$  \\__/  /$$$$$$  /$$$$$$/$$$$   /$$$$$$\s          |    
-                |    | $$$$$$$/|____  $$| $$  | $$| $$  | $$ |____  $$| $$  | $$      | $$ /$$$$ |____  $$| $$_  $$_  $$ /$$__  $$          |
-                |    | $$____/  /$$$$$$$| $$  | $$| $$  | $$  /$$$$$$$| $$  | $$      | $$|_  $$  /$$$$$$$| $$ \\ $$ \\ $$| $$$$$$$$          |    
-                |    | $$      /$$__  $$| $$  | $$| $$  | $$ /$$__  $$| $$  | $$      | $$  \\ $$ /$$__  $$| $$ | $$ | $$| $$_____/          |
-                |    | $$     |  $$$$$$$|  $$$$$$$| $$$$$$$/|  $$$$$$$|  $$$$$$$      |  $$$$$$/|  $$$$$$$| $$ | $$ | $$|  $$$$$$$          |    
-                |    |__/      \\_______/ \\____  $$|_______/  \\_______/ \\____  $$       \\______/  \\_______/|__/ |__/ |__/ \\_______/          |    
-                |                        /$$  | $$                     /$$  | $$                                                 \s          |    
-                |                       |  $$$$$$/                    |  $$$$$$/                                                 \s          |    
-                |                        \\______/                      \\______/                                                  \s          |    
-                |                                                                                                                           |
-                =============================================================================================================================    
-                                     
-                """);
-    }
 
     public static int readInt(Scanner scanner, String prompt, String promptOnError) {
 
