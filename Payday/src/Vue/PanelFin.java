@@ -29,7 +29,10 @@ public class PanelFin extends ImagePanel {
             this.add(new JButton("Mission Réussite !"), gbc);
         else this.add(new JButton("Les policiers vous ont attrapé !"), gbc);
         gbc.gridy++;
-        this.add(new JButton("Etoile obtenu sur cette partie " + (n.getArgentSave() - 1)), gbc);
+        int r=(n.getArgentSave() - 1);
+        if(r<0)
+            r=0;
+        this.add(new JButton("Etoile obtenu sur cette partie " + r), gbc);
         gbc.gridy++;
         this.retour.addActionListener(e -> {
             fenetre.menuNiveau.removeAll();

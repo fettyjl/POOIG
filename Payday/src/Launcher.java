@@ -33,7 +33,6 @@ public class Launcher implements Serializable {
                     return;
             }
         } catch (Exception e) {
-
             System.out.println("Une erreur a interrompu le jeu, Réessayez ...");
         }
     }
