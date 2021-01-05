@@ -1,6 +1,8 @@
 package Jeu;
 
-public class Niveau {
+import java.io.Serializable;
+
+public class Niveau implements Serializable {
     int difficulte;
     int nbEtoile;
     int score;

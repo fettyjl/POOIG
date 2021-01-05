@@ -95,7 +95,9 @@ public class PartiePanel extends ImagePanel {
         gbc.gridy = 10;
         JButton retour = (new JButton("Retour"));
         retour.addActionListener(e -> {
-            fenetre.menuNiveau = new MenuNiveau(fenetre);
+            fenetre.menuNiveau.removeAll();
+            fenetre.menuNiveau.init();
+            fenetre.validate();
             fenetre.container.add(fenetre.menuNiveau, "MenuNiveau");
             fenetre.cl.show(fenetre.container, "MenuNiveau");
             Niveau a = new Niveau(n.getDifficulte());
@@ -128,7 +130,6 @@ public class PartiePanel extends ImagePanel {
         public void actionPerformed(ActionEvent e) {
             if (bf) {
                 fenetre.game.ActionBonusFusée(this.y, n.getDifficulte());
-                n.setNbrTour(n.getNbrTour() + 1);
                 fenetre.partiePanel.removeAll();
                 fenetre.partiePanel.refresh();
                 fenetre.validate();
@@ -144,7 +145,6 @@ public class PartiePanel extends ImagePanel {
                 }
             } else if (bc) {
                 fenetre.game.ActionBonusPeinture(this.x, this.y, n.getDifficulte());
-                n.setNbrTour(n.getNbrTour() + 1);
                 fenetre.partiePanel.removeAll();
                 fenetre.partiePanel.refresh();
                 fenetre.validate();
@@ -163,11 +163,11 @@ public class PartiePanel extends ImagePanel {
                     }
                     n.setNbrTour(n.getNbrTour() + 1);
                 }
-                if (n.getArgentPerdu() > 1 || (n.getPlateau().plusDeCoup() && fenetre.game.getJoueur().getBonus().plusDeFetP() && fenetre.game.getJoueur().getBonus().getSauvetage() < n.getPlateau().resteASave())) {
+                if (n.getArgentPerdu() > 1 || ((n.getArgentSave()<2) && !n.getPlateau().plusDeCoup() && fenetre.game.getJoueur().getBonus().plusDeFetP() && (fenetre.game.getJoueur().getBonus().getSauvetage() < n.getPlateau().resteASave()))) {
                     fenetre.panelFin = new PanelFin(fenetre, n);
                     fenetre.container.add(fenetre.panelFin, "PanelFin");
                     fenetre.cl.show(fenetre.container, "PanelFin");
-                } else if (n.getPlateau().resteASave() == 0 || (n.getPlateau().plusDeCoup() && fenetre.game.getJoueur().getBonus().plusDeBonus() && n.getArgentSave() > 1)) {
+                } else if (n.getPlateau().resteASave() == 0 || (!n.getPlateau().plusDeCoup() && fenetre.game.getJoueur().getBonus().plusDeBonus() && n.getArgentSave() > 1 && n.getArgentPerdu()<2)) {
                     fenetre.game.getJoueur().setScoreTot(fenetre.game.getJoueur().getScoreTot() + n.getScore());
                     fenetre.game.getJoueur().addBonus();
                     n.setResultat(true);
@@ -177,6 +177,7 @@ public class PartiePanel extends ImagePanel {
                     fenetre.game.getListeNiveau().get(n.getDifficulte()).setPlateau(new Plateau());
                     fenetre.game.getListeNiveau().get(n.getDifficulte()).setResultat(true);
                 } else {
+                    n.getPlateau().refreshPlateau();
                     fenetre.partiePanel.removeAll();
                     fenetre.partiePanel.refresh();
                     fenetre.validate();
@@ -219,7 +220,6 @@ public class PartiePanel extends ImagePanel {
         public void actionPerformed(ActionEvent e) {
             if (bs) {
                 fenetre.game.ActionBonusSauvetage(this.x, this.y, n.getDifficulte());
-                n.setNbrTour(n.getNbrTour() + 1);
                 fenetre.partiePanel.removeAll();
                 fenetre.partiePanel.refresh();
                 fenetre.validate();

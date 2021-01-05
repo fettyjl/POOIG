@@ -1,9 +1,10 @@
 package Jeu;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Game {
+public class Game implements Serializable {
     Joueur joueur;
     ArrayList<Niveau> listeNiveau = new ArrayList<>();
 
@@ -54,7 +55,7 @@ public class Game {
                                 if (choix.nbrTour % (10 - choix.difficulte) == 0) {
                                     choix.argentPerdu += choix.plateau.nbrArgentPerdu();
                                     choix.plateau.ajouteLigneEnBas();
-                                    if (choix.argentPerdu > 1 || (choix.plateau.plusDeCoup() && joueur.bonus.plusDeFetP() && joueur.bonus.sauvetage < choix.plateau.resteASave())) {
+                                    if (choix.argentPerdu > 1 || ((choix.argentSave<2) && !choix.plateau.plusDeCoup() && joueur.bonus.plusDeFetP() && joueur.bonus.sauvetage < choix.plateau.resteASave())) {
                                         perdu = true;
                                         System.out.println("La police vous a attrapé, vous n'avez pas réussi a sauvé un nombre de sac suffisant !");
                                     }
@@ -80,7 +81,7 @@ public class Game {
                                 if (choix.nbrTour % (10 - choix.difficulte) == 0) {
                                     choix.argentPerdu += choix.plateau.nbrArgentPerdu();
                                     choix.plateau.ajouteLigneEnBas();
-                                    if (choix.argentPerdu > 1 || (choix.plateau.plusDeCoup() && joueur.bonus.plusDeFetP() && joueur.bonus.sauvetage < choix.plateau.resteASave())) {
+                                    if (choix.argentPerdu > 1 || ((choix.argentSave<2) && !choix.plateau.plusDeCoup() && joueur.bonus.plusDeFetP() && joueur.bonus.sauvetage < choix.plateau.resteASave())) {
                                         perdu = true;
                                         System.out.println("La police vous a attrapé, vous n'avez pas réussi a sauvé un nombre de sac suffisant !");
                                     }

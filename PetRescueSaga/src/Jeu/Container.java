@@ -1,5 +1,7 @@
 package Jeu;
 
-public abstract class Container {
+import java.io.Serializable;
+
+public abstract class Container implements Serializable {
 
 }

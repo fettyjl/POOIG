@@ -1,6 +1,8 @@
 package Jeu;
 
-public class Case {
+import java.io.Serializable;
+
+public class Case implements Serializable {
     Container container;
 
     public Container getContainer() {

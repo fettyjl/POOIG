@@ -1,5 +1,7 @@
 package Vue;
 
+import Jeu.Serialisation;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -31,6 +33,9 @@ public class MenuOuverture extends ImagePanel {
         this.add(this.buttonQuitter, c);
 
         this.buttonJouer.addActionListener((e) -> this.fenetre.cl.show(this.fenetre.container, "MenuNiveau"));
-        this.buttonQuitter.addActionListener((e) -> System.exit(0));
+        this.buttonQuitter.addActionListener((e) -> {
+            Serialisation.ecriture(fenetre.game);
+            System.exit(0);
+        });
     }
 }

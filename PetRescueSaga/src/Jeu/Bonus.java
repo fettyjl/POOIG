@@ -1,6 +1,8 @@
 package Jeu;
 
-public class Bonus {
+import java.io.Serializable;
+
+public class Bonus implements Serializable {
     int fusee;
     int peinture;
     int sauvetage;

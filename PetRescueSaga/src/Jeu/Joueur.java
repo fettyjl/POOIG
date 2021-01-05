@@ -1,7 +1,9 @@
 package Jeu;
 
 
-public class Joueur {
+import java.io.Serializable;
+
+public class Joueur implements Serializable {
     int scoreTot;
     Bonus bonus;
 

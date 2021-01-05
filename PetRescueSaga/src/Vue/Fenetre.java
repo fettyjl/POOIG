@@ -7,23 +7,26 @@ import java.awt.*;
 
 public class Fenetre extends JFrame {
 
-    Game game = new Game();
+    Game game=Serialisation.lecture("./Ressource/game.ser");
     JPanel container = new JPanel();
     CardLayout cl;
     MenuOuverture menuOuverture = new MenuOuverture(this);
     MenuNiveau menuNiveau = new MenuNiveau(this);
-    PartiePanel partiePanel = new PartiePanel(this, new Niveau(0));
-    public PanelFin panelFin = new PanelFin(this, new Niveau(1));
-    ;
+    PartiePanel partiePanel = new PartiePanel(this,game.getListeNiveau().get(0));
+    public PanelFin panelFin = new PanelFin(this, game.getListeNiveau().get(0));
 
-    public Fenetre(Game game) {
+
+    public Fenetre() {
         super("Payday !");
-        this.game = game;
         this.setSize(1137, 853);
         this.setResizable(false);
         this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+        this.addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowClosing(java.awt.event.WindowEvent e) {
+                Serialisation.ecriture(game);
+                System.exit(0);
+            }
+        });
         this.cl = new CardLayout();
         this.container.setLayout(cl);
         this.container.add(this.menuOuverture, "MenuOuverture");

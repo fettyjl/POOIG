@@ -2,9 +2,10 @@ package Jeu;
 
 import Vue.Fenetre;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class Plateau {
+public class Plateau implements Serializable {
     final int longueur, largeur;
     final int nbArgent = 4;
     boolean[][] supression;
