@@ -15,7 +15,6 @@ public class Aide extends ImagePanel {
         this.init();
     }
 
-
     public void init() {
         JPanel cmj = new JPanel();
         JLabel l1 = new JLabel();
