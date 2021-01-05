@@ -42,8 +42,8 @@ public class Game implements Serializable {
 
                         choix.plateau.afficherPlateau();
 
-                        if (UtiliseBonus()) {
-                            JouerBonus(choix);
+                        if (utiliseBonus()) {
+                            jouerBonus(choix);
                             int a = choix.plateau.nombreCaseSupp() * 10;
                             choix.score += a;
                             choix.plateau.supprimerCase();
@@ -101,7 +101,7 @@ public class Game implements Serializable {
         }
     }
 
-    public void ActionBonusSauvetage(int x, int y, int n) {
+    public void actionBonusSauvetage(int x, int y, int n) {
         if (joueur.bonus.sauvetage > 0) {
             if (listeNiveau.get(n).plateau.sauvetageArgent(x, y)) {
                 listeNiveau.get(n).argentSave++;
@@ -111,7 +111,7 @@ public class Game implements Serializable {
         }
     }
 
-    public void ActionBonusFusée(int y, int n) {
+    public void actionBonusFusee(int y, int n) {
         if (joueur.bonus.fusee > 0) {
             listeNiveau.get(n).argentSave += listeNiveau.get(n).plateau.bonusEnColonne(y);
             listeNiveau.get(n).plateau.refreshPlateau();
@@ -120,7 +120,7 @@ public class Game implements Serializable {
         }
     }
 
-    public void ActionBonusPeinture(int x, int y, int n) {
+    public void actionBonusPeinture(int x, int y, int n) {
         if ((joueur.bonus.peinture > 0) && (listeNiveau.get(n).plateau.plateau[x][y].container instanceof Bloc)) {
             listeNiveau.get(n).plateau.plateau[x][y].container = ((Bloc) listeNiveau.get(n).plateau.plateau[x][y].container).changementCouleur();
             joueur.bonus.peinture--;
@@ -128,7 +128,7 @@ public class Game implements Serializable {
         }
     }
 
-    public boolean UtiliseBonus() {
+    public boolean utiliseBonus() {
         boolean verif = false;
         boolean rep = false;
         String lettre = "NULL";
@@ -154,7 +154,7 @@ public class Game implements Serializable {
     }
 
 
-    public void JouerBonus(Niveau choix) {
+    public void jouerBonus(Niveau choix) {
         int x, y;
         Scanner sc = new Scanner(System.in);
 
@@ -176,7 +176,7 @@ public class Game implements Serializable {
                             s++;
                         } while ((x < 0 || x > choix.plateau.longueur) || (y < 0 || y > choix.plateau.largeur));
                     } while (!(choix.plateau.plateau[x][y].container instanceof Bloc));
-                    ActionBonusPeinture(x, y, choix.getDifficulte());
+                    actionBonusPeinture(x, y, choix.getDifficulte());
                     verif2 = true;
                 }
                 case "F" -> {
@@ -188,7 +188,7 @@ public class Game implements Serializable {
                         y = readInt(sc, "Quel Y ? ", "Ceci n'est pas un nombre entier. Recommencez : ");
                         s++;
                     } while (y < 0 || y > choix.plateau.largeur);
-                    ActionBonusFusée(y, choix.getDifficulte());
+                    actionBonusFusee(y, choix.getDifficulte());
                     verif2 = true;
                 }
                 case "S" -> {
@@ -203,7 +203,7 @@ public class Game implements Serializable {
                             s++;
                         } while ((x < 0 || x > choix.plateau.longueur) || (y < 0 || y > choix.plateau.largeur));
                     }while( !(choix.plateau.plateau[x][y].container instanceof Argent));
-                    ActionBonusSauvetage(x, y, choix.getDifficulte());
+                    actionBonusSauvetage(x, y, choix.getDifficulte());
                     verif2 = true;
                 }
                 default -> System.out.println("FAIRE UN CHOIX ENTRE (P) (F) (S)");
