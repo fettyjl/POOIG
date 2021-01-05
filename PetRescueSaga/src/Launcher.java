@@ -34,7 +34,7 @@ public class Launcher implements Serializable {
             }
         }catch (Exception e){
             e.printStackTrace();
-            System.out.println("Une erreur vous a pas permis de lancer le jeu, Réessayez ...");
+            System.out.println("Une erreur a interrompu le jeu, Réessayez ...");
         }
     }
     public static void playInConsole() {

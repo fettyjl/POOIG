@@ -28,8 +28,7 @@ public class Game implements Serializable {
             }
             int s;
             do {
-                System.out.println("Quel niveau voulez-vous sélectionné ? ");
-                s = sc.nextInt();
+                s = readInt(sc, "Quel niveau voulez-vous sélectionné ? ", "Ceci n'est pas un nombre entier. Recommencez : ");
                 if (s > 0 && s < listeNiveau.size() + 1) {
                     Niveau choix = listeNiveau.get(s - 1);
                     int x, y;
@@ -62,14 +61,16 @@ public class Game implements Serializable {
                                 }
                             }
                         } else {
-                            System.out.println("Case à jouer (x,y)");
+                            int z=0;
+                            System.out.println("Donnez une case à jouer (x,y):");
                             do {
-                                System.out.println("Quel x ?");
-                                x = sc.nextInt();
-                                System.out.println("Quel y ?");
-                                y = sc.nextInt();
-                            } while ((x < -1 && x > choix.plateau.longueur) || (y < -1 && y > choix.plateau.largeur));
+                                if(z>0)
+                                    System.out.println("Case inexistante, Recommencez ...");
+                                x = readInt(sc, "Quel X ? ", "Ceci n'est pas un nombre entier. Recommencez : ");
+                                y = readInt(sc, "Quel Y ? ", "Ceci n'est pas un nombre entier. Recommencez : ");
+                                z++;
 
+                            } while ((x < 0 || x > choix.plateau.longueur) || (y < 0 || y > choix.plateau.largeur));
                             choix.plateau.caseAppuyer(x, y);
                             int a = choix.plateau.nombreCaseSupp() * 10;
                             choix.score += a;
@@ -89,11 +90,10 @@ public class Game implements Serializable {
                                 choix.nbrTour++;
                             }
                         }
-
-
                     } while ((choix.plateau.resteASave() != 0 || (choix.plateau.plusDeCoup() && joueur.bonus.plusDeBonus() && choix.argentSave > 1)) && !perdu);
                     if (!perdu) {
                         this.joueur.scoreTot += choix.score;
+                        this.joueur.addBonus(choix.score);
                         System.out.println("Vous avez réussi a sauvé un bon Nombre de sac !");
                     }
                 }
