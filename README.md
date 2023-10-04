@@ -1,4 +1,4 @@
-# POOIG
+# RemixPetRescueSaga
 
 Projet de L2 
 
